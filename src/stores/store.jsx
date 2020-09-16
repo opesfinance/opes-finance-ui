@@ -124,14 +124,14 @@ class Store {
         {
           id: 'yearn',
           name: 'Seed Pool',
-          website: 'curve.fi/y',
+          website: 'curve.fi/s',
           link: 'https://www.curve.fi/susdv2/deposit',
           depositsEnabled: true,
           tokens: [
             {
               id: 'ycurvefi',
-              address: '0x72172A198EE5911c08f9f7Ff504Aa83F5736ABf9',
-              symbol: 'USDC',
+              address: '0xc25a3a3b969415c80451098fa907ec722572917f',
+              symbol: 'sCrv',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.yCurveFiRewardsAddress,
