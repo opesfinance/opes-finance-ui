@@ -130,7 +130,7 @@ class Store {
           tokens: [
             {
               id: 'ycurvefi',
-              address: '0xc25a3a3b969415c80451098fa907ec722572917f',
+              address: '0xC25a3A3b969415c80451098fa907EC722572917F',
               symbol: 'sCrv',
               abi: config.erc20ABI,
               decimals: 18,
