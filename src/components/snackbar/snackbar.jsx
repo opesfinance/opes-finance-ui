@@ -138,7 +138,7 @@ class MySnackbar extends Component {
         color = colors.blue
         messageType = t("Snackbar.Hash")
 
-        let snackbarMessage = 'https://kovan.etherscan.io/tx/'+message;
+        let snackbarMessage = 'https://etherscan.io/tx/'+message;
         actions = [<Button variant="text" size="small" onClick={()=> window.open(snackbarMessage, "_blank")}>
           View
         </Button>,
