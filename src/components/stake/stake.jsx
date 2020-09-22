@@ -34,7 +34,10 @@ import {
   GET_YCRV_REQUIREMENTS_RETURNED,
   GET_GOVERNANCE_REQUIREMENTS,
   GET_GOVERNANCE_REQUIREMENTS_RETURNED,
-  GET_BALANCES_RETURNED
+  GET_BALANCES_RETURNED,
+  BOOSTBALANCES,
+  BOOST_STAKE,
+  BOOST_STAKE_RETURNED
 } from '../../constants'
 
 const styles = theme => ({
@@ -146,6 +149,19 @@ const styles = theme => ({
     padding: '28px 30px',
     borderRadius: '50px',
     marginTop: '40px'
+  },
+  actionsBoost: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    maxWidth: '900px',
+    flexWrap: 'wrap',
+    background: colors.white,
+    border: '1px solid '+colors.borderBlue,
+    padding: '15px 15px',
+    borderRadius: '25px',
+    marginTop: '5px'
   },
   actionContainer: {
     minWidth: 'calc(50% - 40px)',
@@ -395,6 +411,12 @@ class Stake extends Component {
             <Typography variant={ 'h3' } className={ classes.overviewTitle }>Currently Staked</Typography>
             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</Typography>
           </div>
+          { ['boost'].includes(pool.id) &&
+             <div className={ classes.overviewField }>
+             <Typography variant={ 'h3' } className={ classes.overviewTitle }>Boosters</Typography>
+             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(2) : "0" }</Typography>
+           </div>
+          }
           <div className={ classes.overviewField }>
             <Typography variant={ 'h3' } className={ classes.overviewTitle }>Rewards Available</Typography>
             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</Typography>
@@ -413,6 +435,7 @@ class Stake extends Component {
         }
         { value === 'options' && this.renderOptions() }
         { value === 'stake' && this.renderStake() }
+        { value === 'buyboost' && this.renderBuyBoost() }
         { value === 'claim' && this.renderClaim() }
         { value === 'unstake' && this.renderUnstake() }
         { value === 'exit' && this.renderExit() }
@@ -450,6 +473,19 @@ class Stake extends Component {
             <Typography className={ classes.stakeButtonText } variant={ 'h4'}>Stake Tokens</Typography>
           </Button>
         </div>
+        { ['boost'].includes(pool.id) && 
+        <div className={ classes.actionContainer}>
+          <Button
+            fullWidth
+            className={ classes.actionButton }
+            variant="outlined"
+            color="primary"
+            disabled={ !pool.depositsEnabled || (['FeeRewards'].includes(pool.id) ?  (loading || !voteLockValid || !balanceValid) : loading) }
+            onClick={ () => { this.navigateInternal('buyboost') } }
+            >
+            <Typography className={ classes.buttonText } variant={ 'h4'}>BUY BOOST</Typography>
+          </Button>
+        </div>}
         <div className={ classes.actionContainer}>
           <Button
             fullWidth
@@ -497,6 +533,74 @@ class Stake extends Component {
 
   navigateInternal = (val) => {
     this.setState({ value: val })
+  }
+
+  
+  renderBuyBoost = () => {
+    const { classes } = this.props;
+    const { loading, pool, voteLockValid } = this.state
+
+    const asset = pool.tokens[0]
+    
+    
+    return (
+      <div className={ classes.actions } >
+        <Typography className={ classes.stakeTitle } variant={ 'h3'}>BOOST your tokens</Typography>
+      {/*   { this.renderAssetInput(asset, 'unstake') } */}
+
+      <div className={ classes.actionsBoost }>
+          <Typography  variant={ 'h5'}>BOOST Balance : </Typography>
+          <Typography variant={ 'h5' } className={ classes.overviewValue }> { pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(2) : "0" } BOOST</Typography>
+      </div>
+
+      <div className={ classes.actionsBoost }>
+          <Typography  variant={ 'h5'}>Cost of BOOSTER : </Typography>
+          <Typography variant={ 'h5' } className={ classes.overviewValue }>{ pool.tokens[0].costBooster ? pool.tokens[0].costBooster.toFixed(2) : "0" } BOOST</Typography>
+      </div>
+
+      <div className={ classes.actionsBoost }>
+          <Typography  variant={ 'h5'}>Cost of BOOSTER (USD) : </Typography>
+          <Typography variant={ 'h5' } className={ classes.overviewValue }>$ { pool.tokens[0].costBoosterUSD ? pool.tokens[0].costBoosterUSD.toFixed(2) : "0.00" } </Typography>
+      </div>
+      
+      <div className={ classes.actionsBoost }>
+          <Typography  variant={ 'h5'}>BOOSTERS currently active : </Typography>
+          <Typography variant={ 'h5' } className={ classes.overviewValue }>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</Typography>
+      </div>
+
+      <div className={ classes.actionsBoost }>
+          <Typography  variant={ 'h5'}>Current BOOSTED stake value : </Typography>
+          <Typography variant={ 'h5' } className={ classes.overviewValue }>{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(2) : "0" } UNI-BOOST-BLP</Typography>
+      </div>
+
+      <div className={ classes.actionsBoost }>
+          <Typography  variant={ 'h5'}>Staked value after next BOOSTER : </Typography>
+          <Typography variant={ 'h5' } className={ classes.overviewValue }> { pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(2) : "0" } UNI-BOOST-BLP</Typography>
+      </div>
+
+        <div className={ classes.stakeButtons }>
+          <Button
+            className={ classes.stakeButton }
+            variant="outlined"
+            color="secondary"
+            disabled={ loading }
+            onClick={ () => { this.navigateInternal('options') } }
+          >
+            <Typography variant={ 'h4'}>Back</Typography>
+          </Button>
+          <Button
+            className={ classes.stakeButton }
+            variant="outlined"
+            color="secondary"
+            disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
+            onClick={ () => { this.onBuyBoost() } }
+          >
+            <Typography variant={ 'h4'}>BOOST</Typography>
+          </Button>
+        </div>
+
+      </div>
+    )
   }
 
   renderStake = () => {
@@ -575,6 +679,17 @@ class Stake extends Component {
 
   closeModal = () => {
     this.setState({ modalOpen: false })
+  }
+
+  onBuyBoost=()=>{
+    this.setState({ amountError: false })
+    const { pool } = this.state
+    const tokens = pool.tokens
+    const selectedToken = tokens[0]
+    const amount = this.state[selectedToken.id + '_stake']
+
+    this.setState({ loading: true })
+    dispatcher.dispatch({ type: BOOST_STAKE, content: { asset: selectedToken, amount: amount } })
   }
 
   onStake = () => {

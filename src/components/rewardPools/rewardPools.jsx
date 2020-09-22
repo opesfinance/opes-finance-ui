@@ -243,7 +243,7 @@ class RewardPools extends Component {
     const { rewardPools, governanceContractVersion } = this.state
 
     return rewardPools.filter((rewardPool) => {
-      if([ 'yearn'].includes(rewardPool.id) ) {
+      if([ 'yearn','boost' ] .includes(rewardPool.id) ) {
         return true
       }
     }).map((rewardPool) => {

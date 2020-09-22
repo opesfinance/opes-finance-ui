@@ -38,7 +38,10 @@ import {
   REGISTER_VOTE,
   REGISTER_VOTE_RETURNED,
   GET_VOTE_STATUS,
-  GET_VOTE_STATUS_RETURNED
+  GET_VOTE_STATUS_RETURNED,
+  BOOSTBALANCES,
+  BOOST_STAKE,
+  BOOST_STAKE_RETURNED
 } from '../constants';
 import Web3 from 'web3';
 
@@ -143,6 +146,37 @@ class Store {
               rewardsAvailable: 0
             }
           ]
+        },{
+          id: 'boost',
+          name: 'UNI Boost Pool',
+          website: 'app.opes.finance',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://www.curve.fi/susdv2/deposit',
+          depositsEnabled: true,
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-LP',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.balancerRewardsAddress,
+              rewardsABI: config.balancerRewardsABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+
+              boostBalance : 0,
+              costBooster : 0,
+              costBoosterUSD : 0,
+              currentActiveBooster : 0,
+              currentBoosterStakeValue : 0,
+              stakeValueNextBooster : 0
+             
+            }
+          ]
         },
         {
           id: 'Balancer',
@@ -245,11 +279,17 @@ class Store {
           case CONFIGURE:
             this.configure(payload);
             break;
+          case BOOSTBALANCES:
+            this.getBoostBalances(payload);
+            break;
           case GET_BALANCES:
             this.getBalances(payload);
             break;
           case GET_BALANCES_PERPETUAL:
             this.getBalancesPerpetual(payload);
+            break;
+          case BOOST_STAKE:
+            this.boostStake(payload);
             break;
           case STAKE:
             this.stake(payload);
@@ -386,7 +426,8 @@ class Store {
         async.parallel([
           (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
           (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) }
+          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
+          (callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
         ], (err, data) => {
           if(err) {
             console.log(err)
@@ -396,6 +437,64 @@ class Store {
           token.balance = data[0]
           token.stakedBalance = data[1]
           token.rewardsAvailable = data[2]
+         /*  try{
+            token.boostBalance = data[3]
+            token.costBooster = 11
+            token.costBoosterUSD = 12
+            token.currentActiveBooster = 13
+            token.currentBoosterStakeValue = 14
+            token.stakeValueNextBooster = 15
+             console.log("BOOST_final", token.boostBalance)
+          }catch(e){} */
+         
+          callbackInner(null, token)
+        })
+      }, (err, tokensData) => {
+        if(err) {
+          console.log(err)
+          return callback(err)
+        }
+
+        pool.tokens = tokensData
+        callback(null, pool)
+      })
+
+    }, (err, poolData) => {
+      if(err) {
+        console.log(err)
+        return emitter.emit(ERROR, err)
+      }
+      store.setStore({rewardPools: poolData})
+      emitter.emit(GET_BALANCES_RETURNED)
+    })
+  }
+
+
+  getBoostBalances = () => {
+    const pools = store.getStore('rewardPools')
+    const account = store.getStore('account')
+
+    const web3 = new Web3(store.getStore('web3context').library.provider);
+
+    async.map(pools, (pool, callback) => {
+
+      async.map(pool.tokens, (token, callbackInner) => {
+
+        async.parallel([
+          (callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
+        ], (err, data) => {
+          if(err) {
+            console.log(err)
+            return callbackInner(err)
+          }
+          token.boostBalance = data[0]
+         
+          token.boostBalance = 10
+          token.costBooster = 11
+          token.costBoosterUSD = 12
+          token.currentActiveBooster = 13
+          token.currentBoosterStakeValue = 14
+          token.stakeValueNextBooster = 15
 
           callbackInner(null, token)
         })
@@ -418,6 +517,7 @@ class Store {
       emitter.emit(GET_BALANCES_RETURNED)
     })
   }
+
 
   _checkApproval = async (asset, account, amount, contract, callback) => {
     try {
@@ -482,10 +582,32 @@ class Store {
 
   _getstakedBalance = async (web3, asset, account, callback) => {
     let erc20Contract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
-
     try {
       var balance = await erc20Contract.methods.balanceOf(account.address).call({ from: account.address });
       balance = parseFloat(balance)/10**asset.decimals
+      callback(null, parseFloat(balance))
+    } catch(ex) {
+      return callback(ex)
+    }
+  }
+
+
+  _getBoostBalanceAvailable = async (web3, asset, account, callback) => {
+    let erc20Contract = new web3.eth.Contract(config.boostABI, config.boostAddress)
+    try {
+      var balance = await erc20Contract.methods.balanceOf(account.address).call({ from: account.address });
+      balance = parseFloat(balance)/10**asset.decimals
+
+      asset.boostBalance = balance
+            
+          
+      asset.costBooster = 0
+      asset.costBoosterUSD = 0
+      asset.currentActiveBooster = 0
+      asset.currentBoosterStakeValue = 0
+      asset.stakeValueNextBooster = 0
+
+
       callback(null, parseFloat(balance))
     } catch(ex) {
       return callback(ex)
@@ -547,6 +669,105 @@ class Store {
     }
   }
 
+
+  getBoosterBalances = (payload) =>{
+    const account = store.getStore('account')
+  }
+
+  /**
+ * -------------------------
+ * START STAKE ON BOOST
+ * ----------------------------
+ */
+  boostStake = (payload)=>{
+    const account = store.getStore('account')
+    const { asset, amount } = payload.content
+
+    this._boostcheckApproval(asset, account, amount, config.boostRewardAddress, (err) => {
+      if(err) {
+        return emitter.emit(ERROR, err);
+      }
+
+      this._boostcallStake(asset, account, amount, (err, res) => {
+        if(err) {
+          return emitter.emit(ERROR, err);
+        }
+
+        return emitter.emit(STAKE_RETURNED, res)
+      })
+    })
+  };
+  _boostcheckApproval = async (asset, account, amount, contract, callback) => {
+    try {
+      const web3 = new Web3(store.getStore('web3context').library.provider);
+
+      const erc20Contract = new web3.eth.Contract(config.boostRewardABI, asset.address)
+      const allowance = await erc20Contract.methods.allowance(account.address, contract).call({ from: account.address })
+
+      const ethAllowance = web3.utils.fromWei(allowance, "ether")
+
+      if(parseFloat(ethAllowance) < parseFloat(amount)) {
+        await erc20Contract.methods.approve(contract, web3.utils.toWei("999999999999999", "ether")).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
+        callback()
+      } else {
+        callback()
+      }
+    } catch(error) {
+      console.log(error)
+      if(error.message) {
+        return callback(error.message)
+      }
+      callback(error)
+    }
+  }
+
+  _boostcallStake = async (asset, account, amount, callback) => {
+    const web3 = new Web3(store.getStore('web3context').library.provider);
+
+    const boostContract = new web3.eth.Contract(config.boostRewardABI, asset.rewardsAddress)
+
+    var amountToSend = web3.utils.toWei(amount, "ether")
+    if (asset.decimals != 18) {
+      amountToSend = (amount*10**asset.decimals).toFixed(0);
+    }
+
+    boostContract.methods.stake(amountToSend).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
+      .on('transactionHash', function(hash){
+        console.log(hash)
+        callback(null, hash)
+      })
+      .on('confirmation', function(confirmationNumber, receipt){
+        console.log(confirmationNumber, receipt);
+        if(confirmationNumber == 2) {
+          dispatcher.dispatch({ type: GET_BALANCES, content: {} })
+        }
+      })
+      .on('receipt', function(receipt){
+        console.log(receipt);
+      })
+      .on('error', function(error) {
+        if (!error.toString().includes("-32601")) {
+          if(error.message) {
+            return callback(error.message)
+          }
+          callback(error)
+        }
+      })
+      .catch((error) => {
+        if (!error.toString().includes("-32601")) {
+          if(error.message) {
+            return callback(error.message)
+          }
+          callback(error)
+        }
+      })
+  }
+
+/**
+ * -------------------------
+ * END STAKE ON BOOST
+ * ----------------------------
+ */
   stake = (payload) => {
     const account = store.getStore('account')
     const { asset, amount } = payload.content
