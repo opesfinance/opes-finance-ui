@@ -35,7 +35,8 @@ import {
   GET_GOVERNANCE_REQUIREMENTS,
   GET_GOVERNANCE_REQUIREMENTS_RETURNED,
   GET_BALANCES_RETURNED,
-  BOOSTBALANCES,
+  GET_BOOSTEDBALANCES,
+  GET_BOOSTEDBALANCES_RETURNED,
   BOOST_STAKE,
   BOOST_STAKE_RETURNED
 } from '../../constants'
@@ -413,8 +414,8 @@ class Stake extends Component {
           </div>
           { ['boost'].includes(pool.id) &&
              <div className={ classes.overviewField }>
-             <Typography variant={ 'h3' } className={ classes.overviewTitle }>Boosters</Typography>
-             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(2) : "0" }</Typography>
+             <Typography variant={ 'h3' } className={ classes.overviewTitle }>Beast Mode X</Typography>
+             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</Typography>
            </div>
           }
           <div className={ classes.overviewField }>
@@ -473,7 +474,7 @@ class Stake extends Component {
             <Typography className={ classes.stakeButtonText } variant={ 'h4'}>Stake Tokens</Typography>
           </Button>
         </div>
-        { ['boost'].includes(pool.id) && 
+        { ['boost'].includes(pool.id) &&
         <div className={ classes.actionContainer}>
           <Button
             fullWidth
@@ -535,21 +536,21 @@ class Stake extends Component {
     this.setState({ value: val })
   }
 
-  
+
   renderBuyBoost = () => {
     const { classes } = this.props;
     const { loading, pool, voteLockValid } = this.state
 
     const asset = pool.tokens[0]
-    
-    
+
+
     return (
       <div className={ classes.actions } >
         <Typography className={ classes.stakeTitle } variant={ 'h3'}>BOOST your tokens</Typography>
       {/*   { this.renderAssetInput(asset, 'unstake') } */}
 
       <div className={ classes.actionsBoost }>
-          <Typography  variant={ 'h5'}>BOOST Balance : </Typography>
+          <Typography  variant={ 'h5'}>{ pool.tokens[0].boostTokenSymbol} Balance : </Typography>
           <Typography variant={ 'h5' } className={ classes.overviewValue }> { pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(2) : "0" } BOOST</Typography>
       </div>
 
@@ -562,7 +563,7 @@ class Stake extends Component {
           <Typography  variant={ 'h5'}>Cost of BOOSTER (USD) : </Typography>
           <Typography variant={ 'h5' } className={ classes.overviewValue }>$ { pool.tokens[0].costBoosterUSD ? pool.tokens[0].costBoosterUSD.toFixed(2) : "0.00" } </Typography>
       </div>
-      
+
       <div className={ classes.actionsBoost }>
           <Typography  variant={ 'h5'}>BOOSTERS currently active : </Typography>
           <Typography variant={ 'h5' } className={ classes.overviewValue }>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</Typography>

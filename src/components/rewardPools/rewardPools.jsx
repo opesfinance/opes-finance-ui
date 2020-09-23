@@ -17,7 +17,9 @@ import {
   CONFIGURE_RETURNED,
   GET_BALANCES,
   GET_BALANCES_RETURNED,
-  GOVERNANCE_CONTRACT_CHANGED
+  GOVERNANCE_CONTRACT_CHANGED,
+  GET_BOOSTEDBALANCES_RETURNED,
+  GET_BOOSTEDBALANCES
 } from '../../constants'
 
 const styles = theme => ({
@@ -177,18 +179,23 @@ class RewardPools extends Component {
     }
 
     dispatcher.dispatch({ type: GET_BALANCES, content: {} })
+    dispatcher.dispatch({ type: GET_BOOSTEDBALANCES, content: {} })
+
   }
 
   componentWillMount() {
     emitter.on(CONFIGURE_RETURNED, this.configureReturned);
     emitter.on(GET_BALANCES_RETURNED, this.balancesReturned);
     emitter.on(GOVERNANCE_CONTRACT_CHANGED, this.setGovernanceContract);
+    emitter.on(GET_BOOSTEDBALANCES_RETURNED, this.balancesReturned);
+
   }
 
   componentWillUnmount() {
     emitter.removeListener(CONFIGURE_RETURNED, this.configureReturned);
     emitter.removeListener(GET_BALANCES_RETURNED, this.balancesReturned);
     emitter.removeListener(GOVERNANCE_CONTRACT_CHANGED, this.setGovernanceContract);
+    emitter.removeListener(GET_BOOSTEDBALANCES_RETURNED, this.balancesReturned);
   };
 
   setGovernanceContract = () => {
@@ -199,7 +206,10 @@ class RewardPools extends Component {
     const rewardPools = store.getStore('rewardPools')
     this.setState({ rewardPools: rewardPools })
   }
-
+  boostInfoReturned = () => {
+    const rewardPools = store.getStore('rewardPools')
+    this.setState({ rewardPools: rewardPools })
+  }
   configureReturned = () => {
     this.setState({ loading: false })
   }

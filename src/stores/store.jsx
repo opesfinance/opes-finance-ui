@@ -39,7 +39,8 @@ import {
   REGISTER_VOTE_RETURNED,
   GET_VOTE_STATUS,
   GET_VOTE_STATUS_RETURNED,
-  BOOSTBALANCES,
+  GET_BOOSTEDBALANCES,
+  GET_BOOSTEDBALANCES_RETURNED,
   BOOST_STAKE,
   BOOST_STAKE_RETURNED
 } from '../constants';
@@ -81,7 +82,7 @@ class Store {
       connectorsByName: {
         MetaMask: injected,
         WalletLink: walletlink,
-       
+
        /*  Frame: frame,
         TrustWallet: injected,
         WalletConnect: walletconnect,
@@ -130,6 +131,7 @@ class Store {
           website: 'curve.fi/s',
           link: 'https://www.curve.fi/susdv2/deposit',
           depositsEnabled: true,
+          boost: false,
           tokens: [
             {
               id: 'ycurvefi',
@@ -153,6 +155,7 @@ class Store {
           description : 'Used in the 2nd Pool UI',
           link: 'https://www.curve.fi/susdv2/deposit',
           depositsEnabled: true,
+          boost: true,
           tokens: [
             {
               id: 'boostrewards',
@@ -160,21 +163,23 @@ class Store {
               symbol: 'UNI-LP',
               abi: config.erc20ABI,
               decimals: 18,
-              rewardsAddress: config.balancerRewardsAddress,
-              rewardsABI: config.balancerRewardsABI,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
               rewardsSymbol: 'WPE',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-
+              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenSymbol:'UNI',
+              boostTokenBalance: 0,
               boostBalance : 0,
               costBooster : 0,
               costBoosterUSD : 0,
               currentActiveBooster : 0,
               currentBoosterStakeValue : 0,
               stakeValueNextBooster : 0
-             
+
             }
           ]
         },
@@ -253,6 +258,7 @@ class Store {
           website: 'opes.finance',
           link: 'https://opes.finance/',
           depositsEnabled: true,
+          boost: false,
           tokens: [
             {
               id: 'wPE',
@@ -279,7 +285,7 @@ class Store {
           case CONFIGURE:
             this.configure(payload);
             break;
-          case BOOSTBALANCES:
+          case GET_BOOSTEDBALANCES:
             this.getBoostBalances(payload);
             break;
           case GET_BALANCES:
@@ -426,8 +432,8 @@ class Store {
         async.parallel([
           (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
           (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
+          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) }//,
+          //(callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
         ], (err, data) => {
           if(err) {
             console.log(err)
@@ -446,7 +452,7 @@ class Store {
             token.stakeValueNextBooster = 15
              console.log("BOOST_final", token.boostBalance)
           }catch(e){} */
-         
+
           callbackInner(null, token)
         })
       }, (err, tokensData) => {
@@ -477,47 +483,121 @@ class Store {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
     async.map(pools, (pool, callback) => {
+      if(pool.boost == true){
+        async.map(pool.tokens, (token, callbackInner) => {
 
-      async.map(pool.tokens, (token, callbackInner) => {
+          async.parallel([
+            (callbackInnerInner) => { this._getBoosters(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getBoosterCost(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getBoostTokenBalance(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getboostedBalances(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getBoosterPrice(callbackInnerInner) }
+            //(callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
+          ], (err, data) => {
+            if(err) {
+              console.log(err)
+              return callbackInner(err)
+            }
 
-        async.parallel([
-          (callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
-        ], (err, data) => {
+            token.boosters = data[2]
+            token.costBooster = data[1][0]
+
+            console.log(data)
+
+            console.log("DATA" + data )
+            //token.boostBalance = data[0]
+
+            token.boostBalance = data[2]
+            //token.costBooster = 11
+            token.costBoosterUSD = data[4]*data[1][0]
+            token.currentActiveBooster = data[0]
+            token.currentBoosterStakeValue = data[3]
+            token.stakeValueNextBooster = data[1][1]
+
+            callbackInner(null, token)
+          })
+        }, (err, tokensData) => {
           if(err) {
             console.log(err)
-            return callbackInner(err)
+            return callback(err)
           }
-          token.boostBalance = data[0]
-         
-          token.boostBalance = 10
-          token.costBooster = 11
-          token.costBoosterUSD = 12
-          token.currentActiveBooster = 13
-          token.currentBoosterStakeValue = 14
-          token.stakeValueNextBooster = 15
 
-          callbackInner(null, token)
+          pool.tokens = tokensData
+          callback(null, pool)
         })
-      }, (err, tokensData) => {
-        if(err) {
-          console.log(err)
-          return callback(err)
-        }
-
-        pool.tokens = tokensData
-        callback(null, pool)
-      })
-
+      }
     }, (err, poolData) => {
       if(err) {
         console.log(err)
         return emitter.emit(ERROR, err)
       }
       store.setStore({rewardPools: poolData})
-      emitter.emit(GET_BALANCES_RETURNED)
+      emitter.emit(GET_BOOSTEDBALANCES_RETURNED)
     })
   }
+  _getBoosterPrice = async (callback) => {
+    try {
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=uniswap&vs_currencies=USD');
+      const myJson = await response.json();
+      console.log(myJson.uniswap.usd)
+      var balance = parseFloat(myJson.uniswap.usd)
+      callback(null, parseFloat(balance))
+    } catch(ex) {
+      return callback(ex)
+    }
+  }
+  _getBoosters = async (web3, asset, account, callback) => {
+    let boostContract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
 
+    try {
+      var balance = await boostContract.methods.numBoostersBought(account.address).call({ from: account.address });
+      balance = parseFloat(balance)
+      callback(null, parseFloat(balance))
+    } catch(ex) {
+      return callback(ex)
+    }
+  }
+  _getBoosterCost = async (web3, asset, account, callback) => {
+    let boostContract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
+
+    try {
+      var balance = await boostContract.methods.getBoosterPrice(account.address).call({ from: account.address });
+      console.log(balance)
+      console.log(balance[0])
+      console.log(balance[1])
+
+      var boostInfo = [parseFloat(balance[0])/10**asset.decimals, parseFloat(balance[1])/10**asset.decimals]
+      callback(null, boostInfo)
+    } catch(ex) {
+      return callback(ex)
+    }
+  }
+  _getboostedBalances = async (web3, asset, account, callback) => {
+    let boostContract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
+
+    try {
+      var balance = await boostContract.methods.boostedBalances(account.address).call({ from: account.address });
+      console.log(balance)
+
+      var boostInfo = parseFloat(balance)/10**asset.decimals
+      callback(null, boostInfo)
+    } catch(ex) {
+      return callback(ex)
+    }
+  }
+
+  _getBoostTokenBalance = async (web3, asset, account, callback) => {
+    let boostTokenContract = new web3.eth.Contract(asset.abi, asset.boostTokenAddress)
+
+    try {
+      var balance = await boostTokenContract.methods.balanceOf(account.address).call({ from: account.address });
+
+      var boostInfo = parseFloat(balance)/10**asset.decimals
+      callback(null, boostInfo)
+    } catch(ex) {
+      return callback(ex)
+    }
+  }
 
   _checkApproval = async (asset, account, amount, contract, callback) => {
     try {
@@ -593,21 +673,25 @@ class Store {
 
 
   _getBoostBalanceAvailable = async (web3, asset, account, callback) => {
-    let erc20Contract = new web3.eth.Contract(config.boostABI, config.boostAddress)
+    let boostTokenContract = new web3.eth.Contract(config.erc20ABI, config.boostTokenAddress)
+    let boostContract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
+    console.log("++++++++++"+asset+"+++++++++++");
     try {
-      var balance = await erc20Contract.methods.balanceOf(account.address).call({ from: account.address });
-      balance = parseFloat(balance)/10**asset.decimals
+      var boosters = await boostContract.methods.numBoostersBought(account.address).call({ from: account.address });//await erc20Contract.methods.balanceOf(account.address).call({ from: account.address });
+      var balance = parseFloat(balance)/10**asset.decimals
 
-      asset.boostBalance = balance
-            
-          
-      asset.costBooster = 0
+      asset.boostBalance = await boostTokenContract.methods.balanceOf(account.address).call({ from: account.address });
+
+      var boostedPriceFuture = await boostContract.methods.getBoosterPrice(account.address).call({ from: account.address });
+      console.log(">>>>>>>"+boostedPriceFuture)
+
+      asset.costBooster = boostedPriceFuture[0]/10**asset.decimals
       asset.costBoosterUSD = 0
-      asset.currentActiveBooster = 0
+      asset.currentActiveBooster = boosters
       asset.currentBoosterStakeValue = 0
-      asset.stakeValueNextBooster = 0
-
-
+      asset.stakeValueNextBooster = boostedPriceFuture[1]/10**asset.decimals
+      console.log(">>>>>>>"+balance)
+      console.log(">>>>>>>"+boostedPriceFuture)
       callback(null, parseFloat(balance))
     } catch(ex) {
       return callback(ex)
@@ -680,10 +764,11 @@ class Store {
  * ----------------------------
  */
   boostStake = (payload)=>{
+    console.log("BOOOST!!!")
     const account = store.getStore('account')
     const { asset, amount } = payload.content
 
-    this._boostcheckApproval(asset, account, amount, config.boostRewardAddress, (err) => {
+    this._boostcheckApproval(asset, account, config.boostRewardAddress, (err) => {
       if(err) {
         return emitter.emit(ERROR, err);
       }
@@ -697,17 +782,17 @@ class Store {
       })
     })
   };
-  _boostcheckApproval = async (asset, account, amount, contract, callback) => {
+  _boostcheckApproval = async (asset, account, contract, callback) => {
     try {
       const web3 = new Web3(store.getStore('web3context').library.provider);
 
-      const erc20Contract = new web3.eth.Contract(config.boostRewardABI, asset.address)
+      const erc20Contract = new web3.eth.Contract(config.erc20ABI, asset.boostTokenAddress)
       const allowance = await erc20Contract.methods.allowance(account.address, contract).call({ from: account.address })
 
       const ethAllowance = web3.utils.fromWei(allowance, "ether")
 
-      if(parseFloat(ethAllowance) < parseFloat(amount)) {
-        await erc20Contract.methods.approve(contract, web3.utils.toWei("999999999999999", "ether")).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
+      if(parseFloat(ethAllowance) < parseFloat("9999999999")) {
+        await erc20Contract.methods.approve(contract, web3.utils.toWei("9999999999", "ether")).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
         callback()
       } else {
         callback()
@@ -726,12 +811,8 @@ class Store {
 
     const boostContract = new web3.eth.Contract(config.boostRewardABI, config.boostRewardAddress)
 
-    var amountToSend = web3.utils.toWei(amount, "ether")
-    if (asset.decimals != 18) {
-      amountToSend = (amount*10**asset.decimals).toFixed(0);
-    }
 
-    boostContract.methods.stake(amountToSend).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
+    boostContract.methods.boost().send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
       .on('transactionHash', function(hash){
         console.log(hash)
         callback(null, hash)
