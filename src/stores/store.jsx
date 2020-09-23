@@ -724,7 +724,7 @@ class Store {
   _boostcallStake = async (asset, account, amount, callback) => {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
-    const boostContract = new web3.eth.Contract(config.boostRewardABI, asset.rewardsAddress)
+    const boostContract = new web3.eth.Contract(config.boostRewardABI, config.boostRewardAddress)
 
     var amountToSend = web3.utils.toWei(amount, "ether")
     if (asset.decimals != 18) {

@@ -483,7 +483,7 @@ class Stake extends Component {
             disabled={ !pool.depositsEnabled || (['FeeRewards'].includes(pool.id) ?  (loading || !voteLockValid || !balanceValid) : loading) }
             onClick={ () => { this.navigateInternal('buyboost') } }
             >
-            <Typography className={ classes.buttonText } variant={ 'h4'}>BUY BOOST</Typography>
+            <Typography className={ classes.buttonText } variant={ 'h4'}>BEAST MODE</Typography>
           </Button>
         </div>}
         <div className={ classes.actionContainer}>
