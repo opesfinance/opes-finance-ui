@@ -150,7 +150,7 @@ class Store {
           ]
         },{
           id: 'boost',
-          name: 'UNI Boost Pool',
+          name: 'Harvest Pool',
           website: 'app.opes.finance',
           description : 'Used in the 2nd Pool UI',
           link: 'https://www.curve.fi/susdv2/deposit',
@@ -160,7 +160,7 @@ class Store {
             {
               id: 'boostrewards',
               address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-LP',
+              symbol: 'UNI-v2',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.boostRewardAddress,
