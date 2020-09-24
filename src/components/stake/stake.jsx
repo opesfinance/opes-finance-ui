@@ -593,7 +593,7 @@ class Stake extends Component {
             className={ classes.stakeButton }
             variant="outlined"
             color="secondary"
-            disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
+            disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) || pool.tokens[0].disableBoost}
             onClick={ () => { this.onBuyBoost() } }
           >
             <Typography variant={ 'h4'}>Beast Mode</Typography>

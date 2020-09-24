@@ -178,8 +178,8 @@ class Store {
               costBoosterUSD : 0,
               currentActiveBooster : 0,
               currentBoosterStakeValue : 0,
-              stakeValueNextBooster : 0
-
+              stakeValueNextBooster : 0,
+              disableBoost : true
             }
           ]
         },
@@ -491,7 +491,8 @@ class Store {
             (callbackInnerInner) => { this._getBoosterCost(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getBoostTokenBalance(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getboostedBalances(web3, token, account, callbackInnerInner) },
-            (callbackInnerInner) => { this._getBoosterPrice(callbackInnerInner) }
+            (callbackInnerInner) => { this._getBoosterPrice(callbackInnerInner) },
+            (callbackInnerInner) => { this._getNextBoostPurchaseTime(web3, token, account, callbackInnerInner) },
             //(callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
           ], (err, data) => {
             if(err) {
@@ -513,6 +514,19 @@ class Store {
             token.currentActiveBooster = data[0]
             token.currentBoosterStakeValue = data[3]
             token.stakeValueNextBooster = data[1][1]
+
+            //START - For disabling BOOST Button
+            let lastBoostPurchase = data[5]
+            let startTimeString = lastBoostPurchase.split(":")
+            var startTimeObject = new Date();
+            startTimeObject.setHours(startTimeString[0], startTimeString[1], startTimeString[2]);
+            var ONE_HOUR = 60 * 60 * 1000;
+            const anHourAgo = Date.now() - ONE_HOUR;
+            console.log(token.balance, token.costBooster, lastBoostPurchase)
+            if(token.balance > token.costBooster && (startTimeObject > anHourAgo)){
+              token.disableBoost = false
+            }
+            //END - For disabling BOOST Button
 
             callbackInner(null, token)
           })
@@ -598,6 +612,23 @@ class Store {
       return callback(ex)
     }
   }
+
+  _getNextBoostPurchaseTime = async (web3, asset, account, callback) => {
+    let boostTokenContract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
+
+    try {
+      var balance = await boostTokenContract.methods.nextBoostPurchaseTime(account.address).call({ from: account.address });
+      
+      let dateObj = new Date(balance * 1000); 
+      let utcString = dateObj.toLocaleString(); 
+      let time = utcString.slice(-11, -4); 
+      callback(null, time)
+    } catch(ex) {
+      return callback(ex)
+    }
+  }
+
+
 
   _checkApproval = async (asset, account, amount, contract, callback) => {
     try {
