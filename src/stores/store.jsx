@@ -492,7 +492,7 @@ class Store {
             (callbackInnerInner) => { this._getBoostTokenBalance(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getboostedBalances(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getBoosterPrice(callbackInnerInner) },
-            (callbackInnerInner) => { this._getNextBoostTime(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getNextBoostTime(web3, token, account, callbackInnerInner) }
             //(callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
           ], (err, data) => {
             if(err) {
@@ -810,7 +810,11 @@ class Store {
 
       const ethAllowance = web3.utils.fromWei(allowance, "ether")
 
-      if(parseFloat(ethAllowance) < parseFloat("9999999999")) {
+      console.log("allowance " + ethAllowance);
+      console.log(parseFloat(ethAllowance))
+      console.log(parseFloat("9999999998"))
+      console.log(parseFloat(ethAllowance) < parseFloat("999999999"));
+      if(parseFloat(ethAllowance) < parseFloat("999999999")) {
         await erc20Contract.methods.approve(contract, web3.utils.toWei("9999999999", "ether")).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
         callback()
       } else {
