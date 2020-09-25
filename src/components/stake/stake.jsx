@@ -563,6 +563,10 @@ class Stake extends Component {
           <Typography  variant={ 'h5'}>Cost of Beast Mode (USD) : </Typography>
           <Typography variant={ 'h5' } className={ classes.overviewValue }>$ { pool.tokens[0].costBoosterUSD ? pool.tokens[0].costBoosterUSD.toFixed(2) : "0.00" } </Typography>
       </div>
+      <div className={ classes.actionsBoost }>
+	          <Typography  variant={ 'h5'}>Time to next BEAST powerup : </Typography>
+	          <Typography variant={ 'h5' } className={ classes.overviewValue }>{ (pool.tokens[0].timeToNextBoost -(new Date().getTime())/1000) > 0 ? ((pool.tokens[0].timeToNextBoost - (new Date().getTime())/1000)/60).toFixed(0) : "0" } Minutes</Typography>
+	      </div>
 
       <div className={ classes.actionsBoost }>
           <Typography  variant={ 'h5'}>Beast Modes currently active : </Typography>
@@ -594,7 +598,7 @@ class Stake extends Component {
             variant="outlined"
             color="secondary"
             disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) || pool.tokens[0].disableBoost}
-            onClick={ () => { this.onBuyBoost() } }
+            onClick={ () => { this.validateBoost() } }
           >
             <Typography variant={ 'h4'}>Beast Mode</Typography>
           </Button>
@@ -602,6 +606,16 @@ class Stake extends Component {
 
       </div>
     )
+  }
+  validateBoost = () => {
+    const { loading, pool, voteLockValid } = this.state
+    if(pool.tokens[0].costBooster > pool.tokens[0].boostBalance){
+        alert("insufficient funds to activate Beast Mode")
+    } else if((pool.tokens[0].timeToNextBoost -(new Date().getTime())/1000) > 0){
+        alert("Too soon to activate BEAST Mode again")
+    } else {
+        this.onBuyBoost()
+    }
   }
 
   renderStake = () => {
