@@ -4,21 +4,13 @@ import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
   Button,
-  Card,
-  Grid
+  Card
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
 
 import UnlockModal from '../unlock/unlockModal.jsx'
 import Store from "../../stores";
 import { colors } from '../../theme'
-
-import '../../assets/css/style.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Col, Row } from 'react-bootstrap';
-import Countdown from 'react-countdown-now';
-
-
 
 import {
   ERROR,
@@ -30,22 +22,12 @@ import {
   GET_BOOSTEDBALANCES
 } from '../../constants'
 
-
-const countdownrenderer = ({ days, hours, minutes, seconds, completed }) => {
-  if (completed) {
-    return <span>Rewards Ended</span>;
-  } else {
-    // Render a countdown
-  return <span>Rewards Ends in {days} Day(s) {hours}:{minutes}:{seconds}</span>;
-  }
-};
-
 const styles = theme => ({
   root: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-   
+    maxWidth: '600px',
     width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -138,7 +120,7 @@ const styles = theme => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-around',
-  
+    paddingTop: '20px',
     flexWrap: 'wrap'
   },
   rewardPoolContainer: {
@@ -173,38 +155,7 @@ const styles = theme => ({
     color: colors.darkGray,
     paddingBottom: '20px',
     textDecoration: 'none'
-  },
-
-
-
-
-  rewardPoolContainerBox: {
-    paddingLeft : '10%',
-    flexDirection: 'column',  
-    flex: 1,
-    background: colors.white,
-    minHeight: '60px',
-    minWidth: '40%',
-  },
-  rewardPoolContainerBoxRight: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'left',
-    flex: 1,
-    background: colors.white,
-    minHeight: '60px',
-    minWidth: '60%',
-    paddingRight : '10%',
-  },
-  rewardPoolContainerBox1Row2: {
-    paddingLeft : '130px',
-    flexDirection: 'column',  
-    flex: 1,
-    background: colors.white,
-    minHeight: '60px',
-    minWidth: '400px',
-  },
+  }
 })
 
 const emitter = Store.emitter
@@ -269,7 +220,7 @@ class RewardPools extends Component {
       value,
       account,
       loading,
-      modalOpen
+      modalOpen,
     } = this.state
 
     var address = null;
@@ -278,58 +229,40 @@ class RewardPools extends Component {
     }
 
     return (
-
-      <Container>
-        <Row>
-          <Col lg="6" md="12" xs="12">
-          <h2>
-          <img 
-               src={ require('../../assets/img/opeslogo.jpg') }
-               width="25px" height="25px"/>
-               OPES Finance</h2>
-              <p>This project is in beta. Use at your own risk.</p>   
-          </Col>
-          <Col lg="6" md="12" xs="12">
-            <div className="showcursor" onClick={this.overlayClicked }>
-                <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
-                <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
-                <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
-              </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col  lg="4" md="12" xs="12">
-            <div className="img-bg imgbg1" >
-                { this.renderRewardsSelected('yearn') }
-              </div> 
-          </Col>
-          <Col lg="8"  md="12" xs="12">
-            <div className="img-bg imgbg2" >
-            { this.renderRewardsSelected('boost') }
-            </div> 
-          </Col>
-        </Row>
+      <div className={ classes.root }>
+        <Typography variant={'h5'} className={ classes.disaclaimer }>This project is in beta. Use at your own risk.</Typography>
+        <div className={ classes.intro }>
+          <Card className={ classes.addressContainer } onClick={this.overlayClicked}>
+            <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
+            <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
+            <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
+          </Card>
+        </div>
+        <div className={ classes.rewardPools }>
+          <Typography variant={ 'h3'} className={ classes.title } noWrap>Which tokens would you like to stake?</Typography>
+          {
+            this.renderRewards()
+          }
+        </div>
         { modalOpen && this.renderModal() }
-      </Container>
-     
-      
+      </div>
     )
   }
 
-
-
-  renderRewardsSelected = (rewards_name)=>{
+  renderRewards = () => {
     const { rewardPools, governanceContractVersion } = this.state
+
     return rewardPools.filter((rewardPool) => {
-      if([ rewards_name] .includes(rewardPool.id) ) {
+      if([ 'yearn','boost' ] .includes(rewardPool.id) ) {
         return true
       }
     }).map((rewardPool) => {
-      return this.renderRewardPoolSelected(rewardPool)
+      return this.renderRewardPool(rewardPool)
     })
   }
 
-  renderRewardPoolSelected = (rewardPool)=>{
+  renderRewardPool = (rewardPool) => {
+
     const { classes } = this.props
 
     var address = null;
@@ -339,30 +272,22 @@ class RewardPools extends Component {
       address = addy.substring(0,6)+'...'+addy.substring(addy.length-4,addy.length)
     }
 
-    return (
-      <div key={ rewardPool.id }>
-        <div className="probootstrap-photo-upper">
-            <p>Total deposited: { rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }</p>
-            <p>Pool Rate: {  rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week</p>
-            <p>
-              <Countdown
-                date={new Date(rewardPool.tokens[0].rewardsEndDate)}
-                renderer={countdownrenderer}
-                daysInHours={true}
-              />
-            </p>
-        </div>
-        <div className="probootstrap-photo-details">
-            <h2 className="showcursor"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } }>{ rewardPool.name }</h2>
-            <p><a href={ rewardPool.link } target="_blank">{ rewardPool.website }</a></p>
-            <p>Contract Address: <a href={ 'https://etherscan.io/address/'+addy } target="_blank">{ address }</a>.</p>
-        </div>
-      </div>
-    
-    )
+    return (<div className={ classes.rewardPoolContainer} key={ rewardPool.id } >
+      <Typography variant='h3' className={ classes.poolName }>{ rewardPool.name }</Typography>
+      <Typography variant='h5' className={ classes.poolWebsite }><a href={ rewardPool.link } target="_blank">{ rewardPool.website }</a></Typography>
+      <Typography varian='h4' className={ classes.tokensList } align='center'>
+        Contract Address: <a href={ 'https://etherscan.io/address/'+addy } target="_blank">{ address }</a>
+
+      </Typography>
+      <Button
+        variant="outlined"
+        color="secondary"
+        onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } }
+      >
+        <Typography variant={ 'h4'}>Open</Typography>
+      </Button>
+    </div>)
   }
-
-
 
   navigateStake = (rewardPool) => {
     store.setStore({ currentPool: rewardPool })

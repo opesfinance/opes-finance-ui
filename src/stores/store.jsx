@@ -82,10 +82,10 @@ class Store {
       connectorsByName: {
         MetaMask: injected,
         WalletLink: walletlink,
-
+        WalletConnect: walletconnect,
        /*  Frame: frame,
         TrustWallet: injected,
-        WalletConnect: walletconnect,
+       
         Ledger: ledger,
         Trezor: trezor,
         Fortmatic: fortmatic,
@@ -145,15 +145,17 @@ class Store {
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
-              rewardsAvailable: 0
+              rewardsAvailable: 0,
+              rewardsEndDate : '09/10/2020',
+              poolRatePerWeek : 5000
             }
           ]
         },{
           id: 'boost',
           name: 'Harvest Pool',
-          website: 'app.opes.finance',
+          website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://www.curve.fi/susdv2/deposit',
+          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
           depositsEnabled: true,
           boost: true,
           tokens: [
@@ -179,7 +181,9 @@ class Store {
               currentActiveBooster : 0,
               currentBoosterStakeValue : 0,
               stakeValueNextBooster : 0,
-              timeToNextBoost: 0
+              timeToNextBoost: 0,
+              rewardsEndDate : '10/5/2020',
+              poolRatePerWeek : 5000
             }
           ]
         },

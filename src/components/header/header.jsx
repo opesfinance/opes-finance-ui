@@ -142,13 +142,13 @@ function Header(props) {
 
   return (
     <div className={ classes.root }>
+    {/*   
       <div className={ `${classes.stake}` } onClick={ () => { nav('staking') } }>
         <Typography variant={'h3'} className={ headerValue===0?`titleActive`:`title` }>Stake</Typography>
-      </div>
-     {/*  <div className={ `${classes.vote}` } onClick={ () => { nav('vote') } }>
+      </div>  <div className={ `${classes.vote}` } onClick={ () => { nav('vote') } }>
         <Typography variant={'h3'} className={ headerValue===1?`titleActive`:`title` }>Vote</Typography>
-      </div> */}
-      {/*<div className={ `${classes.lock}` } onClick={ () => { nav('lock') } }>
+      </div> 
+      <div className={ `${classes.lock}` } onClick={ () => { nav('lock') } }>
         <Typography variant={'h3'} className={ headerValue===2?`titleActive`:`title` }>Lock</Typography>
       </div>*/}
     </div>
