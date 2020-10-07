@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
-  Button,
   Card,
   TextField,
   InputAdornment
@@ -18,6 +17,12 @@ import Snackbar from '../snackbar'
 
 import Store from "../../stores";
 import { colors } from '../../theme'
+
+import '../../assets/css/style.css';
+import { Container, Col, Row, Button } from 'react-bootstrap';
+import Countdown from 'react-countdown-now';
+
+
 
 import {
   ERROR,
@@ -40,6 +45,15 @@ import {
   BOOST_STAKE,
   BOOST_STAKE_RETURNED
 } from '../../constants'
+
+const countdownrenderer = ({ days, hours, minutes, seconds, completed }) => {
+  if (completed) {
+    return <span>Rewards Ended</span>;
+  } else {
+    // Render a countdown
+  return <span>Rewards Ends in {days} Day(s) {hours}:{minutes}:{seconds}</span>;
+  }
+};
 
 const styles = theme => ({
   root: {
@@ -145,11 +159,11 @@ const styles = theme => ({
     alignItems: 'center',
     maxWidth: '900px',
     flexWrap: 'wrap',
-    background: colors.white,
-    border: '1px solid '+colors.borderBlue,
+   /*  background: colors.white, */
+   /*  border: '1px solid '+colors.borderBlue, */
     padding: '28px 30px',
-    borderRadius: '50px',
-    marginTop: '40px'
+    borderRadius: '10px',
+   /*  marginTop: '40px' */
   },
   actionsBoost: {
     width: '100%',
@@ -161,7 +175,7 @@ const styles = theme => ({
     background: colors.white,
     border: '1px solid '+colors.borderBlue,
     padding: '15px 15px',
-    borderRadius: '25px',
+    borderRadius: '10px',
     marginTop: '5px'
   },
   actionContainer: {
@@ -182,7 +196,7 @@ const styles = theme => ({
   },
   actionButton: {
     padding: '20px 32px',
-    borderRadius: '50px',
+    borderRadius: '10px',
   },
   buttonText: {
     fontWeight: '700',
@@ -385,11 +399,28 @@ class Stake extends Component {
     }
 
     return (
-      <div className={ classes.root }>
-        <Typography variant={'h5'} className={ classes.disaclaimer }>This project is in beta. Use at your own risk.</Typography>
-        <div className={ classes.intro }>
+      <Container>
+        <Row>
+          <Col lg="4" md="12" xs="12" >
+            <h2>
+            <img 
+               src={ require('../../assets/img/opeslogo.jpg') }
+               width="25px" height="25px"/>
+               OPES Finance</h2>
+              <p>This project is in beta. Use at your own risk.</p>   
+
+          </Col>
+          <Col lg="4" md="12" xs="12" >
+              <div className="showcursor" onClick={this.overlayClicked }>
+                <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
+                <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
+                <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
+              </div>
+
+          </Col>
+          <Col lg="4" md="12" xs="12" className="text-center">
           <Button
-            className={ classes.stakeButton }
+            className="btn btn-outline-info pl-5 pr-5"
             variant="outlined"
             color="secondary"
             disabled={ loading }
@@ -397,43 +428,64 @@ class Stake extends Component {
           >
             <Typography variant={ 'h4'}>Back</Typography>
           </Button>
-          <Card className={ classes.addressContainer } onClick={this.overlayClicked}>
-            <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
-            <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
-            <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
-          </Card>
-        </div>
-        <div className={ classes.overview }>
-          <div className={ classes.overviewField }>
-            <Typography variant={ 'h3' } className={ classes.overviewTitle }>Your Balance</Typography>
-            <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(2) : "0" }  { pool.tokens[0].symbol }</Typography>
+
+          </Col>
+        </Row>
+
+      
+
+        <Row>
+          <Col lg="4" md="12" xs="12"></Col>
+          <Col lg="4" md="12" xs="12">
+
+          <div className="text-center p-3">
+            <h4 className="bg-info p-2 rounded text-white" >{ pool.name }</h4>
+              <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
+              <br></br>
+              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
+              <br></br>
+                <Countdown
+                  date={new Date(pool.tokens[0].rewardsEndDate)}
+                  renderer={countdownrenderer}
+                  daysInHours={true}
+                />
+              </p>
           </div>
-          <div className={ classes.overviewField }>
-            <Typography variant={ 'h3' } className={ classes.overviewTitle }>Currently Staked</Typography>
-            <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</Typography>
-          </div>
-          { ['boost'].includes(pool.id) &&
-             <div className={ classes.overviewField }>
-             <Typography variant={ 'h3' } className={ classes.overviewTitle }>Beast Mode X</Typography>
-             <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</Typography>
-           </div>
-          }
-          <div className={ classes.overviewField }>
-            <Typography variant={ 'h3' } className={ classes.overviewTitle }>Rewards Available</Typography>
-            <Typography variant={ 'h2' } className={ classes.overviewValue }>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</Typography>
-          </div>
-        </div>
-        { ['FeeRewards'].includes(pool.id) &&
-          <div className={ classes.actions }>
-            <Typography className={ classes.stakeTitle } variant={ 'h3'}>yCRV reward requirements</Typography>
-            <div className={ classes.requirement }>
-              <Typography variant={'h4'}>You must have voted in a proposal recently</Typography><Typography variant={'h4'} className={ classes.check }>{ voteLockValid ? <CheckIcon style={{ color: colors.green }} /> : <ClearIcon style={{ color: colors.red }} /> }</Typography>
-            </div>
-            <div className={ classes.requirement }>
-              <Typography variant={'h4'}>You must have at least 1000 BPT staked in the Governance pool</Typography><Typography variant={'h4'} className={ classes.check }>{ balanceValid ? <CheckIcon style={{ color: colors.green }} /> : <ClearIcon style={{ color: colors.red }} /> }</Typography>
-            </div>
-          </div>
-        }
+
+          </Col>
+          <Col lg="4" md="12" xs="12"></Col>
+        </Row>
+
+
+
+
+       <Row>
+         <Col lg='2' md="12" xs="12"></Col>
+         <Col lg='8' md="12" xs="12">
+          
+           <Row>
+            <Col lg="3" md="12" xs="12">
+                <h4>Your Balance</h4>
+                <p>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(2) : "0" }  { pool.tokens[0].symbol }</p>
+            </Col>
+            <Col lg="3" md="12" xs="12">
+                <h4>Currently Staked</h4>
+                <p>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</p>
+            </Col>
+            <Col lg="3" md="12" xs="12">
+                  <h4>Beast Mode X</h4>
+                  <p>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</p>
+            </Col>
+            <Col lg="3" md="12" xs="12">
+                <h4>Rewards Available</h4>
+                <p>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</p>
+            </Col>
+          </Row>
+           
+         </Col>
+         <Col lg='2' md="12" xs="12"></Col>
+       </Row>
+
         { value === 'options' && this.renderOptions() }
         { value === 'stake' && this.renderStake() }
         { value === 'buyboost' && this.renderBuyBoost() }
@@ -443,7 +495,7 @@ class Stake extends Component {
 
         { snackbarMessage && this.renderSnackbar() }
         { loading && <Loader /> }
-      </div>
+      </Container>
     )
   }
 
@@ -460,75 +512,82 @@ class Stake extends Component {
     } = this.state
 
     return (
-      <div className={ classes.actions }>
-        <Typography variant={ 'h3'} className={ classes.title } noWrap>{ pool.name }</Typography>
-        <div className={ classes.actionContainer}>
-          <Button
-            fullWidth
-            className={ classes.primaryButton }
-            variant="outlined"
-            color="primary"
-            disabled={ !pool.depositsEnabled || (['FeeRewards'].includes(pool.id) ?  (loading || !voteLockValid || !balanceValid) : loading) }
-            onClick={ () => { this.navigateInternal('stake') } }
-            >
-            <Typography className={ classes.stakeButtonText } variant={ 'h4'}>Stake Tokens</Typography>
-          </Button>
-        </div>
-        { ['boost'].includes(pool.id) &&
-        <div className={ classes.actionContainer}>
-          <Button
-            fullWidth
-            className={ classes.actionButton }
-            variant="outlined"
-            color="primary"
-            disabled={ !pool.depositsEnabled || (['FeeRewards'].includes(pool.id) ?  (loading || !voteLockValid || !balanceValid) : loading) }
-            onClick={ () => { this.navigateInternal('buyboost') } }
-            >
-            <Typography className={ classes.buttonText } variant={ 'h4'}>BEAST MODE</Typography>
-          </Button>
-        </div>}
-        <div className={ classes.actionContainer}>
-          <Button
-            fullWidth
-            className={ classes.actionButton }
-            variant="outlined"
-            color="primary"
-            disabled={ loading || (['GovernanceV2'].includes(pool.id) && !gov_voteLockValid) }
-            onClick={ () => { this.onClaim() } }
-            >
-            <Typography className={ classes.buttonText } variant={ 'h4'}>Claim Rewards</Typography>
-          </Button>
-        </div>
-        <div className={ classes.actionContainer}>
-          <Button
-            fullWidth
-            className={ classes.actionButton }
-            variant="outlined"
-            color="primary"
-            disabled={ loading  || (['GovernanceV2'].includes(pool.id) && gov_voteLockValid) || (pool.id === 'Governance' && (voteLockValid )) }
-            onClick={ () => { this.navigateInternal('unstake') } }
-            >
-            <Typography className={ classes.buttonText } variant={ 'h4'}>Unstake Tokens</Typography>
-          </Button>
-        </div>
-        <div className={ classes.actionContainer}>
-          { !['GovernanceV2'].includes(pool.id) &&
-            <Button
-              fullWidth
-              className={ classes.actionButton }
+      <Row>
+        <Col lg='2' md="12" xs="12" ></Col>
+        <Col lg='8' className="text-center">
+        <Row>
+            <Col lg="6" md="12" xs="12" className="p-1">
+
+              <Button
+                className="btn btn-info btn-block"
+                variant="outlined"
+                disabled={ !pool.depositsEnabled || (['FeeRewards'].includes(pool.id) ?  (loading || !voteLockValid || !balanceValid) : loading) }
+                onClick={ () => { this.navigateInternal('stake') } }
+                >
+                <Typography variant={ 'h4'}>Stake Token</Typography>
+              </Button>
+
+            </Col>
+            { ['boost'].includes(pool.id) &&
+            <Col lg="6" md="12" xs="12" className="p-1">
+              <Button
+                 className="btn btn-outline-info btn-block"
+                 variant="outlined"
+                disabled={ !pool.depositsEnabled || (['FeeRewards'].includes(pool.id) ?  (loading || !voteLockValid || !balanceValid) : loading) }
+                onClick={ () => { this.navigateInternal('buyboost') } }
+                >
+                <Typography variant={ 'h4'}>BEAST MODE</Typography>
+              </Button>
+              </Col>}
+          
+            <Col lg="6" md="12" xs="12" className="p-1">
+
+              <Button
+             
+             className="btn btn-outline-info btn-block"
+             variant="outlined"
+              disabled={ loading || (['GovernanceV2'].includes(pool.id) && !gov_voteLockValid) }
+              onClick={ () => { this.onClaim() } }
+              >
+              <Typography variant={ 'h4'}>Claim Rewards</Typography>
+            </Button>
+
+            </Col>
+            <Col lg="6" md="12" xs="12" className="p-1">
+
+              <Button
+              className="btn btn-outline-info btn-block"
               variant="outlined"
-              color="primary"
+              disabled={ loading  || (['GovernanceV2'].includes(pool.id) && gov_voteLockValid) || (pool.id === 'Governance' && (voteLockValid )) }
+              onClick={ () => { this.navigateInternal('unstake') } }
+              >
+              <Typography variant={ 'h4'}>Unstake Tokens</Typography>
+            </Button>
+
+            </Col>
+            <Col lg="6" md="12" xs="12" className="p-1">
+
+            { !['GovernanceV2'].includes(pool.id) &&
+            <Button
+              className="btn btn-outline-info btn-block"
+              variant="outlined"
               disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
               onClick={ () => { this.onExit() } }
               >
-              <Typography className={ classes.buttonText } variant={ 'h4'}>Exit: Claim and Unstake</Typography>
+              <Typography variant={ 'h4'}>Exit: Claim and Unstake</Typography>
             </Button>
           }
-        </div>
+
+
+            </Col>
+        </Row>
+        </Col>
+        <Col lg='2' md="12" xs="12"></Col>
         { (['Governance', 'GovernanceV2'].includes(pool.id) && voteLockValid) && <Typography variant={'h4'} className={ classes.voteLockMessage }>Unstaking tokens only allowed once all your pending votes have closed at Block: {voteLock}</Typography> }
         { (['GovernanceV2'].includes(pool.id) && !gov_voteLockValid) && <Typography variant={'h4'} className={ classes.voteLockMessage }>You need to have voted recently in order to claim rewards</Typography> }
         { (['GovernanceV2'].includes(pool.id) && gov_voteLockValid) && <Typography variant={'h4'} className={ classes.voteLockMessage }>You have recently voted, you can unstake at block {gov_voteLock}</Typography> }
-      </div>
+      </Row>
+
     )
   }
 
@@ -545,6 +604,9 @@ class Stake extends Component {
 
 
     return (
+      <Row>
+          <Col lg='2' md="12" xs="12"></Col>
+          <Col lg='8' md="12" xs="12">
       <div className={ classes.actions } >
         <Typography className={ classes.stakeTitle } variant={ 'h3'}>Beast Mode</Typography>
       {/*   { this.renderAssetInput(asset, 'unstake') } */}
@@ -583,18 +645,26 @@ class Stake extends Component {
           <Typography variant={ 'h5' } className={ classes.overviewValue }> { pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(2) : "0" } UNI-v2</Typography>
       </div>
 
-        <div className={ classes.stakeButtons }>
-          <Button
-            className={ classes.stakeButton }
+       
+         
+       
+
+      </div>
+      <Row className="mb-5">
+         <Col lg='6' md="12" sm="12">
+         <Button
+            className="btn btn-outline-info btn-block"
             variant="outlined"
             color="secondary"
             disabled={ loading }
-            onClick={ () => { this.navigateInternal('options') } }
+            onClick={ () => {  this.navigateInternal('options') } }
           >
-            <Typography variant={ 'h4'}>Back</Typography>
+             <Typography variant={ 'h4'}>Back</Typography>
           </Button>
-          <Button
-            className={ classes.stakeButton }
+         </Col>
+         <Col lg='6' md="12" sm="12">
+         <Button
+             className="btn btn-info  btn-block"
             variant="outlined"
             color="secondary"
             disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) || pool.tokens[0].disableBoost}
@@ -602,9 +672,13 @@ class Stake extends Component {
           >
             <Typography variant={ 'h4'}>Beast Mode</Typography>
           </Button>
-        </div>
+         </Col>
+       </Row>
+        
+      </Col>
+      <Col lg='2' md="12" xs="12"></Col>
+      </Row>      
 
-      </div>
     )
   }
   validateBoost = () => {
@@ -625,31 +699,42 @@ class Stake extends Component {
     const asset = pool.tokens[0]
 
     return (
-      <div className={ classes.actions }>
-        <Typography className={ classes.stakeTitle } variant={ 'h3'}>Stake your tokens</Typography>
+      <Row>
+      <Col lg='2' md="12" xs="12" ></Col>
+      <Col lg='8' md="12" xs="12">
+      <Row>
+        <Col lg="12" md="12" sm="12">
+          <h3>Stake your tokens</h3>
+        </Col>
+        <Col lg="12" md="12" sm="12">
         { this.renderAssetInput(asset, 'stake') }
-        <div className={ classes.stakeButtons }>
-          <Button
-            className={ classes.stakeButton }
+        </Col>
+        <Col lg="6" md="12" sm="12">
+        <Button
+            className="btn btn-outline-info  btn-block"
             variant="outlined"
             color="secondary"
             disabled={ loading }
-            onClick={ () => { this.navigateInternal('options') } }
+            onClick={ () => {  this.navigateInternal('options') } }
           >
             <Typography variant={ 'h4'}>Back</Typography>
           </Button>
-          <Button
-            className={ classes.stakeButton }
+        </Col>
+        <Col lg="6" md="12" sm="12">
+        <Button
+            className="btn btn-info btn-block"
             variant="outlined"
-            color="secondary"
             disabled={ loading }
             onClick={ () => { this.onStake() } }
           >
             <Typography variant={ 'h4'}>Stake</Typography>
           </Button>
-        </div>
-
-      </div>
+        </Col>
+      </Row>
+      </Col>
+       <Col lg='2' md="12" xs="12" ></Col>
+      </Row>
+     
     )
   }
 
@@ -660,31 +745,43 @@ class Stake extends Component {
     const asset = pool.tokens[0]
 
     return (
-      <div className={ classes.actions }>
-        <Typography className={ classes.stakeTitle } variant={ 'h3'}>Unstake your tokens</Typography>
+      <Row>
+      <Col lg='2' md="12" xs="12" ></Col>
+      <Col lg='8' md="12" xs="12">
+      <Row>
+        <Col lg="12" md="12" sm="12">
+          <h3>Unstake your tokens</h3>
+        </Col>
+        <Col lg="12" md="12" sm="12">
         { this.renderAssetInput(asset, 'unstake') }
-        <div className={ classes.stakeButtons }>
-          <Button
-            className={ classes.stakeButton }
+        </Col>
+        <Col lg="6" md="12" sm="12">
+        <Button
+            className="btn btn-outline-primary  btn-block"
             variant="outlined"
             color="secondary"
             disabled={ loading }
-            onClick={ () => { this.navigateInternal('options') } }
+            onClick={ () => {  this.navigateInternal('options') } }
           >
             <Typography variant={ 'h4'}>Back</Typography>
           </Button>
-          <Button
-            className={ classes.stakeButton }
+        </Col>
+        <Col lg="6" md="12" sm="12">
+        <Button
+            className="btn btn-info btn-block"
             variant="outlined"
-            color="secondary"
-            disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) }
+            disabled={ loading }
             onClick={ () => { this.onUnstake() } }
           >
+          
             <Typography variant={ 'h4'}>Unstake</Typography>
           </Button>
-        </div>
-
-      </div>
+        </Col>
+      </Row>
+      </Col>
+       <Col lg='2' md="12" xs="12" ></Col>
+      </Row>
+     
     )
   }
 
@@ -777,13 +874,13 @@ class Stake extends Component {
           <TextField
             fullWidth
             disabled={ loading }
-            className={ classes.actionInput }
+            className="border-btn"
             id={ '' + asset.id + '_' + type }
             value={ amount }
             error={ amountError }
             onChange={ this.onChange }
             placeholder="0.00"
-            variant="outlined"
+           
             InputProps={{
               endAdornment: <InputAdornment position="end" className={ classes.inputAdornment }><Typography variant='h3' className={ '' }>{ asset.symbol }</Typography></InputAdornment>,
               startAdornment: <InputAdornment position="end" className={ classes.inputAdornment }>

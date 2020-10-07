@@ -187,6 +187,251 @@ class Store {
             }
           ]
         },
+
+
+
+        {
+          id: 'balancer-stake',
+          name: 'Staker Pool',
+          website: '',
+          link: 'https://www.curve.fi/susdv2/deposit',
+          depositsEnabled: false,
+          boost: false,
+          tokens: [
+            {
+              id: 'ycurvefi',
+              address: '0xC25a3A3b969415c80451098fa907EC722572917F',
+              symbol: 'sCrv',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.yCurveFiRewardsAddress,
+              rewardsABI: config.yCurveFiRewardsABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '09/10/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        }, {
+          id: 'balancer-pool',
+          name: 'Pool Party',
+          website: '',
+          link: 'https://www.curve.fi/susdv2/deposit',
+          depositsEnabled: false,
+          boost: false,
+          tokens: [
+            {
+              id: 'ycurvefi',
+              address: '0xC25a3A3b969415c80451098fa907EC722572917F',
+              symbol: 'sCrv',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.yCurveFiRewardsAddress,
+              rewardsABI: config.yCurveFiRewardsABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '09/10/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        },
+
+
+
+
+        {
+          id: 'group1',
+          name: 'GROUP 1',
+          website: 'uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          depositsEnabled: true,
+          boost: true,
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '10/5/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        }
+        ,{
+          id: 'group2',
+          name: 'GROUP 2',
+          website: 'uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          depositsEnabled: true,
+          boost: true,
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '10/5/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        },{
+          id: 'group3',
+          name: 'GROUP 3',
+          website: 'uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          depositsEnabled: true,
+          boost: true,
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '10/5/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        },{
+          id: 'group4',
+          name: 'GROUP 4',
+          website: 'uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          depositsEnabled: true,
+          boost: true,
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '10/5/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        },{
+          id: 'group5',
+          name: 'GROUP 5',
+          website: 'uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          depositsEnabled: true,
+          boost: true,
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '10/5/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        },{
+          id: 'group6',
+          name: 'GROUP 6',
+          website: 'uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          depositsEnabled: true,
+          boost: true,
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '10/5/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        },{
+          id: 'group7',
+          name: 'Harvest Pool',
+          website: 'uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          depositsEnabled: true,
+          boost: true,
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              rewardsEndDate : '10/5/2020',
+              poolRatePerWeek : 5000
+            }
+          ]
+        },
+
+
+
         {
           id: 'Balancer',
           name: 'Harvest',

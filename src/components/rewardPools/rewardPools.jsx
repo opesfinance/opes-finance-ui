@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
-  Button,
   Card,
   Grid
 } from '@material-ui/core';
@@ -15,7 +14,7 @@ import { colors } from '../../theme'
 
 import '../../assets/css/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Col, Row } from 'react-bootstrap';
+import { Container, Col, Row, Button } from 'react-bootstrap';
 import Countdown from 'react-countdown-now';
 
 
@@ -221,6 +220,7 @@ class RewardPools extends Component {
     const rewardPools = store.getStore('rewardPools')
 
     this.state = {
+      value: 'main',
       rewardPools: rewardPools,
       loading: !(account && rewardPools),
       account: account,
@@ -289,15 +289,44 @@ class RewardPools extends Component {
                OPES Finance</h2>
               <p>This project is in beta. Use at your own risk.</p>   
           </Col>
-          <Col lg="6" md="12" xs="12">
+          <Col lg="3" md="12" xs="12">
             <div className="showcursor" onClick={this.overlayClicked }>
                 <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
                 <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
                 <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
               </div>
           </Col>
+          <Col lg="3" md="12" xs="12" className="pt-2">
+            {
+              value ==='group-pools' &&  (
+                <Button
+                className="btn btn-outline-info btn-block mb-2"
+                variant="outlined"
+                color="secondary"
+                onClick={ () => {  this.renderMain() } }
+                >
+                <Typography variant={ 'h4'}>Back</Typography>
+                </Button>
+              )
+
+            }
+          </Col>
         </Row>
-        <Row>
+        { value ==='main' && this.renderMainMenus() }
+        { value ==='group-pools' && this.renderRewardsPools() }
+
+
+
+        { modalOpen && this.renderModal() }
+      </Container>
+     
+      
+    )
+  }
+
+  renderMainMenus=()=>{
+    return (
+      <Row>
           <Col  lg="4" md="12" xs="12">
             <div className="img-bg imgbg1" >
                 { this.renderRewardsSelected('yearn') }
@@ -308,14 +337,157 @@ class RewardPools extends Component {
             { this.renderRewardsSelected('boost') }
             </div> 
           </Col>
+          <Col  lg="5" md="12" xs="12">
+            <div className="img-bg imgbg3" >
+                { this.renderRewardsSelected('balancer-stake') }
+              </div> 
+          </Col>
+          <Col lg="7"  md="12" xs="12">
+            <div className="img-bg imgbg4" >
+            { this.renderRewardsSelected('balancer-pool') }
+            </div> 
+          </Col>
         </Row>
-        { modalOpen && this.renderModal() }
-      </Container>
-     
-      
     )
   }
 
+  renderMain=()=>{
+    this.setState({ value: 'main' })
+  }
+  renderGroupPools=()=>{
+    this.setState({ value: 'group-pools' })
+  }
+  renderRewardsPools=()=>{
+    return(
+      
+      <Row>
+        
+        <Col lg="12" md="12" sm="12" >
+          <Row>
+            <Col lg="2" md="12" sm="12"></Col>
+            <Col lg="8" md="12" sm="12" >
+
+                <Row className="p-1">
+
+                  <Col  lg="12" md="12" xs="12">
+                    <div className="p-3 text-center " >
+                        <h5><span className="headerPool">Pool Party</span></h5>
+                        <div>
+
+                        </div>
+                        { this.renderGroupBalance() }
+                    </div> 
+                  </Col>
+                  <Col  lg="6" md="12" xs="12"  className="p-2 m-0">
+                    <div className=" text-center text-white btn bg-info btn-block" >
+                    { this.renderRewardsGroupSelected('group1') }
+                    </div> 
+                  </Col>
+                  <Col lg="6"  md="12" xs="12" className="p-2 m-0" >
+                    <div className=" text-center text-white btn bg-info  btn-block">
+                    { this.renderRewardsGroupSelected('group2') }
+                    </div> 
+                  </Col>
+                  <Col lg="6"  md="12" xs="12"  className="p-2 m-0">
+                    <div className=" text-center btn btn-outline-info btn-block">
+                    { this.renderRewardsGroupSelected('group3') }
+                    </div> 
+                  </Col>
+                  <Col  lg="6" md="12" xs="12" className="p-2 m-0">
+                    <div className=" text-center  btn btn-outline-info btn-block">
+                    { this.renderRewardsGroupSelected('group4') }
+                      </div> 
+                  </Col>
+                  <Col lg="6"  md="12" xs="12" className="p-2 m-0">
+                    <div className=" text-center text-white btn bg-info btn-block " >
+                    { this.renderRewardsGroupSelected('group5') }
+                    </div> 
+                  </Col>
+                  <Col lg="6"  md="12" xs="12" className="p-2 m-0">
+                    <div className="text-center text-white btn bg-info btn-block  " >
+                    { this.renderRewardsGroupSelected('group6') }
+                    </div> 
+                  </Col>
+                  <Col lg="6"  md="12" xs="12" className="p-2 m-0">
+                    <div className=" text-center btn btn-outline-info btn-block " >
+                    { this.renderRewardsGroupSelected('group7') }
+                    </div> 
+                  </Col>
+
+                </Row>
+
+            </Col>
+            <Col lg="2" md="12" sm="12"></Col>
+          </Row>
+        </Col>
+        </Row>
+    )
+  }
+
+  renderGroupBalance = ()=>{
+    const { rewardPools, governanceContractVersion } = this.state
+    let totalBalance = 0
+    rewardPools.filter((rewardPool) => {
+      if(['group1','group2','group3','group4','group5','group6','group7'] .includes(rewardPool.id) ) {
+        totalBalance +=  rewardPool.tokens[0].stakedBalance;
+      }
+    })
+    return (
+      <div>
+        <p>Total deposited: { totalBalance }
+            <br></br>
+            Pool Rate: {  rewardPools[0].tokens[0].poolRatePerWeek ?  rewardPools[0].tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
+            <br></br>
+              <Countdown
+                date={new Date(rewardPools[0].tokens[0].rewardsEndDate)}
+                renderer={countdownrenderer}
+                daysInHours={true}
+              />
+            </p>
+          
+      </div>
+    )
+  }
+
+  renderRewardsGroupSelected = (rewards_name)=>{
+    const { rewardPools, governanceContractVersion } = this.state
+    return rewardPools.filter((rewardPool) => {
+      if([ rewards_name] .includes(rewardPool.id) ) {
+        return true
+      }
+    }).map((rewardPool) => {
+      return this.renderRewardPoolGroupSelected(rewardPool)
+    })
+  }
+  renderRewardPoolGroupSelected = (rewardPool)=>{
+    const { classes } = this.props
+
+    var address = null;
+    let addy = ''
+    if (rewardPool.tokens && rewardPool.tokens[0]) {
+      addy = rewardPool.tokens[0].rewardsAddress
+      address = addy.substring(0,6)+'...'+addy.substring(addy.length-4,addy.length)
+    }
+
+    return (
+      <div key={ rewardPool.id } className="showcursor"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } }>
+        <div className="small">
+        <strong>{ rewardPool.name }</strong>
+            <p>Total deposited: { rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }
+            <br></br>
+            Pool Rate: {  rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
+            <br></br>
+              <Countdown
+                date={new Date(rewardPool.tokens[0].rewardsEndDate)}
+                renderer={countdownrenderer}
+                daysInHours={true}
+              />
+            </p>
+        </div>
+      </div>
+    
+    )
+  }
 
 
   renderRewardsSelected = (rewards_name)=>{
@@ -352,11 +524,18 @@ class RewardPools extends Component {
               />
             </p>
         </div>
-        <div className="probootstrap-photo-details">
+        { !['balancer-pool'].includes(rewardPool.id) && <div className="probootstrap-photo-details">
             <h2 className="showcursor"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } }>{ rewardPool.name }</h2>
             <p><a href={ rewardPool.link } target="_blank">{ rewardPool.website }</a></p>
             <p>Contract Address: <a href={ 'https://etherscan.io/address/'+addy } target="_blank">{ address }</a>.</p>
-        </div>
+          </div>
+        }
+        { ['balancer-pool'].includes(rewardPool.id) && <div className="probootstrap-photo-details">
+            <h2 className="showcursor"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.renderGroupPools() } } }>{ rewardPool.name }</h2>
+            <p><a href={ rewardPool.link } target="_blank">{ rewardPool.website }</a></p>
+            <p>Contract Address: <a href={ 'https://etherscan.io/address/'+addy } target="_blank">{ address }</a>.</p>
+          </div>
+        }
       </div>
     
     )

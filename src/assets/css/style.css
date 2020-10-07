@@ -75,6 +75,16 @@ h2, .section-heading h2 {
   
     background-image: url('../img/img_2.jpg');
 }
+
+.imgbg3 {
+  
+    background-image: url('../img/img_3.jpg');
+}
+
+.imgbg4 {
+  
+    background-image: url('../img/img_4.jpg');
+}
 a {
     -webkit-transition: .3s all;
     transition: .3s all;
@@ -87,4 +97,15 @@ a {
 
 .showcursor{
     cursor: pointer;
+}
+
+.border-btn{
+    border: 1px solid #17a2b8 !important;
+    margin-bottom: 10px !important;
+    border-radius: 5px !important;
+    padding:5px !important;
+}
+
+.headerPool{
+    background-color: #17a2b8; padding:10px; color: white;
 }
