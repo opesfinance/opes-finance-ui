@@ -461,7 +461,7 @@ class Stake extends Component {
          <Col lg='2' md="12" xs="12"></Col>
          <Col lg='8' md="12" xs="12">
           
-           <Row>
+           <Row className="text-center">
             <Col lg="3" md="12" xs="12">
                 <h4>Your Balance</h4>
                 <p>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(2) : "0" }  { pool.tokens[0].symbol }</p>
