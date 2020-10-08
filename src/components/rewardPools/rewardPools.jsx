@@ -429,9 +429,10 @@ class RewardPools extends Component {
     let totalBalance = 0
     rewardPools.filter((rewardPool) => {
       if(['group1','group2','group3','group4','group5','group6','group7'] .includes(rewardPool.id) ) {
-        totalBalance +=  rewardPool.tokens[0].stakedBalance;
+        totalBalance +=  Number(parseFloat(rewardPool.tokens[0].stakedBalance).toFixed(2));
       }
     })
+    totalBalance = totalBalance.toFixed(2)
     return (
       <div>
         <p>Total deposited: { totalBalance }
