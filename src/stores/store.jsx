@@ -247,7 +247,7 @@ class Store {
 
         {
           id: 'group1',
-          name: 'GROUP 1',
+          name: 'Starwire',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -274,7 +274,7 @@ class Store {
         }
         ,{
           id: 'group2',
-          name: 'GROUP 2',
+          name: 'iUPixel',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -300,7 +300,7 @@ class Store {
           ]
         },{
           id: 'group3',
-          name: 'GROUP 3',
+          name: 'Global Impact Challenge',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -326,7 +326,7 @@ class Store {
           ]
         },{
           id: 'group4',
-          name: 'GROUP 4',
+          name: 'Saving Animals Together',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -352,7 +352,7 @@ class Store {
           ]
         },{
           id: 'group5',
-          name: 'GROUP 5',
+          name: 'NFTS.Solutions',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -378,7 +378,7 @@ class Store {
           ]
         },{
           id: 'group6',
-          name: 'GROUP 6',
+          name: 'Missions Fund',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -404,7 +404,7 @@ class Store {
           ]
         },{
           id: 'group7',
-          name: 'Harvest Pool',
+          name: 'YFU',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',

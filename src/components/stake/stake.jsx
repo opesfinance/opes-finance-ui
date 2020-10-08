@@ -57,14 +57,12 @@ const countdownrenderer = ({ days, hours, minutes, seconds, completed }) => {
 
 const styles = theme => ({
   root: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
+   
     maxWidth: '900px',
     width: '100%',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginTop: '40px'
+    marginTop: '0px'
   },
   intro: {
     width: '100%',
@@ -745,7 +743,7 @@ class Stake extends Component {
     const asset = pool.tokens[0]
 
     return (
-      <Row>
+      <Row className="mt-0 pt-0">
       <Col lg='2' md="12" xs="12" ></Col>
       <Col lg='8' md="12" xs="12">
       <Row>

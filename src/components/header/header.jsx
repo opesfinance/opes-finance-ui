@@ -13,6 +13,8 @@ const styles = theme => ({
     verticalAlign: 'top',
     width: '100%',
     display: 'flex',
+    paddingTop: '0px',
+    marginTop: '0px'
   },
   stake: {
     flex: '1',
