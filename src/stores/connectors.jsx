@@ -32,6 +32,7 @@ export const walletconnect = new WalletConnectConnector({
   bridge: "https://bridge.walletconnect.org",
   qrcode: true,
   pollingInterval: POLLING_INTERVAL
+ 
 });
 
 export const walletlink = new WalletLinkConnector({

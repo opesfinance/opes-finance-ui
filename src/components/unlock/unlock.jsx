@@ -160,7 +160,8 @@ class Unlock extends Component {
 }
 
 function getLibrary(provider) {
-
+console.log("  PROVIDER ", provider)
+ 
   const library = new Web3Provider(provider);
   library.pollingInterval = 8000;
   return library;

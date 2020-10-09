@@ -253,8 +253,8 @@ class Store {
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          depositsEnabled: true,
-          boost: true,
+          depositsEnabled: false,
+          boost: false,
           tokens: [
             {
               id: 'boostrewards',
@@ -280,8 +280,8 @@ class Store {
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          depositsEnabled: true,
-          boost: true,
+          depositsEnabled: false,
+          boost: false,
           tokens: [
             {
               id: 'boostrewards',
@@ -306,8 +306,8 @@ class Store {
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          depositsEnabled: true,
-          boost: true,
+          depositsEnabled: false,
+          boost: false,
           tokens: [
             {
               id: 'boostrewards',
@@ -332,8 +332,8 @@ class Store {
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          depositsEnabled: true,
-          boost: true,
+          depositsEnabled: false,
+          boost: false,
           tokens: [
             {
               id: 'boostrewards',
@@ -358,8 +358,8 @@ class Store {
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          depositsEnabled: true,
-          boost: true,
+          depositsEnabled: false,
+          boost: false,
           tokens: [
             {
               id: 'boostrewards',
@@ -384,8 +384,8 @@ class Store {
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          depositsEnabled: true,
-          boost: true,
+          depositsEnabled: false,
+          boost: false,
           tokens: [
             {
               id: 'boostrewards',
@@ -410,8 +410,8 @@ class Store {
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          depositsEnabled: true,
-          boost: true,
+          depositsEnabled: false,
+          boost: false,
           tokens: [
             {
               id: 'boostrewards',
@@ -1039,11 +1039,14 @@ class Store {
     const { asset, amount } = payload.content
 
     this._boostcheckApproval(asset, account, config.boostRewardAddress, (err) => {
+      console.log("ERROR approval -->", err)
       if(err) {
+        
         return emitter.emit(ERROR, err);
       }
 
       this._boostcallStake(asset, account, amount, (err, res) => {
+        console.log("ERROR approval -->", err.message)
         if(err) {
           return emitter.emit(ERROR, err);
         }
