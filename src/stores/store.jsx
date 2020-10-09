@@ -1039,14 +1039,14 @@ class Store {
     const { asset, amount } = payload.content
 
     this._boostcheckApproval(asset, account, config.boostRewardAddress, (err) => {
-      console.log("ERROR approval -->", err)
+     
       if(err) {
         
         return emitter.emit(ERROR, err);
       }
 
       this._boostcallStake(asset, account, amount, (err, res) => {
-        console.log("ERROR approval -->", err.message)
+        
         if(err) {
           return emitter.emit(ERROR, err);
         }
