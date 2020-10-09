@@ -13,8 +13,8 @@ import { AuthereumConnector } from "@web3-react/authereum-connector";
 
 const POLLING_INTERVAL = 12000;
 const RPC_URLS = {
-  1: "https://mainnet.infura.io/v3/b111d8f387c847039541e29435e06cd2",
-  4: "https://mainnet.infura.io/v3/b111d8f387c847039541e29435e06cd2"
+  1: "wss://mainnet.infura.io/v3/b111d8f387c847039541e29435e06cd2",
+  4: "wss://mainnet.infura.io/v3/b111d8f387c847039541e29435e06cd2"
 };
 
 export const injected = new InjectedConnector({
@@ -66,7 +66,8 @@ export const portis = new PortisConnector({
 });
 
 export const squarelink = new SquarelinkConnector({
-  clientId: "5f2a2233db82b06b24f9",
+  clientId: "a686a66658677ce1c52c",
+  url: 'http://localhost:3001',
   networks: [1, 100]
 });
 

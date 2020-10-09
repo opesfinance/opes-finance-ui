@@ -83,6 +83,7 @@ class Store {
         MetaMask: injected,
         WalletLink: walletlink,
         WalletConnect: walletconnect,
+        Squarelink: squarelink,
        /*  Frame: frame,
         TrustWallet: injected,
        
@@ -90,7 +91,7 @@ class Store {
         Trezor: trezor,
         Fortmatic: fortmatic,
         Portis: portis,
-        Squarelink: squarelink,
+        
         Torus: torus,
         Authereum: authereum */
       },
