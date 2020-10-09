@@ -379,37 +379,37 @@ class RewardPools extends Component {
                     </div> 
                   </Col>
                   <Col  lg="6" md="12" xs="12"  className="p-2 m-0">
-                    <div className=" text-center text-white btn bg-info btn-block" >
+                    <div className=" text-center text-white btn bg-info balLink btn-block" >
                     { this.renderRewardsGroupSelected('group1') }
                     </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12" className="p-2 m-0" >
-                    <div className=" text-center text-white btn bg-info  btn-block">
+                    <div className=" text-center text-white btn bg-info balLink  btn-block">
                     { this.renderRewardsGroupSelected('group2') }
                     </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12"  className="p-2 m-0">
-                    <div className=" text-center btn btn-outline-info btn-block">
+                    <div className=" text-center btn btn-outline-info balLink2 btn-block">
                     { this.renderRewardsGroupSelected('group3') }
                     </div> 
                   </Col>
                   <Col  lg="6" md="12" xs="12" className="p-2 m-0">
-                    <div className=" text-center  btn btn-outline-info btn-block">
+                    <div className=" text-center  btn btn-outline-info balLink2 btn-block">
                     { this.renderRewardsGroupSelected('group4') }
                       </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className=" text-center text-white btn bg-info btn-block " >
+                    <div className=" text-center text-white btn bg-info balLink btn-block " >
                     { this.renderRewardsGroupSelected('group5') }
                     </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className="text-center text-white btn bg-info btn-block  " >
+                    <div className="text-center text-white btn bg-info balLink btn-block  " >
                     { this.renderRewardsGroupSelected('group6') }
                     </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className=" text-center btn btn-outline-info btn-block " >
+                    <div className=" text-center btn btn-outline-info balLink2 btn-block " >
                     { this.renderRewardsGroupSelected('group7') }
                     </div> 
                   </Col>
@@ -471,9 +471,11 @@ class RewardPools extends Component {
     }
 
     return (
-      <div key={ rewardPool.id } className="showcursor"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } }>
+/*       <div key={ rewardPool.id } className="showcursor"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } }> */
+      <div key={ rewardPool.id } className="showcursor"  >
         <div className="small">
         <strong>{ rewardPool.name }</strong>
+        <p><strong><a  href={rewardPool.link} target="_blank">(Bal Link)</a></strong></p>
             <p>Total deposited: { rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }
             <br></br>
             Pool Rate: {  rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week

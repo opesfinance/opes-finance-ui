@@ -84,12 +84,13 @@ class Store {
         WalletLink: walletlink,
         WalletConnect: walletconnect,
         Squarelink: squarelink,
+        Fortmatic: fortmatic
        /*  Frame: frame,
         TrustWallet: injected,
        
         Ledger: ledger,
         Trezor: trezor,
-        Fortmatic: fortmatic,
+        
         Portis: portis,
         
         Torus: torus,
@@ -248,7 +249,7 @@ class Store {
 
         {
           id: 'group1',
-          name: 'Starwire',
+          name: 'Starwire Harvest Pool',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -275,7 +276,7 @@ class Store {
         }
         ,{
           id: 'group2',
-          name: 'iUPixel',
+          name: 'iUPixel Harvest Pool',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -301,7 +302,7 @@ class Store {
           ]
         },{
           id: 'group3',
-          name: 'Global Impact Challenge',
+          name: 'Global Impact Challenge Harvest Pool',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -327,7 +328,7 @@ class Store {
           ]
         },{
           id: 'group4',
-          name: 'Saving Animals Together',
+          name: 'Saving Animals Together Harvest Pool',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -353,7 +354,7 @@ class Store {
           ]
         },{
           id: 'group5',
-          name: 'NFTS.Solutions',
+          name: 'NFTS.Solutions Harvest Pool',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -379,7 +380,7 @@ class Store {
           ]
         },{
           id: 'group6',
-          name: 'Missions Fund',
+          name: 'Missions Fund Harvest Pool',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
@@ -405,7 +406,7 @@ class Store {
           ]
         },{
           id: 'group7',
-          name: 'YFU',
+          name: 'YFU Harvest Pool',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',

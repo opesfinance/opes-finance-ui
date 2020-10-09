@@ -109,3 +109,14 @@ a {
 .headerPool{
     background-color: #17a2b8; padding:10px; color: white;
 }
+
+.balLink a{
+    color:#ffffff;
+}
+
+.balLink2 a{
+    color:#17a2b8;
+}
+.btn-outline-info:hover a{
+    color:#ffffff;
+}
