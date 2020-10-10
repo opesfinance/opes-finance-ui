@@ -328,22 +328,22 @@ class RewardPools extends Component {
     return (
       <Row>
           <Col  lg="4" md="12" xs="12">
-            <div className="img-bg imgbg1" >
+            <div className="img-bg imgbg1 showcursor" onClick={ () => {  this.clickPool('yearn') } }  >
                 { this.renderRewardsSelected('yearn') }
               </div> 
           </Col>
           <Col lg="8"  md="12" xs="12">
-            <div className="img-bg imgbg2" >
+            <div className="img-bg imgbg2 showcursor" onClick={ () => {  this.clickPool('boost') } }>
             { this.renderRewardsSelected('boost') }
             </div> 
           </Col>
           <Col  lg="5" md="12" xs="12">
-            <div className="img-bg imgbg3" >
+            <div className="img-bg imgbg3 showcursor" >
                 { this.renderRewardsSelected('balancer-stake') }
               </div> 
           </Col>
           <Col lg="7"  md="12" xs="12">
-            <div className="img-bg imgbg4" >
+            <div className="img-bg imgbg4 showcursor" onClick={ () => {  this.renderGroupPools() } }  >
             { this.renderRewardsSelected('balancer-pool') }
             </div> 
           </Col>
@@ -379,12 +379,12 @@ class RewardPools extends Component {
                     </div> 
                   </Col>
                   <Col  lg="6" md="12" xs="12"  className="p-2 m-0">
-                    <div className=" text-center text-white btn bg-info balLink btn-block" >
+                    <div className=" text-center btn btn-outline-info balLink2 btn-block" >
                     { this.renderRewardsGroupSelected('group1') }
                     </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12" className="p-2 m-0" >
-                    <div className=" text-center text-white btn bg-info balLink  btn-block">
+                    <div className=" text-center btn btn-outline-info balLink2  btn-block">
                     { this.renderRewardsGroupSelected('group2') }
                     </div> 
                   </Col>
@@ -399,17 +399,17 @@ class RewardPools extends Component {
                       </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className=" text-center text-white btn bg-info balLink btn-block " >
+                    <div className=" text-center  btn btn-outline-info balLink2 btn-block " >
                     { this.renderRewardsGroupSelected('group5') }
                     </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className="text-center text-white btn bg-info balLink btn-block  " >
+                    <div className="text-center  btn btn-outline-info balLink2 btn-block  " >
                     { this.renderRewardsGroupSelected('group6') }
                     </div> 
                   </Col>
                   <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className=" text-center btn btn-outline-info balLink2 btn-block " >
+                    <div className=" text-center btn btn-outline-info balLink2 btn-block ">
                     { this.renderRewardsGroupSelected('group7') }
                     </div> 
                   </Col>
@@ -422,6 +422,15 @@ class RewardPools extends Component {
         </Col>
         </Row>
     )
+  }
+
+  clickPool(poolname){
+    const { rewardPools } = this.state
+    rewardPools.filter((rewardPool) => {
+      if([poolname].includes(rewardPool.id) ) {
+        this.navigateStake(rewardPool);
+      }
+    })
   }
 
   renderGroupBalance = ()=>{
@@ -474,7 +483,7 @@ class RewardPools extends Component {
 /*       <div key={ rewardPool.id } className="showcursor"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } }> */
       <div key={ rewardPool.id } className="showcursor"  >
         <div className="small">
-        <strong>{ rewardPool.name }</strong>
+        <h6><strong>{ rewardPool.name }</strong></h6>
         <p><strong><a  href={rewardPool.link} target="_blank">(Bal Link)</a></strong></p>
             <p>Total deposited: { rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }
             <br></br>
@@ -515,8 +524,8 @@ class RewardPools extends Component {
     }
 
     return (
-      <div key={ rewardPool.id }>
-        <div className="probootstrap-photo-upper">
+      <div key={ rewardPool.id } >
+        <div className="probootstrap-photo-upper" >
             <p>Total deposited: { rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }</p>
             <p>Pool Rate: {  rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week</p>
             <p>

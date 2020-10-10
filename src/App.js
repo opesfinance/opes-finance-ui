@@ -122,7 +122,8 @@ class App extends Component {
             <div style={{
               display: 'flex',
               flexDirection: 'column',
-              minHeight: '100vh',
+              minHeight: '0',
+              marginTop:'10px',
               justifyContent: 'center',
               alignItems: 'center',
               background: "#f9fafb"
