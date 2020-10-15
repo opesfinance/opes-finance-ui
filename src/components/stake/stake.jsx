@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
-  Card,
   TextField,
   InputAdornment
 } from '@material-ui/core';
@@ -19,9 +18,9 @@ import Store from "../../stores";
 import { colors } from '../../theme'
 
 import '../../assets/css/style.css';
-import { Container, Col, Row, Button } from 'react-bootstrap';
+import { Container, Col, Row, Button, Navbar, Nav, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Countdown from 'react-countdown-now';
-
+import Web3 from 'web3';
 
 
 import {
@@ -56,79 +55,9 @@ const countdownrenderer = ({ days, hours, minutes, seconds, completed }) => {
 };
 
 const styles = theme => ({
-  root: {
-   
-    maxWidth: '900px',
-    width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginTop: '0px'
-  },
-  intro: {
-    width: '100%',
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  introCenter: {
-    minWidth: '100%',
-    textAlign: 'center',
-    padding: '48px 0px'
-  },
-  investedContainer: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '12px',
-    minWidth: '100%',
-    [theme.breakpoints.up('md')]: {
-      minWidth: '800px',
-    }
-  },
-  connectContainer: {
-    padding: '12px',
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-    maxWidth: '450px',
-    [theme.breakpoints.up('md')]: {
-      width: '450',
-    }
-  },
-  disaclaimer: {
-    padding: '12px',
-    border: '1px solid rgb(174, 174, 174)',
-    borderRadius: '0.75rem',
-    marginBottom: '24px',
-  },
-  addressContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    overflow: 'hidden',
-    flex: 1,
-    whiteSpace: 'nowrap',
-    fontSize: '0.83rem',
-    textOverflow:'ellipsis',
-    cursor: 'pointer',
-    padding: '28px 30px',
-    borderRadius: '50px',
-    border: '1px solid '+colors.borderBlue,
-    alignItems: 'center',
-    maxWidth: '500px',
-    [theme.breakpoints.up('md')]: {
-      width: '100%'
-    }
-  },
-  walletAddress: {
-    padding: '0px 12px'
-  },
-  walletTitle: {
-    flex: 1,
-    color: colors.darkGray
-  },
+  
+  
+  
   overview: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -176,42 +105,12 @@ const styles = theme => ({
     borderRadius: '10px',
     marginTop: '5px'
   },
-  actionContainer: {
-    minWidth: 'calc(50% - 40px)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    margin: '20px'
-  },
-  primaryButton: {
-    '&:hover': {
-      backgroundColor: "#2F80ED",
-    },
-    padding: '20px 32px',
-    backgroundColor: "#2F80ED",
-    borderRadius: '50px',
-    fontWeight: 500,
-  },
-  actionButton: {
-    padding: '20px 32px',
-    borderRadius: '10px',
-  },
-  buttonText: {
-    fontWeight: '700',
-  },
-  stakeButtonText: {
-    fontWeight: '700',
-    color: 'white',
-  },
   valContainer: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%'
   },
-  actionInput: {
-    padding: '0px 0px 12px 0px',
-    fontSize: '0.5rem'
-  },
+
   inputAdornment: {
     fontWeight: '600',
     fontSize: '1.5rem'
@@ -397,94 +296,53 @@ class Stake extends Component {
     }
 
     return (
+      <>
+
       <Container>
+
+      <Navbar >
+          <Navbar.Brand className="headerTitle">
+            <img
+              alt=""
+              src={ require('../../assets/App-Logo2.png') }
+              width="40"
+              height="40"
+              className="d-inline-block align-top"
+            />{' '}
+            OPES.Finance
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
+            <Navbar.Text  onClick={this.overlayClicked } className="round-wallet">
+              Wallet :  { address}
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Navbar>
+
         <Row>
-          <Col lg="4" md="12" xs="12" >
-            <h2>
-            <img 
-               src={ require('../../assets/img/opeslogo.jpg') }
-               width="25px" height="25px"/>
-               OPES Finance</h2>
-              <p>This project is in beta. Use at your own risk.</p>   
-
-          </Col>
-          <Col lg="4" md="12" xs="12" >
-              <div className="showcursor" onClick={this.overlayClicked }>
-                <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
-                <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
-                <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
-              </div>
-
-          </Col>
-          <Col lg="4" md="12" xs="12" className="text-center">
+          
+          <Col lg="12" md="12" xs="12" className="text-left mt-2">
           <Button
             className="btn btn-outline-info pl-5 pr-5"
             variant="outlined"
             color="secondary"
             disabled={ loading }
-            onClick={ () => {  this.props.history.push('/staking') } }
+            onClick={ () => { if(value!=='buyboost'){this.props.history.push('/staking') }else{  this.navigateInternal('options') }} }
           >
             <Typography variant={ 'h4'}>Back</Typography>
-          </Button>
+          </Button> 
+          
 
           </Col>
         </Row>
 
       
 
-        <Row>
-          <Col lg="4" md="12" xs="12"></Col>
-          <Col lg="4" md="12" xs="12">
+       
 
-          <div className="text-center p-3">
-            <h4 className="bg-info p-2 rounded text-white" >{ pool.name }</h4>
-              <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
-              <br></br>
-              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
-              <br></br>
-                <Countdown
-                  date={new Date(pool.tokens[0].rewardsEndDate)}
-                  renderer={countdownrenderer}
-                  daysInHours={true}
-                />
-              </p>
-          </div>
+       
 
-          </Col>
-          <Col lg="4" md="12" xs="12"></Col>
-        </Row>
-
-
-
-
-       <Row>
-         <Col lg='2' md="12" xs="12"></Col>
-         <Col lg='8' md="12" xs="12">
-          
-           <Row className="text-center">
-            <Col lg="3" md="12" xs="12">
-                <h4>Your Balance</h4>
-                <p>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(2) : "0" }  { pool.tokens[0].symbol }</p>
-            </Col>
-            <Col lg="3" md="12" xs="12">
-                <h4>Currently Staked</h4>
-                <p>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</p>
-            </Col>
-            <Col lg="3" md="12" xs="12">
-                  <h4>Beast Mode X</h4>
-                  <p>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</p>
-            </Col>
-            <Col lg="3" md="12" xs="12">
-                <h4>Rewards Available</h4>
-                <p>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</p>
-            </Col>
-          </Row>
-           
-         </Col>
-         <Col lg='2' md="12" xs="12"></Col>
-       </Row>
-
-        { value === 'options' && this.renderOptions() }
+        { value === 'options' && this.renderOptions2() }
         { value === 'stake' && this.renderStake() }
         { value === 'buyboost' && this.renderBuyBoost() }
         { value === 'claim' && this.renderClaim() }
@@ -494,8 +352,173 @@ class Stake extends Component {
         { snackbarMessage && this.renderSnackbar() }
         { loading && <Loader /> }
       </Container>
+
+      <Navbar bg="dark" className="rounded text-center" variant="dark" fixed="bottom">
+          <div className="text-center text-white w-100">
+          © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
+          </div>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        </Navbar>
+
+      </>
     )
   }
+
+
+
+  renderOptions2=()=>{
+    const { pool } = this.state
+    var address = null;
+    let addy = ''
+    if (pool.tokens && pool.tokens[0]) {
+      addy = pool.tokens[0].rewardsAddress
+      address = addy.substring(0,6)+'...'+addy.substring(addy.length-4,addy.length)
+    }
+    return (
+      <>
+     
+     <Row>
+          <Col lg="4" md="12" xs="12">
+
+          <div className="mt-2 text-center rounded p-2">
+            <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
+              <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
+              <br></br>
+              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
+              <br></br>
+                <Countdown
+                  date={new Date(pool.tokens[0].rewardsEndDate['year'],pool.tokens[0].rewardsEndDate['month'],
+                  pool.tokens[0].rewardsEndDate['day'],pool.tokens[0].rewardsEndDate['hour'],pool.tokens[0].rewardsEndDate['minute'])}
+                  renderer={countdownrenderer}
+                  daysInHours={true}
+                />
+                <br/>
+                Contract Address: <a style={ {color :'#FFFFFF'}} href={ 'https://etherscan.io/address/'+addy } target="_blank">{ address }</a>.
+              </p>
+          </div>
+
+
+          </Col>
+          <Col lg="8" md="12" xs="12">
+
+            <table className="table mt-5">
+                <thead >
+                    <tr>
+                      <th>Your Balance</th>
+                      <th>Currently Staked</th>
+                      <th>Beast Mode X</th>
+                      <th>Rewards Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(2) : "0" }  { pool.tokens[0].symbol }</td>
+                    <td>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</td>
+                    <td>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</td>
+                    <td>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</td>
+                  </tr>
+                </tbody>
+            </table>
+        
+          </Col>
+          
+        </Row>
+         <Row>
+
+<Col lg="4" md="12" xs="12">
+
+    <Card>
+      <Card.Body>
+          <Card.Title>STAKE</Card.Title>
+          { this.renderAssetInput( pool.tokens[0], 'stake') }
+          <div className="myButton"  onClick={ () => { this.onStake() } } >
+            STAKE
+          </div>
+      </Card.Body>
+    </Card>
+
+</Col>
+
+
+<Col lg="4" md="12" xs="12">
+
+    <Card>
+      <Card.Body>
+          <Card.Title>UN-STAKE</Card.Title>
+          { this.renderAssetInput( pool.tokens[0], 'unstake') }
+          <div className="myButton"  onClick={ () => { this.onUnstake() } } >
+            UNSTAKE
+          </div>
+      </Card.Body>
+    </Card>
+
+</Col>
+
+<Col lg="4" md="12" xs="12">
+    
+      <div className="text-center mb-2">
+
+    <a className="smallBTN mr-2" href={pool.link} target="_blank">BUY { pool.tokens[0].symbol }</a>
+
+    { pool.liquidityLink !='' && <a className="smallBTN mr-2"  href={pool.liquidityLink} target="_blank">Add Liquidity</a> }
+
+        <div className="smallBTN"
+
+onClick = {async (event) => {
+  let provider  = new Web3(store.getStore('web3context').library.provider);
+  provider = provider.currentProvider;
+  provider.sendAsync({
+    method: 'metamask_watchAsset',
+    params: {
+      "type":"ERC20",
+      "options":{
+        "address": pool.tokens[0].address,
+        "symbol": pool.tokens[0].symbol,
+        "decimals": 18,
+        "image": '',
+      }
+    },
+    id: Math.round(Math.random() * 100000),
+  }, (err, added) => {
+    console.log('provider returned', err, added)
+    if (err || 'error' in added) {
+    /*   this.setState({
+        errorMessage: 'There was a problem adding the token.',
+        message: '',
+      }) */
+      return  emitter.emit(ERROR, 'There was a problem adding the token.');
+    }
+    /* this.setState({
+      message: 'Token added!',
+      errorMessage: '',
+    }) */
+  })
+}}
+        
+        >Add token to Metamask</div>
+
+      </div>
+
+{   ['boost'].includes(pool.id) && <div className="myButton mb-2"    onClick={ () => { this.navigateInternal('buyboost') }  } >
+     BEAST MODE
+    </div>
+}
+
+    <div className="myButton"  onClick={ () => { this.onClaim() } } >
+      CLAIM REWARDS
+    </div>
+
+    <div className="myButton mt-2"  onClick={ () => { this.onExit() } }>
+      Exit: Claim & Unstake
+    </div>
+
+</Col>
+
+</Row>
+     </>
+    )
+  }
+
 
   renderOptions = () => {
     const { classes } = this.props;
@@ -515,6 +538,8 @@ class Stake extends Component {
         <Col lg='8' className="text-center">
         <Row>
             <Col lg="6" md="12" xs="12" className="p-1">
+
+            
 
               <Button
                 className="btn btn-info btn-block"
@@ -539,6 +564,8 @@ class Stake extends Component {
               </Col>}
           
             <Col lg="6" md="12" xs="12" className="p-1">
+
+          
 
               <Button
              
@@ -602,12 +629,136 @@ class Stake extends Component {
 
 
     return (
+
       <Row>
+        <Col lg="6" md="12" xs="12">
+        <div className="mt-2 text-center rounded p-2">
+            <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
+              <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
+              <br></br>
+              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
+              <br></br>
+                <Countdown
+                  date={new Date(pool.tokens[0].rewardsEndDate['year'],pool.tokens[0].rewardsEndDate['month'],
+                  pool.tokens[0].rewardsEndDate['day'],pool.tokens[0].rewardsEndDate['hour'],pool.tokens[0].rewardsEndDate['minute'])}
+                  renderer={countdownrenderer}
+                  daysInHours={true}
+                />
+              </p>
+          </div>
+
+
+          <table className="table">
+                <thead >
+                    <tr>
+                      <th>Your Balance</th>
+                      <th>Currently Staked</th>
+                      <th>Beast Mode X</th>
+                      <th>Rewards Available</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(2) : "0" }  { pool.tokens[0].symbol }</td>
+                    <td>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</td>
+                    <td>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</td>
+                    <td>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</td>
+                  </tr>
+                </tbody>
+            </table>
+
+        <div className="text-center">
+          <a className="smallBTN mr-3" href="https://app.uniswap.org/#/swap" target="_blank">
+            BUY UNI
+          </a>
+
+          <div className="smallBTN"
+
+                onClick = {async (event) => {
+                  let provider  = new Web3(store.getStore('web3context').library.provider);
+                  provider = provider.currentProvider;
+                  provider.sendAsync({
+                    method: 'metamask_watchAsset',
+                    params: {
+                      "type":"ERC20",
+                      "options":{
+                        "address": pool.tokens[0].address,
+                        "symbol": pool.tokens[0].symbol,
+                        "decimals": 18,
+                        "image": '',
+                      },
+                    },
+                    id: Math.round(Math.random() * 100000),
+                  }, (err, added) => {
+                    console.log('provider returned', err, added)
+                    if (err || 'error' in added) {
+                      this.setState({
+                        errorMessage: 'There was a problem adding the token.',
+                        message: '',
+                      })
+                      return
+                    }
+                    this.setState({
+                      message: 'Token added!',
+                      errorMessage: '',
+                    })
+                  })
+                }}
+
+          >
+            Add Token to Metamask
+          </div>
+          </div>
+
+        </Col>
+        <Col lg="6" md="12" xs="12">
+         
+          <table className="table">
+             <tbody>
+               <tr>
+                 <td className="text-left">{ pool.tokens[0].boostTokenSymbol} Token Balance</td>
+                 <td className="text-right">{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(2) : "0" } UNI</td>
+               </tr>
+               <tr>
+                 <td className="text-left">Cost of Beast Mode</td>
+                 <td className="text-right">{ pool.tokens[0].costBooster ? pool.tokens[0].costBooster.toFixed(2) : "0" } UNI</td>
+               </tr>
+               <tr>
+                 <td className="text-left">Cost of Beast Mode (USD)</td>
+                 <td className="text-right">$ { pool.tokens[0].costBoosterUSD ? pool.tokens[0].costBoosterUSD.toFixed(2) : "0.00" }</td>
+               </tr>
+               <tr>
+                 <td className="text-left">Time to next BEAST powerup</td>
+                 <td className="text-right">{ (pool.tokens[0].timeToNextBoost -(new Date().getTime())/1000) > 0 ? ((pool.tokens[0].timeToNextBoost - (new Date().getTime())/1000)/60).toFixed(0) : "0" } Minutes</td>
+               </tr>
+               <tr>
+                 <td className="text-left">Beast Modes currently active</td>
+                 <td className="text-right">{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</td>
+               </tr>
+               <tr>
+                 <td className="text-left">Current Beast Mode stake value</td>
+                 <td className="text-right">{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(2) : "0" } UNI-v2</td>
+               </tr>
+               <tr>
+                 <td className="text-left">Staked value after next Beast Mode</td>
+                 <td className="text-right">{ pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(2) : "0" } UNI-v2</td>
+               </tr>
+            </tbody>
+          </table>
+          <div className="myButton"   onClick={ () => { this.validateBoost() } } >
+           BEAST MODE
+          </div>
+        </Col>
+        
+
+      </Row>
+
+     /*  <Row>
           <Col lg='2' md="12" xs="12"></Col>
           <Col lg='8' md="12" xs="12">
       <div className={ classes.actions } >
         <Typography className={ classes.stakeTitle } variant={ 'h3'}>Beast Mode</Typography>
-      {/*   { this.renderAssetInput(asset, 'unstake') } */}
+   
 
       <div className={ classes.actionsBoost }>
           <Typography  variant={ 'h5'}>{ pool.tokens[0].boostTokenSymbol} Token Balance : </Typography>
@@ -675,7 +826,7 @@ class Stake extends Component {
         
       </Col>
       <Col lg='2' md="12" xs="12"></Col>
-      </Row>      
+      </Row>       */
 
     )
   }

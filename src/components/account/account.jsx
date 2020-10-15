@@ -3,12 +3,13 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
-  Button,
 } from '@material-ui/core';
 import { colors } from '../../theme'
 
 import UnlockModal from '../unlock/unlockModal.jsx'
 import RefreshIcon from '@material-ui/icons/Refresh';
+import { Container, Col, Row, Button, Navbar, Nav, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+
 
 import {
   ERROR,
@@ -25,20 +26,22 @@ const store = Store.store
 
 const styles = theme => ({
   root: {
-    flex: 1,
+   /*  flex: 1,
     display: 'flex',
     flexDirection: 'column',
     background: colors.blue,
     minWidth: '100vw',
-    padding: '36px 24px'
+    padding: '36px 24px' */
   },
   connectHeading: {
     maxWidth: '300px',
     textAlign: 'center',
-    color: colors.white
+    color: colors.white,
+    zIndex : 2
   },
   connectContainer: {
-    padding: '20px'
+    padding: '20px',
+    zIndex : 2
   },
   actionButton: {
     color: colors.white,
@@ -50,36 +53,15 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex : 2
   },
   connectedRoot: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
-    width: '100%'
-  },
-  address: {
-    color: colors.white,
     width: '100%',
-    paddingBottom: '24px',
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  balances: {
-    color: colors.white,
-    width: '100%',
-    padding: '12px'
-  },
-  balanceContainer: {
-    display: 'flex',
-    width: '100%',
-    justifyContent: 'space-between'
-  },
-  accountHeading: {
-    paddingBottom: '6px'
-  },
-  icon: {
-    cursor: 'pointer'
+    zIndex : 2
   },
   disclaimer: {
     padding: '12px',
@@ -87,7 +69,8 @@ const styles = theme => ({
     borderRadius: '0.75rem',
     marginBottom: '24px',
     fontWeight: 1,
-    color: colors.white
+    color: colors.white,
+    zIndex : 2
   }
 });
 
@@ -171,6 +154,12 @@ class Account extends Component {
             <Typography>Connect</Typography>
           </Button>
         </div>
+        <Navbar bg="dark" className="rounded text-center" variant="dark" fixed="bottom">
+          <div className="text-center text-white w-100">
+          © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
+          </div>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        </Navbar>
       </div>
     )
   }

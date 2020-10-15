@@ -9,7 +9,7 @@ import {
 
 import { colors } from "../../theme";
 import { withNamespaces } from 'react-i18next';
-
+import '../../assets/css/style.css';
 
 const iconStyle = {
   fontSize: '22px',
@@ -107,6 +107,7 @@ class MySnackbar extends Component {
         key="close"
         aria-label="Close"
         onClick={this.handleClose}
+       
       >
         <CloseIcon />
       </IconButton>,
@@ -168,7 +169,7 @@ class MySnackbar extends Component {
         autoHideDuration={6000}
         onClose={this.handleClose}
         message={
-          <div style={{ padding: '12px', borderLeft: '5px solid '+color, borderRadius: '4px'}}>
+          <div style={{ padding: '12px', borderLeft: '5px solid '+color, borderRadius: '4px', backgroundColor :'#4a5e72' }}>
             {icon}
             <div style={{ display: 'inline-block', verticalAlign: 'middle', maxWidth: '400px' }}>
               <Typography variant='body1' style={{ fontSize: '12px', color: color }}>{ messageType }</Typography>

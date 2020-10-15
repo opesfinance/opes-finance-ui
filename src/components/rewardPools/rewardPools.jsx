@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 import {
   Typography,
-  Card,
   Grid
 } from '@material-ui/core';
 import { withNamespaces } from 'react-i18next';
@@ -13,8 +12,9 @@ import Store from "../../stores";
 import { colors } from '../../theme'
 
 import '../../assets/css/style.css';
+import '../../assets/css/hover-css/hover-min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Col, Row, Button } from 'react-bootstrap';
+import { Container, Col, Row, Button, Navbar, Nav, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Countdown from 'react-countdown-now';
 
 
@@ -22,7 +22,7 @@ import Countdown from 'react-countdown-now';
 import {
   ERROR,
   CONFIGURE_RETURNED,
-  GET_BALANCES,
+  GET_BALANCES, 
   GET_BALANCES_RETURNED,
   GOVERNANCE_CONTRACT_CHANGED,
   GET_BOOSTEDBALANCES_RETURNED,
@@ -40,120 +40,8 @@ const countdownrenderer = ({ days, hours, minutes, seconds, completed }) => {
 };
 
 const styles = theme => ({
-  root: {
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-   
-    width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginTop: '40px'
-  },
-  intro: {
-    width: '100%',
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    maxWidth: '400px'
-  },
-  introCenter: {
-    minWidth: '100%',
-    textAlign: 'center',
-    padding: '48px 0px'
-  },
-  investedContainer: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '12px',
-    minWidth: '100%',
-    [theme.breakpoints.up('md')]: {
-      minWidth: '800px',
-    }
-  },
-  connectContainer: {
-    padding: '12px',
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-    maxWidth: '450px',
-    [theme.breakpoints.up('md')]: {
-      width: '450',
-    }
-  },
-  actionButton: {
-    '&:hover': {
-      backgroundColor: "#2F80ED",
-    },
-    padding: '12px',
-    backgroundColor: "#2F80ED",
-    borderRadius: '1rem',
-    border: '1px solid #E1E1E1',
-    fontWeight: 500,
-    [theme.breakpoints.up('md')]: {
-      padding: '15px',
-    }
-  },
-  buttonText: {
-    fontWeight: '700',
-    color: 'white',
-  },
-  disaclaimer: {
-    padding: '12px',
-    border: '1px solid rgb(174, 174, 174)',
-    borderRadius: '0.75rem',
-    marginBottom: '24px',
-  },
-  addressContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    overflow: 'hidden',
-    flex: 1,
-    whiteSpace: 'nowrap',
-    fontSize: '0.83rem',
-    textOverflow:'ellipsis',
-    cursor: 'pointer',
-    padding: '28px 30px',
-    borderRadius: '50px',
-    border: '1px solid '+colors.borderBlue,
-    alignItems: 'center',
-    maxWidth: '500px',
-    [theme.breakpoints.up('md')]: {
-      width: '100%'
-    }
-  },
-  walletAddress: {
-    padding: '0px 12px'
-  },
-  walletTitle: {
-    flex: 1,
-    color: colors.darkGray
-  },
-  rewardPools: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-around',
-  
-    flexWrap: 'wrap'
-  },
-  rewardPoolContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flex: 1,
-    padding: '28px 30px',
-    borderRadius: '50px',
-    border: '1px solid '+colors.borderBlue,
-    margin: '20px',
-    background: colors.white,
-    minHeight: '300px',
-    minWidth: '200px',
-  },
+
+
   title: {
     width: '100%',
     color: colors.darkGray,
@@ -172,38 +60,7 @@ const styles = theme => ({
     color: colors.darkGray,
     paddingBottom: '20px',
     textDecoration: 'none'
-  },
-
-
-
-
-  rewardPoolContainerBox: {
-    paddingLeft : '10%',
-    flexDirection: 'column',  
-    flex: 1,
-    background: colors.white,
-    minHeight: '60px',
-    minWidth: '40%',
-  },
-  rewardPoolContainerBoxRight: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'left',
-    flex: 1,
-    background: colors.white,
-    minHeight: '60px',
-    minWidth: '60%',
-    paddingRight : '10%',
-  },
-  rewardPoolContainerBox1Row2: {
-    paddingLeft : '130px',
-    flexDirection: 'column',  
-    flex: 1,
-    background: colors.white,
-    minHeight: '60px',
-    minWidth: '400px',
-  },
+  }
 })
 
 const emitter = Store.emitter
@@ -278,24 +135,31 @@ class RewardPools extends Component {
     }
 
     return (
-
-      <Container>
+      <>
+        <Container >
+      
+        <Navbar >
+          <Navbar.Brand className="headerTitle">
+            <img
+              alt=""
+              src={ require('../../assets/App-Logo2.png') }
+              width="40"
+              height="40"
+              className="d-inline-block align-top"
+            />{' '}
+            OPES.Finance
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
+            <Navbar.Text  onClick={this.overlayClicked } className="round-wallet">
+              Wallet :  { address}
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Navbar>
+     
+      
         <Row>
-          <Col lg="6" md="12" xs="12">
-          <h2>
-          <img 
-               src={ require('../../assets/img/opeslogo.jpg') }
-               width="25px" height="25px"/>
-               OPES Finance</h2>
-              <p>This project is in beta. Use at your own risk.</p>   
-          </Col>
-          <Col lg="3" md="12" xs="12">
-            <div className="showcursor" onClick={this.overlayClicked }>
-                <Typography variant={ 'h3'} className={ classes.walletTitle } noWrap>Wallet</Typography>
-                <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap>{ address }</Typography>
-                <div style={{ background: '#DC6BE5', opacity: '1', borderRadius: '10px', width: '10px', height: '10px', marginRight: '3px', marginTop:'3px', marginLeft:'6px' }}></div>
-              </div>
-          </Col>
+       
           <Col lg="3" md="12" xs="12" className="pt-2">
             {
               value ==='group-pools' &&  (
@@ -312,17 +176,143 @@ class RewardPools extends Component {
             }
           </Col>
         </Row>
-        { value ==='main' && this.renderMainMenus() }
+        { value ==='main' && this.renderMainMenuContent() }
         { value ==='group-pools' && this.renderRewardsPools() }
 
 
 
         { modalOpen && this.renderModal() }
-      </Container>
-     
+        </Container>
+       { <Navbar bg="dark" className="rounded text-center" variant="dark" fixed="bottom">
+          <div className="text-center text-white w-100">
+          © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
+          </div>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        </Navbar>}
+     </>
       
     )
   }
+
+  renderMainMenuContent=()=>{
+    return (
+      <>
+     
+        <Row>
+         
+          <Col lg="12" md="12" xs="12" className="text-center">
+           {/*  <img
+              alt=""
+              src={ require('../../assets/banner-opes.png') }
+              width="800"
+              height="300"
+              className="d-inline-block align-top"
+            /> */}
+            <div className="mb-2 textheader mt-5" style={{'fontSize':'50px', 'height':'100px'}}><br/>Enough is Enough</div>
+            <div className="mb-5 text-white mb-1" style={{'fontSize':'38px', 'color' :'#FFFFF', 'height':'100px'}}><br/>OPES is bringing equality to the World! </div>
+          </Col>
+          <Col lg="3" md="12" xs="12">
+            
+            { this.renderRewardPoolCard('yearn') }
+
+          </Col>
+
+          <Col lg="3" md="12" xs="12">
+
+          { this.renderRewardPoolCard('boost') }
+
+          </Col>
+
+          <Col lg="3" md="12" xs="12">
+
+          { this.renderRewardPoolCard('balancer-stake') }
+
+          </Col>
+
+          <Col lg="3" md="12" xs="12">
+
+          { this.renderRewardPoolCard('balancer-pool') }
+
+          </Col>
+          <Col className="mt-1" lg="12" md="12" sx="12">
+            <br/> <br/>
+            <h4>Honest worker? Explore Farming Opportunities</h4>
+        <p>Add liquidity to earn fees and Wrapped PE incentives</p>
+       
+        <table>
+          <tbody>
+            <tr>
+              <td style={{color:'#FFFFFF'}}>WPE TOKEN</td>
+              <td>
+              <a className="smallBTN m-1"  href="#" target="_blank">BUY</a>
+              </td>
+            </tr>
+            <tr>
+              <td  style={{color:'#FFFFFF'}}>UNI-V2 TOKEN</td>
+              <td>
+              <a className="smallBTN m-1"  href="#" target="_blank">BUY</a>
+              </td>
+            </tr>
+            <tr>
+              <td  style={{color:'#FFFFFF'}}>UNI TOKEN</td>
+              <td>
+              <a className="smallBTN m-1"  href="#" target="_blank">BUY</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <br/> <br/>
+        <br/> <br/>
+          </Col>
+
+        </Row>
+      </>
+    )
+  };
+
+
+  renderRewardPoolCard=(rewardName)=>{
+    const { rewardPools } = this.state
+    return rewardPools.filter((rewardPool) => {
+      if([ rewardName] .includes(rewardPool.id) ) {
+        return true
+      }
+    }).map((rewardPool) => {
+      return (
+        <>
+             <Card className="showcursor" style={{ width: '100%' }} onClick={ () => { if(rewardPool.tokens.length > 0 && rewardPool.id !='balancer-pool') { this.navigateStake(rewardPool) }else{ this.renderGroupPools() } } }>
+                <Card.Body>
+                  <Card.Title> { rewardPool.name }</Card.Title>
+                 {/*  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
+                 
+                  <ListGroup className="list-group-flush">
+      <ListGroupItem>DEX : { rewardPool.website }</ListGroupItem>
+                    <ListGroupItem>Weekly Rewards : 
+
+                    {/* <Countdown
+                      date={new Date(rewardPool.tokens[0].rewardsEndDate['year'],rewardPool.tokens[0].rewardsEndDate['month'],
+                      rewardPool.tokens[0].rewardsEndDate['day'],rewardPool.tokens[0].rewardsEndDate['hour'],rewardPool.tokens[0].rewardsEndDate['minute'])}
+                      renderer={countdownrenderer}
+                      daysInHours={true}
+                    /> */}
+
+                    </ListGroupItem>
+                    <ListGroupItem>APR : </ListGroupItem>
+                    <ListGroupItem>Liquidity : </ListGroupItem>
+                  </ListGroup>
+  
+                  <div className="mt-1 myButton">
+                    SELECT
+                  </div>
+                </Card.Body>
+              </Card>
+        </>
+      );
+    });
+   
+  };
+
+
 
   renderMainMenus=()=>{
     return (
@@ -357,72 +347,43 @@ class RewardPools extends Component {
   renderGroupPools=()=>{
     this.setState({ value: 'group-pools' })
   }
-  renderRewardsPools=()=>{
-    return(
-      
+
+  renderRewardsPools = ()=>{
+    return (
       <Row>
-        
-        <Col lg="12" md="12" sm="12" >
-          <Row>
-            <Col lg="2" md="12" sm="12"></Col>
-            <Col lg="8" md="12" sm="12" >
-
-                <Row className="p-1">
-
-                  <Col  lg="12" md="12" xs="12">
-                    <div className="p-3 text-center " >
-                        <h5><span className="headerPool">Pool Party</span></h5>
-                        <div>
-
-                        </div>
-                        { this.renderGroupBalance() }
-                    </div> 
-                  </Col>
-                  <Col  lg="6" md="12" xs="12"  className="p-2 m-0">
-                    <div className=" text-center btn btn-outline-info balLink2 btn-block" >
-                    { this.renderRewardsGroupSelected('group1') }
-                    </div> 
-                  </Col>
-                  <Col lg="6"  md="12" xs="12" className="p-2 m-0" >
-                    <div className=" text-center btn btn-outline-info balLink2  btn-block">
-                    { this.renderRewardsGroupSelected('group2') }
-                    </div> 
-                  </Col>
-                  <Col lg="6"  md="12" xs="12"  className="p-2 m-0">
-                    <div className=" text-center btn btn-outline-info balLink2 btn-block">
-                    { this.renderRewardsGroupSelected('group3') }
-                    </div> 
-                  </Col>
-                  <Col  lg="6" md="12" xs="12" className="p-2 m-0">
-                    <div className=" text-center  btn btn-outline-info balLink2 btn-block">
-                    { this.renderRewardsGroupSelected('group4') }
-                      </div> 
-                  </Col>
-                  <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className=" text-center  btn btn-outline-info balLink2 btn-block " >
-                    { this.renderRewardsGroupSelected('group5') }
-                    </div> 
-                  </Col>
-                  <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className="text-center  btn btn-outline-info balLink2 btn-block  " >
-                    { this.renderRewardsGroupSelected('group6') }
-                    </div> 
-                  </Col>
-                  <Col lg="6"  md="12" xs="12" className="p-2 m-0">
-                    <div className=" text-center btn btn-outline-info balLink2 btn-block ">
-                    { this.renderRewardsGroupSelected('group7') }
-                    </div> 
-                  </Col>
-
-                </Row>
-
-            </Col>
-            <Col lg="2" md="12" sm="12"></Col>
-          </Row>
+        <Col lg="12" md="12" xs="12">
+        <br/><br/> <br/><br/><br/><br/>
+        <table className="table newtable">
+            <thead>
+              <tr>
+                <th></th>
+                <th></th>
+                <th>Total Deposited</th>
+                <th>Pool Rate WPE/Week</th>
+                <th></th>
+                <th></th>
+                <th></th>
+                
+              </tr>
+            </thead>
+            <tbody>
+            { this.renderRewardsGroupSelected('group1') }
+            { this.renderRewardsGroupSelected('group2') }
+            { this.renderRewardsGroupSelected('group3') }
+            { this.renderRewardsGroupSelected('group4') }
+            { this.renderRewardsGroupSelected('group5') }
+            { this.renderRewardsGroupSelected('group6') }
+            { this.renderRewardsGroupSelected('group7') }
+            </tbody>
+        </table>
+        <br/><br/><br/>
         </Col>
-        </Row>
+      </Row>
     )
   }
+
+
+ 
 
   clickPool(poolname){
     const { rewardPools } = this.state
@@ -449,7 +410,8 @@ class RewardPools extends Component {
             Pool Rate: {  rewardPools[0].tokens[0].poolRatePerWeek ?  rewardPools[0].tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
             <br></br>
               <Countdown
-                date={new Date(rewardPools[0].tokens[0].rewardsEndDate)}
+                 date={new Date(rewardPools[0].tokens[0].rewardsEndDate['year'],rewardPools[0].tokens[0].rewardsEndDate['month'],
+                 rewardPools[0].tokens[0].rewardsEndDate['day'],rewardPools[0].tokens[0].rewardsEndDate['hour'],rewardPools[0].tokens[0].rewardsEndDate['minute'])}
                 renderer={countdownrenderer}
                 daysInHours={true}
               />
@@ -480,23 +442,32 @@ class RewardPools extends Component {
     }
 
     return (
-/*       <div key={ rewardPool.id } className="showcursor"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } }> */
-      <div key={ rewardPool.id } className="showcursor"  >
-        <div className="small">
-        <h6><strong>{ rewardPool.name }</strong></h6>
-        <p><strong><a  href={rewardPool.link} target="_blank">(Bal Link)</a></strong></p>
-            <p>Total deposited: { rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }
-            <br></br>
-            Pool Rate: {  rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
-            <br></br>
-              <Countdown
-                date={new Date(rewardPool.tokens[0].rewardsEndDate)}
+      <tr>
+        <td style={{width:'30px'}}>
+          { (rewardPool.id =='group4' || rewardPool.id =='group1'  || rewardPool.id =='group7') &&
+            <img
+            alt=""
+            src={ require('../../assets/'+rewardPool.id+'.png') }
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />
+          }
+        </td>
+        <td className="text-left"><h6><strong>{ rewardPool.name }</strong></h6></td>     
+        <td>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }</td>
+        <td>{ rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }</td>
+        <td>
+        <Countdown
+                 date={new Date(rewardPool.tokens[0].rewardsEndDate['year'],rewardPool.tokens[0].rewardsEndDate['month'],
+                 rewardPool.tokens[0].rewardsEndDate['day'],rewardPool.tokens[0].rewardsEndDate['hour'],rewardPool.tokens[0].rewardsEndDate['minute'])}
                 renderer={countdownrenderer}
                 daysInHours={true}
               />
-            </p>
-        </div>
-      </div>
+        </td>
+        <td><a href={rewardPool.link} target="_blank" className="smallBTN">BUY</a></td>
+        <td><div className="smallBTN"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } } >STAKE</div></td>
+      </tr>
     
     )
   }
@@ -530,7 +501,8 @@ class RewardPools extends Component {
             <p>Pool Rate: {  rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week</p>
             <p>
               <Countdown
-                date={new Date(rewardPool.tokens[0].rewardsEndDate)}
+                date={new Date(rewardPool.tokens[0].rewardsEndDate['year'],rewardPool.tokens[0].rewardsEndDate['month'],
+                rewardPool.tokens[0].rewardsEndDate['day'],rewardPool.tokens[0].rewardsEndDate['hour'],rewardPool.tokens[0].rewardsEndDate['minute'])}
                 renderer={countdownrenderer}
                 daysInHours={true}
               />

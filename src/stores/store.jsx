@@ -83,9 +83,9 @@ class Store {
         MetaMask: injected,
         WalletLink: walletlink,
         WalletConnect: walletconnect,
-        Squarelink: squarelink,
+         /*  Squarelink: squarelink,
         Fortmatic: fortmatic
-       /*  Frame: frame,
+      Frame: frame,
         TrustWallet: injected,
        
         Ledger: ledger,
@@ -131,7 +131,8 @@ class Store {
           id: 'yearn',
           name: 'Seed Pool',
           website: 'curve.fi/s',
-          link: 'https://www.curve.fi/susdv2/deposit',
+          link: 'https://www.curve.fi/iearn/deposit',
+          liquidityLink : "",
           depositsEnabled: false,
           boost: false,
           tokens: [
@@ -148,7 +149,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '09/10/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 9,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -157,7 +164,8 @@ class Store {
           name: 'Harvest Pool',
           website: 'uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          link: 'https://www.curve.fi/susdv2/deposit',
+          liquidityLink : "https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9",
           depositsEnabled: true,
           boost: true,
           tokens: [
@@ -184,7 +192,13 @@ class Store {
               currentBoosterStakeValue : 0,
               stakeValueNextBooster : 0,
               timeToNextBoost: 0,
-              rewardsEndDate : '10/5/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 10,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -197,6 +211,7 @@ class Store {
           name: 'Staker Pool',
           website: '',
           link: 'https://www.curve.fi/susdv2/deposit',
+          liquidityLink : "",
           depositsEnabled: false,
           boost: false,
           tokens: [
@@ -213,7 +228,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '09/10/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 10,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -238,7 +259,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '09/10/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 10,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -269,7 +296,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '10/5/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 9,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -296,7 +329,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '10/5/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 9,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -322,7 +361,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '10/5/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 9,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -348,7 +393,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '10/5/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 9,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -374,7 +425,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '10/5/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 9,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -400,7 +457,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '10/5/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 9,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]
@@ -426,7 +489,13 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              rewardsEndDate : '10/5/2020',
+              rewardsEndDate : {
+                year : 2020,
+                month : 9,
+                day : 10,
+                hour : 0,
+                minute : 0
+              },
               poolRatePerWeek : 5000
             }
           ]

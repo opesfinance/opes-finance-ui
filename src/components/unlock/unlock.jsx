@@ -271,15 +271,16 @@ function MyComponent(props) {
 
         return (
           <div key={name} style={{ padding: '12px 0px', display: 'flex', justifyContent: 'space-between'  }}>
+        
             <Button style={ {
                 padding: '16px',
-                backgroundColor: 'white',
+                backgroundColor: '#4a5e72',
                 borderRadius: '1rem',
-                border: '1px solid #E1E1E1',
+                border: '1px solid #186ce9',
                 fontWeight: 500,
                 display: 'flex',
                 justifyContent: 'space-between',
-                minWidth: '250px'
+                minWidth: '250px'                
               } }
               variant='outlined'
               color='primary'
@@ -289,7 +290,7 @@ function MyComponent(props) {
               disabled={ disabled }>
               <Typography style={ {
                   margin: '0px 12px',
-                  color: 'rgb(1, 1, 1)',
+                  color: '#FFF',
                   fontWeight: 500,
                   fontSize: '1rem',
                 } }
@@ -315,12 +316,14 @@ function MyComponent(props) {
 
       <div style={{ width: '252px', margin: '12px 0px'  }}>
         <Button style={ {
-            padding: '12px',
-            backgroundColor: 'white',
-            borderRadius: '20px',
-            border: '1px solid #E1E1E1',
+            padding: '16px',
+            backgroundColor: '#4a5e72',
+            borderRadius: '1rem',
+            border: '1px solid #186ce9',
             fontWeight: 500,
-            minWidth: '250px'
+            display: 'flex',
+            justifyContent: 'space-between',
+            minWidth: '250px'    
           } }
           variant='outlined'
           color='primary'
@@ -328,10 +331,10 @@ function MyComponent(props) {
           <Typography style={ {
               marginLeft: '12px',
               fontWeight: '700',
-              color: '#DC6BE5'
+              color: '#FFF'
             } }
             variant={ 'h5'}
-            color='primary'>
+            color='#FFF'>
             { t('Unlock.Deactivate') }
           </Typography>
         </Button>

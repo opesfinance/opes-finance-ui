@@ -22,6 +22,8 @@ import Vote from './components/vote';
 import VersionToggle from './components/versionToggle';
 import Lock from './components/lock';
 
+import Particles from 'react-particles-js';
+import './assets/css/style.css';
 import {
   CONNECTION_CONNECTED,
   CONNECTION_DISCONNECTED,
@@ -103,31 +105,144 @@ class App extends Component {
 
     return (
       <MuiThemeProvider theme={ createMuiTheme(interestTheme) }>
+        <Particles 
+       params={{
+        "particles": {
+          "number": {
+            "value": 70,
+            "density": {
+              "enable": true,
+              "value_area": 800
+            }
+          },
+          "color": {
+            "value": "#888fff"
+          },
+          "shape": {
+            "type": "circle",
+            "stroke": {
+              "width": 0,
+              "color": "#000000"
+            },
+            "polygon": {
+              "nb_sides": 5
+            },
+            "image": {
+              "src": "./assets/opes-logo.png",
+              "width": 100,
+              "height": 100
+            }
+          },
+          "opacity": {
+            "value": 0.2,
+            "random": false,
+            "anim": {
+              "enable": false,
+              "speed": 1,
+              "opacity_min": 0.1,
+              "sync": false
+            }
+          },
+          "size": {
+            "value": 10,
+            "random": true,
+            "anim": {
+              "enable": false,
+              "speed": 40,
+              "size_min": 0.1,
+              "sync": false
+            }
+          },
+          "line_linked": {
+            "enable": true,
+            "distance": 300,
+            "color": "#ffffff",
+            "opacity": 0.2,
+            "width": 0.5
+          },
+          "move": {
+            "enable": true,
+            "speed": 10,
+            "direction": "none",
+            "random": true,
+            "straight": false,
+            "out_mode": "out",
+            "bounce": true,
+            "attract": {
+              "enable": false,
+              "rotateX": 600,
+              "rotateY": 1200
+            }
+          }
+        },
+        "interactivity": {
+          "detect_on": "canvas",
+          "events": {
+            "onhover": {
+              "enable": false,
+              "mode": "repulse"
+            },
+            "onclick": {
+              "enable": false,
+              "mode": "push"
+            },
+            "resize": false
+          },
+          "modes": {
+            "grab": {
+              "distance": 800,
+              "line_linked": {
+                "opacity": 1
+              }
+            },
+            "bubble": {
+              "distance": 800,
+              "size": 80,
+              "duration": 2,
+              "opacity": 0.8,
+              "speed": 3
+            },
+            "repulse": {
+              "distance": 400,
+              "duration": 0.4
+            },
+            "push": {
+              "particles_nb": 4
+            },
+            "remove": {
+              "particles_nb": 2
+            }
+          }
+        },
+        "retina_detect": true
+      }}
+      />
         <CssBaseline />
         <IpfsRouter>
           { !account &&
-            <div style={{
+            <div className="bglower" style={{
               display: 'flex',
               flexDirection: 'column',
               minHeight: '100vh',
               minWidth: '100vw',
               justifyContent: 'center',
-              alignItems: 'center',
-              background: "#f9fafb"
+              alignItems: 'center'
+             
             }}>
               <Account />
             </div>
           }
-          { account &&
-            <div style={{
+          { account  &&
+            <div className="bglower" style={{
               display: 'flex',
               flexDirection: 'column',
               minHeight: '0',
               marginTop:'10px',
               justifyContent: 'center',
-              alignItems: 'center',
-              background: "#f9fafb"
+              alignItems: 'center'
+            
             }}>
+              
               <Switch>
                 <Route path="/stake">
                   <Header />
@@ -150,7 +265,8 @@ class App extends Component {
                   <Lock />
                 </Route>
                 <Route path="/">
-                  <Home />
+                 {/*  <Home /> */}
+                 <RewardsPools />
                 </Route>
               </Switch>
             </div>
