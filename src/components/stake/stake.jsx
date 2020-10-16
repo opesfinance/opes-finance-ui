@@ -321,7 +321,7 @@ class Stake extends Component {
 
         <Row>
           
-          <Col lg="12" md="12" xs="12" className="text-left mt-2">
+          <Col lg="12" md="12" xs="12" className="text-left mt-2" >
           <Button
             className="btn btn-outline-info pl-5 pr-5"
             variant="outlined"
@@ -351,15 +351,19 @@ class Stake extends Component {
 
         { snackbarMessage && this.renderSnackbar() }
         { loading && <Loader /> }
+        <Row>
+          <Col lg="12" md="12" xs="12 mt-5">
+         
+         
+          </Col>
+        </Row>
       </Container>
-
-      <Navbar bg="dark" className="rounded text-center" variant="dark" fixed="bottom">
-          <div className="text-center text-white w-100">
+      
+     
+      <div className="text-center text-white w-100 fixed-bottom">
           © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
           </div>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        </Navbar>
-
+       
       </>
     )
   }
@@ -378,7 +382,7 @@ class Stake extends Component {
       <>
      
      <Row>
-          <Col lg="4" md="12" xs="12">
+          <Col lg="4" md="12" xs="12" className="p-1">
 
           <div className="mt-2 text-center rounded p-2">
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
@@ -399,7 +403,7 @@ class Stake extends Component {
 
 
           </Col>
-          <Col lg="8" md="12" xs="12">
+          <Col lg="8" md="12" xs="12" className="p-1">
 
             <table className="table mt-5">
                 <thead >
@@ -425,7 +429,7 @@ class Stake extends Component {
         </Row>
          <Row>
 
-<Col lg="4" md="12" xs="12">
+<Col lg="4" md="12" xs="12" className="p-1">
 
     <Card>
       <Card.Body>
@@ -440,7 +444,7 @@ class Stake extends Component {
 </Col>
 
 
-<Col lg="4" md="12" xs="12">
+<Col lg="4" md="12" xs="12" className="p-1">
 
     <Card>
       <Card.Body>
@@ -454,7 +458,8 @@ class Stake extends Component {
 
 </Col>
 
-<Col lg="4" md="12" xs="12">
+<Col lg="4" md="12" xs="12" className="p-3">
+  
     
       <div className="text-center mb-2">
 
@@ -631,7 +636,7 @@ onClick = {async (event) => {
     return (
 
       <Row>
-        <Col lg="6" md="12" xs="12">
+        <Col lg="6" md="12" xs="12" className="p-1">
         <div className="mt-2 text-center rounded p-2">
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
               <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
@@ -711,7 +716,7 @@ onClick = {async (event) => {
           </div>
 
         </Col>
-        <Col lg="6" md="12" xs="12">
+        <Col lg="6" md="12" xs="12" className="p-1">
          
           <table className="table">
              <tbody>

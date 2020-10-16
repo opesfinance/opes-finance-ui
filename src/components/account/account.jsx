@@ -154,12 +154,9 @@ class Account extends Component {
             <Typography>Connect</Typography>
           </Button>
         </div>
-        <Navbar bg="dark" className="rounded text-center" variant="dark" fixed="bottom">
-          <div className="text-center text-white w-100">
+        <div className="text-center text-white w-100 fixed-bottom">
           © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
           </div>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        </Navbar>
       </div>
     )
   }

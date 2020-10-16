@@ -126,31 +126,77 @@ a {
 
 .Container{
     background-color: #000000;
+    min-height: 1000px;
+}
+.dheader{
+    font-size:'50px';
+    height:'100px';
+ }
+ .dsubheader{
+    font-size:'38px';
+    color :'#FFFFF';
+    height:'100px';
+ }
+
+#root {
+    background: url('../OPES-Splash-Page-1200x675.jpg') center center fixed !important;
+    background-size: cover !important;
+    background-blend-mode: multiply !important;
+    background-color: #00000052 !important;
+    min-height: 1000px;
 }
 
-#tsparticles {
+ #tsparticles {
     width: 100%;
     min-height: 1000px;
- /*   height:100vh; */
+/*   height:100vh; */
     overflow: hidden;
     top: 0;                        
     bottom: 0;
     left: 0;
     right: 0;
     position: absolute;
-	z-index: 0 !important;
-    background-color: #4a5e72;
+    z-index: 0 !important;
+ /*    background-color: #4a5e72;
     background: url('../OPES-Splash-Page-1200x675.jpg') center center fixed;
     background-size: cover;
     background-blend-mode: multiply;
-    background-color: #00000052;
-   /*  background: url('../opes-logo-big.png') bottom center fixed #4a5e72;
+    background-color: #00000052; */
+/*  background: url('../opes-logo-big.png') bottom center fixed #4a5e72;
     background-repeat: no-repeat; */
 }
 
+@media only screen and (max-width: 600px) {
+    #tsparticles,
+    #tsparticles canvas {
+      display: none;
+    }
+  }
+  
+  @media only screen and (min-width: 600px) {
+    #tsparticles,
+    #tsparticles canvas {
+      display: block;
+    }
+  }
+  
+
+@media only screen and (max-width:800){
+    .dheader{
+        font-size:'60px';
+        height:'30px';
+     }
+     .dsubheader{
+        font-size:'38px';
+        color :'#FFFFF';
+        height:'100px';
+     }
+    
+}
+
+
 /* .bglower{
-    background: url('../bg-4.jpg') center center repeat;
-    background-size: cover;
+    background-color: #4a5e72;
    
 } */
 
@@ -364,3 +410,4 @@ a {
      color:#ffffff;
      font-weight: bold;
  }
+

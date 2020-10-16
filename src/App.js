@@ -105,7 +105,7 @@ class App extends Component {
 
     return (
       <MuiThemeProvider theme={ createMuiTheme(interestTheme) }>
-        <Particles 
+        {<Particles 
        params={{
         "particles": {
           "number": {
@@ -216,7 +216,7 @@ class App extends Component {
         },
         "retina_detect": true
       }}
-      />
+      />}
         <CssBaseline />
         <IpfsRouter>
           { !account &&
@@ -237,7 +237,6 @@ class App extends Component {
               display: 'flex',
               flexDirection: 'column',
               minHeight: '0',
-              marginTop:'10px',
               justifyContent: 'center',
               alignItems: 'center'
             

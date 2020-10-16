@@ -182,13 +182,13 @@ class RewardPools extends Component {
 
 
         { modalOpen && this.renderModal() }
+       
+
         </Container>
-       { <Navbar bg="dark" className="rounded text-center" variant="dark" fixed="bottom">
-          <div className="text-center text-white w-100">
+        <div className="text-center text-white w-100 fixed-bottom">
           © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
           </div>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        </Navbar>}
+       
      </>
       
     )
@@ -201,35 +201,29 @@ class RewardPools extends Component {
         <Row>
          
           <Col lg="12" md="12" xs="12" className="text-center">
-           {/*  <img
-              alt=""
-              src={ require('../../assets/banner-opes.png') }
-              width="800"
-              height="300"
-              className="d-inline-block align-top"
-            /> */}
-            <div className="mb-2 textheader mt-5" style={{'fontSize':'50px', 'height':'100px'}}><br/>Enough is Enough</div>
-            <div className="mb-5 text-white mb-1" style={{'fontSize':'38px', 'color' :'#FFFFF', 'height':'100px'}}><br/>OPES is bringing equality to the World! </div>
+          
+            <div className="mb-2 textheader mt-5 dheader" ><br/>Enough is Enough</div>
+            <div className="mb-5 text-white mb-1 dsubheader" ><br/>OPES is bringing equality to the World! </div>
           </Col>
-          <Col lg="3" md="12" xs="12">
+          <Col lg="3" md="12" xs="12" className="p-1">
             
             { this.renderRewardPoolCard('yearn') }
 
           </Col>
 
-          <Col lg="3" md="12" xs="12">
+          <Col lg="3" md="12" xs="12" className="p-1">
 
           { this.renderRewardPoolCard('boost') }
 
           </Col>
 
-          <Col lg="3" md="12" xs="12">
+          <Col lg="3" md="12" xs="12" className="p-1">
 
           { this.renderRewardPoolCard('balancer-stake') }
 
           </Col>
 
-          <Col lg="3" md="12" xs="12">
+          <Col lg="3" md="12" xs="12" className="p-1">
 
           { this.renderRewardPoolCard('balancer-pool') }
 
@@ -317,22 +311,22 @@ class RewardPools extends Component {
   renderMainMenus=()=>{
     return (
       <Row>
-          <Col  lg="4" md="12" xs="12">
+          <Col  lg="4" md="12" xs="12" className="p-1">
             <div className="img-bg imgbg1 showcursor" onClick={ () => {  this.clickPool('yearn') } }  >
                 { this.renderRewardsSelected('yearn') }
               </div> 
           </Col>
-          <Col lg="8"  md="12" xs="12">
+          <Col lg="8"  md="12" xs="12" className="p-1">
             <div className="img-bg imgbg2 showcursor" onClick={ () => {  this.clickPool('boost') } }>
             { this.renderRewardsSelected('boost') }
             </div> 
           </Col>
-          <Col  lg="5" md="12" xs="12">
+          <Col  lg="5" md="12" xs="12" className="p-1">
             <div className="img-bg imgbg3 showcursor" >
                 { this.renderRewardsSelected('balancer-stake') }
               </div> 
           </Col>
-          <Col lg="7"  md="12" xs="12">
+          <Col lg="7"  md="12" xs="12" className="p-1">
             <div className="img-bg imgbg4 showcursor" onClick={ () => {  this.renderGroupPools() } }  >
             { this.renderRewardsSelected('balancer-pool') }
             </div> 
