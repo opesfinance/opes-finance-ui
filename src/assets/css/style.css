@@ -276,6 +276,35 @@ a {
     border:1px solid #ffffff !important;
 }
 
+.tableRowStyle{
+    border-bottom:1px solid #9b9b9b !important;
+}
+.rowTitle{
+    text-align: left !important;
+}
+.mob{
+    display:none;
+}
+.des{
+    display:block;
+}
+@media only screen and (max-width: 600px) {
+    .tableRowStyle {
+        text-align:center !important;
+    }
+    .rowTitle{
+        background-color:rgb(76, 113, 158,0.5);
+        text-align: center !important;
+    }
+    .mob{
+        display:block;
+    }
+    .des{
+        display:none;
+    }
+}
+
+
 .btn, input,h3,h4,p {
     color: #ffffff !important;
 }
@@ -394,7 +423,8 @@ a {
     transform: scale(2);
 }
 
- .newtable tbody tr:hover{
+ .newtable tbody tr:hover,
+ .tableRowStyle:hover{
   /*   -moz-box-shadow: 4px 8px 8px 10px rgba(4, 115, 158, 0.5);
 	-webkit-box-shadow: 4px 8px 8px 10px rgba(4, 115, 158,.5);
     box-shadow: 4px 8px 8px 10px rgba(4, 115, 158,.5);
@@ -402,7 +432,7 @@ a {
     -webkit-transform: scale(1);
         -ms-transform: scale(1);
         transform: scale(1);
-        background-color:#476e9e;
+        background-color:rgb(76, 113, 158,0.5);
     
  }
 

@@ -347,6 +347,26 @@ class RewardPools extends Component {
       <Row>
         <Col lg="12" md="12" xs="12">
         <br/><br/> <br/><br/><br/><br/>
+
+        <Row >
+          <Col lg="1" md="12" xs="12"></Col>
+          <Col lg="3" md="12" xs="12"></Col>
+          <Col lg="2" md="12" xs="12" className=" text-white p-2"><strong>Total Deposited</strong></Col>
+          <Col lg="2" md="12" xs="12" className=" text-white p-2"><strong>Pool Rate WPE/Week</strong></Col>
+          <Col lg="2" md="12" xs="12"></Col>
+          <Col lg="1" md="12" xs="12"></Col>
+          <Col lg="1" md="12" xs="12"></Col>
+        </Row>
+        <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group1') }</Row>
+        <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group2') }</Row>
+        <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group3') }</Row>
+        <Row className="tableRowStyle ">{ this.renderRewardsGroupSelected('group4') }</Row>
+        <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group5') }</Row>
+        <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group6') }</Row>
+        <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group7') }</Row>
+
+
+        {/* <div class="table-responsive">
         <table className="table newtable">
             <thead>
               <tr>
@@ -370,6 +390,7 @@ class RewardPools extends Component {
             { this.renderRewardsGroupSelected('group7') }
             </tbody>
         </table>
+        </div> */}
         <br/><br/><br/>
         </Col>
       </Row>
@@ -436,9 +457,9 @@ class RewardPools extends Component {
     }
 
     return (
-      <tr>
-        <td style={{width:'30px'}}>
-          { (rewardPool.id =='group4' || rewardPool.id =='group1'  || rewardPool.id =='group7') &&
+      <>
+        <Col lg="1" md="12" xs="12" className="text-center my-auto">
+        { (rewardPool.id =='group4' || rewardPool.id =='group1'  || rewardPool.id =='group7') &&
             <img
             alt=""
             src={ require('../../assets/'+rewardPool.id+'.png') }
@@ -447,21 +468,33 @@ class RewardPools extends Component {
             className="d-inline-block align-top"
           />
           }
-        </td>
-        <td className="text-left"><h6><strong>{ rewardPool.name }</strong></h6></td>     
-        <td>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }</td>
-        <td>{ rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }</td>
-        <td>
-        <Countdown
+        </Col>
+          <Col lg="3" md="12" xs="12" className="rowTitle text-white p-2 my-auto">
+          <h6><strong>{ rewardPool.name }</strong></h6>
+          </Col>
+          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
+          <span class="mob float-left">Staked Balance : </span>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }
+         
+          </Col>
+          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
+          <span class="mob float-left">Pool Rate WPE/Week : </span>{ rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }
+          </Col>
+          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
+          <Countdown
                  date={new Date(rewardPool.tokens[0].rewardsEndDate['year'],rewardPool.tokens[0].rewardsEndDate['month'],
                  rewardPool.tokens[0].rewardsEndDate['day'],rewardPool.tokens[0].rewardsEndDate['hour'],rewardPool.tokens[0].rewardsEndDate['minute'])}
                 renderer={countdownrenderer}
                 daysInHours={true}
               />
-        </td>
-        <td><a href={rewardPool.link} target="_blank" className="smallBTN">BUY</a></td>
-        <td><div className="smallBTN"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } } >STAKE</div></td>
-      </tr>
+          </Col>
+          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
+          <a href={rewardPool.link} target="_blank" className="smallBTN">BUY</a>
+          </Col>
+          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
+          <div className="smallBTN"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } } >STAKE</div>
+          </Col>
+      </>
+     
     
     )
   }
