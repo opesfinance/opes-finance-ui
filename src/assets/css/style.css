@@ -1,6 +1,13 @@
 :host body{
     background-color: #000000;
 }
+body {
+    background: url('../OPES-Splash-Page-1200x675.jpg') center center fixed !important;
+    background-size: cover !important;
+    background-blend-mode: multiply !important;
+    background-color: #00000052 !important;
+   
+}
 .img-bg .probootstrap-photo-upper {
     text-align: right;
     top: 20px;
@@ -147,13 +154,7 @@ a {
     height:'100px' !important;
  }
 
-#root {
-    background: url('../OPES-Splash-Page-1200x675.jpg') center center fixed !important;
-    background-size: cover !important;
-    background-blend-mode: multiply !important;
-    background-color: #00000052 !important;
-   
-}
+
 
  #tsparticles {
     width: 100%;
