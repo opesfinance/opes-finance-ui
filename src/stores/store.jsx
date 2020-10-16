@@ -130,7 +130,7 @@ class Store {
         {
           id: 'yearn',
           name: 'Seed Pool',
-          website: 'curve.fi/s',
+          website: 'Curve.fi/s',
           link: 'https://www.curve.fi/iearn/deposit',
           liquidityLink : "",
           depositsEnabled: false,
@@ -156,15 +156,15 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'ENDED'
             }
           ]
         },{
           id: 'boost',
           name: 'Harvest Pool',
-          website: 'uniswap',
+          website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://www.curve.fi/susdv2/deposit',
+          link: 'https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b',
           liquidityLink : "https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9",
           depositsEnabled: true,
           boost: true,
@@ -194,8 +194,8 @@ class Store {
               timeToNextBoost: 0,
               rewardsEndDate : {
                 year : 2020,
-                month : 10,
-                day : 10,
+                month : 11,
+                day : 2,
                 hour : 0,
                 minute : 0
               },
@@ -209,20 +209,20 @@ class Store {
         {
           id: 'balancer-stake',
           name: 'Staker Pool',
-          website: '',
-          link: 'https://www.curve.fi/susdv2/deposit',
+          website: 'Balancer',
+          link: 'https://balancer.finance/',
           liquidityLink : "",
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'ycurvefi',
-              address: '0xC25a3A3b969415c80451098fa907EC722572917F',
-              symbol: 'sCrv',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.yCurveFiRewardsAddress,
-              rewardsABI: config.yCurveFiRewardsABI,
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
               rewardsSymbol: 'WPE',
               decimals: 18,
               balance: 0,
@@ -235,25 +235,25 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         }, {
           id: 'balancer-pool',
           name: 'Pool Party',
-          website: '',
-          link: 'https://www.curve.fi/susdv2/deposit',
+          website: 'Balancer',
+          link: 'https://balancer.finance/',
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'ycurvefi',
-              address: '0xC25a3A3b969415c80451098fa907EC722572917F',
-              symbol: 'sCrv',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.yCurveFiRewardsAddress,
-              rewardsABI: config.yCurveFiRewardsABI,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
               rewardsSymbol: 'WPE',
               decimals: 18,
               balance: 0,
@@ -266,7 +266,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         },
@@ -277,226 +277,226 @@ class Store {
         {
           id: 'group1',
           name: 'Starwire Harvest Pool',
-          website: 'uniswap',
+          website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
+              rewardsSymbol: 'STR',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
               rewardsEndDate : {
                 year : 2020,
-                month : 9,
+                month : 10,
                 day : 10,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         }
         ,{
           id: 'group2',
           name: 'iUPixel Harvest Pool',
-          website: 'uniswap',
+          website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
+              rewardsSymbol: 'PIXEL',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
               rewardsEndDate : {
                 year : 2020,
-                month : 9,
+                month : 10,
                 day : 10,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         },{
           id: 'group3',
           name: 'Global Impact Challenge Harvest Pool',
-          website: 'uniswap',
+          website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
+              rewardsSymbol: 'IMPACT',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
               rewardsEndDate : {
                 year : 2020,
-                month : 9,
+                month : 10,
                 day : 10,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         },{
           id: 'group4',
           name: 'Saving Animals Together Harvest Pool',
-          website: 'uniswap',
+          website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
+              rewardsSymbol: 'GIFT',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
               rewardsEndDate : {
                 year : 2020,
-                month : 9,
+                month : 10,
                 day : 10,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         },{
           id: 'group5',
           name: 'NFTS.Solutions Harvest Pool',
-          website: 'uniswap',
+          website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
+              rewardsSymbol: 'NFTS',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
               rewardsEndDate : {
                 year : 2020,
-                month : 9,
+                month : 10,
                 day : 10,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         },{
           id: 'group6',
           name: 'Missions Fund Harvest Pool',
-          website: 'uniswap',
+          website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
+              rewardsSymbol: 'LIFT',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
               rewardsEndDate : {
                 year : 2020,
-                month : 9,
+                month : 10,
                 day : 10,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         },{
           id: 'group7',
           name: 'YFU Harvest Pool',
-          website: 'uniswap',
+          website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
           depositsEnabled: false,
           boost: false,
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
-              abi: config.erc20ABI,
+              address: config.balancerAddress,
+              symbol: 'BAL',
+              abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
+              rewardsSymbol: 'YFU',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
               rewardsEndDate : {
                 year : 2020,
-                month : 9,
+                month : 10,
                 day : 10,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 'Coming Soon'
             }
           ]
         },
@@ -522,7 +522,7 @@ class Store {
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
-              rewardsAvailable: 0
+              rewardsAvailable: 'Coming Soon'
             }
           ]
         },

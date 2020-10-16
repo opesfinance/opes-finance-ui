@@ -9,7 +9,7 @@ import { colors } from '../../theme'
 import UnlockModal from '../unlock/unlockModal.jsx'
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { Container, Col, Row, Button, Navbar, Nav, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
-
+import '../../assets/css/style.css';
 
 import {
   ERROR,
@@ -139,13 +139,13 @@ class Account extends Component {
 
     return (
       <div className={ classes.notConnectedRoot }>
-        <Typography variant={'h5'} className={ classes.disclaimer }>This project is in beta. Use at your own risk.</Typography>
+        <Typography variant={'h5'} className="text-white m-2">This project is in beta. Use at your own risk.</Typography>
         <div className={ classes.connectHeading }>
           <Typography variant='h3'>Connect your wallet to continue</Typography>
         </div>
         <div className={ classes.connectContainer }>
           <Button
-            className={ classes.actionButton }
+            className="myButton"
             variant="outlined"
             color="primary"
             onClick={ this.unlockClicked }

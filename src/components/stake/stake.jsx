@@ -47,7 +47,7 @@ import {
 
 const countdownrenderer = ({ days, hours, minutes, seconds, completed }) => {
   if (completed) {
-    return <span>Rewards Ended</span>;
+    return <span>Rewards: ENDED</span>;
   } else {
     // Render a countdown
   return <span>Rewards Ends in {days} Day(s) {hours}:{minutes}:{seconds}</span>;
@@ -189,6 +189,7 @@ class Stake extends Component {
       voteLockValid: false,
       balanceValid: false,
       voteLock: null,
+      stakevalue : 'main',
       governanceContractVersion: governanceContractVersion
     }
 
@@ -323,7 +324,7 @@ class Stake extends Component {
           
           <Col lg="12" md="12" xs="12" className="text-left mt-2" >
           <Button
-            className="btn btn-outline-info pl-5 pr-5"
+            className="smallBTN"
             variant="outlined"
             color="secondary"
             disabled={ loading }
@@ -360,7 +361,7 @@ class Stake extends Component {
       </Container>
       
      
-      <div className="text-center text-white w-100 fixed-bottom">
+      <div className="text-center text-white w-100">
           © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
           </div>
        
@@ -371,7 +372,7 @@ class Stake extends Component {
 
 
   renderOptions2=()=>{
-    const { pool } = this.state
+    const { pool, stakevalue } = this.state
     var address = null;
     let addy = ''
     if (pool.tokens && pool.tokens[0]) {
@@ -388,14 +389,17 @@ class Stake extends Component {
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
               <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
               <br></br>
-              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
+              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } 
               <br></br>
-                <Countdown
+              { (pool.id =='boost' || pool.id == 'yearn' ) &&  <Countdown
                   date={new Date(pool.tokens[0].rewardsEndDate['year'],pool.tokens[0].rewardsEndDate['month'],
                   pool.tokens[0].rewardsEndDate['day'],pool.tokens[0].rewardsEndDate['hour'],pool.tokens[0].rewardsEndDate['minute'])}
                   renderer={countdownrenderer}
                   daysInHours={true}
                 />
+              }
+              {(pool.id =='balancer-stake' || pool.id == 'balancer-pool' || pool.id=='group1' || pool.id=='group2'
+            || pool.id=='group3' || pool.id=='group4' || pool.id=='group5' || pool.id=='group6' || pool.id=='group7') && 'Rewards: Coming Soon'}
                 <br/>
                 Contract Address: <a style={ {color :'#FFFFFF'}} href={ 'https://etherscan.io/address/'+addy } target="_blank">{ address }</a>.
               </p>
@@ -427,100 +431,113 @@ class Stake extends Component {
           </Col>
           
         </Row>
-         <Row>
-
-<Col lg="4" md="12" xs="12" className="p-1">
-
-    <Card>
-      <Card.Body>
-          <Card.Title>STAKE</Card.Title>
-          { this.renderAssetInput( pool.tokens[0], 'stake') }
-          <div className="myButton"  onClick={ () => { this.onStake() } } >
-            STAKE
-          </div>
-      </Card.Body>
-    </Card>
-
-</Col>
-
-
-<Col lg="4" md="12" xs="12" className="p-1">
-
-    <Card>
-      <Card.Body>
-          <Card.Title>UN-STAKE</Card.Title>
-          { this.renderAssetInput( pool.tokens[0], 'unstake') }
-          <div className="myButton"  onClick={ () => { this.onUnstake() } } >
-            UNSTAKE
-          </div>
-      </Card.Body>
-    </Card>
-
-</Col>
-
-<Col lg="4" md="12" xs="12" className="p-3">
-  
-    
-      <div className="text-center mb-2">
-
-    <a className="smallBTN mr-2" href={pool.link} target="_blank">BUY { pool.tokens[0].symbol }</a>
-
-    { pool.liquidityLink !='' && <a className="smallBTN mr-2"  href={pool.liquidityLink} target="_blank">Add Liquidity</a> }
-
-        <div className="smallBTN"
-
-onClick = {async (event) => {
-  let provider  = new Web3(store.getStore('web3context').library.provider);
-  provider = provider.currentProvider;
-  provider.sendAsync({
-    method: 'metamask_watchAsset',
-    params: {
-      "type":"ERC20",
-      "options":{
-        "address": pool.tokens[0].address,
-        "symbol": pool.tokens[0].symbol,
-        "decimals": 18,
-        "image": '',
-      }
-    },
-    id: Math.round(Math.random() * 100000),
-  }, (err, added) => {
-    console.log('provider returned', err, added)
-    if (err || 'error' in added) {
-    /*   this.setState({
-        errorMessage: 'There was a problem adding the token.',
-        message: '',
-      }) */
-      return  emitter.emit(ERROR, 'There was a problem adding the token.');
-    }
-    /* this.setState({
-      message: 'Token added!',
-      errorMessage: '',
-    }) */
-  })
-}}
-        
-        >Add token to Metamask</div>
-
-      </div>
-
-{   ['boost'].includes(pool.id) && <div className="myButton mb-2"    onClick={ () => { this.navigateInternal('buyboost') }  } >
-     BEAST MODE
-    </div>
-}
-
-    <div className="myButton"  onClick={ () => { this.onClaim() } } >
-      CLAIM REWARDS
-    </div>
-
-    <div className="myButton mt-2"  onClick={ () => { this.onExit() } }>
-      Exit: Claim & Unstake
-    </div>
-
-</Col>
-
-</Row>
+      
+        { stakevalue ==='main' && this.stakeMain() }
+        { stakevalue ==='poolended' && this.poolEnded() }
+        { stakevalue ==='comingsoon' && this.comingSoon() }
+      
      </>
+    )
+  }
+
+  navigateStakeInternal = (val) => {
+    this.setState({ stakevalue: val })
+  }
+  stakeMain= ()=>{
+    const { pool, stakevalue } = this.state;
+
+    return (
+      <Row>
+
+      <Col lg="4" md="12" xs="12" className="p-1">
+
+          <Card>
+            <Card.Body>
+                <Card.Title>STAKE</Card.Title>
+                { this.renderAssetInput( pool.tokens[0], 'stake') }
+                <div className="myButton"  onClick={ () => { this.onStake() } } >
+                  STAKE
+                </div>
+            </Card.Body>
+          </Card>
+
+      </Col>
+
+
+      <Col lg="4" md="12" xs="12" className="p-1">
+
+          <Card>
+            <Card.Body>
+                <Card.Title>UN-STAKE</Card.Title>
+                { this.renderAssetInput( pool.tokens[0], 'unstake') }
+                <div className="myButton"  onClick={ () => { this.onUnstake() } } >
+                  UNSTAKE
+                </div>
+            </Card.Body>
+          </Card>
+
+      </Col>
+
+      <Col lg="4" md="12" xs="12" className="p-3">
+        
+          
+          
+      {   ['boost'].includes(pool.id) && <div className="myButton mb-2"    onClick={ () => { this.navigateInternal('buyboost') }  } >
+          BEAST MODE
+          </div>
+      }
+
+          <div className="myButton"  onClick={ () => { this.onClaim() } } >
+            CLAIM REWARDS
+          </div>
+
+          <div className="myButton mt-2"  onClick={ () => { this.onExit() } }>
+            Exit: Claim & Unstake
+          </div>
+
+      </Col>
+
+      <Col lg="8" md="12" xs="12">
+
+      <div className="text-center mt-3 mb-2">
+
+      <a className="smallBTN mr-5" href={pool.link} target="_blank">BUY { pool.tokens[0].symbol }</a>
+
+      { pool.liquidityLink !='' && <a className="smallBTN mr-5"  href={pool.liquidityLink} target="_blank">Add Liquidity</a> }
+
+          <div className="smallBTN" 
+
+            onClick = {async (event) => {
+            let provider  = new Web3(store.getStore('web3context').library.provider);
+            provider = provider.currentProvider;
+            provider.sendAsync({
+            method: 'metamask_watchAsset',
+            params: {
+              "type":"ERC20",
+              "options":{
+                "address": pool.tokens[0].address,
+                "symbol": pool.tokens[0].symbol,
+                "decimals": 18,
+                "image": '',
+              }
+            },
+            id: Math.round(Math.random() * 100000),
+            }, (err, added) => {
+            console.log('provider returned', err, added)
+            if (err || 'error' in added) {
+              return  emitter.emit(ERROR, 'There was a problem adding the token.');
+              }
+            })
+            }}
+          
+          >Add token to Metamask</div>
+
+        </div>
+
+
+      </Col>
+
+      </Row>
     )
   }
 
@@ -664,7 +681,7 @@ onClick = {async (event) => {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(2) : "0" }  { pool.tokens[0].symbol }</td>
+                    <td>{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(2) : "0" } UNI </td>
                     <td>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }</td>
                     <td>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</td>
                     <td>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</td>
@@ -673,7 +690,7 @@ onClick = {async (event) => {
             </table>
 
         <div className="text-center">
-          <a className="smallBTN mr-3" href="https://app.uniswap.org/#/swap" target="_blank">
+          <a className="smallBTN mr-3" href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x1f9840a85d5af5bf1d1762f925bdaddc4201f984" target="_blank">
             BUY UNI
           </a>
 
@@ -687,8 +704,8 @@ onClick = {async (event) => {
                     params: {
                       "type":"ERC20",
                       "options":{
-                        "address": pool.tokens[0].address,
-                        "symbol": pool.tokens[0].symbol,
+                        "address": pool.tokens[0].boostTokenAddress,
+                        "symbol": pool.tokens[0].boostTokenSymbol,
                         "decimals": 18,
                         "image": '',
                       },
@@ -697,16 +714,10 @@ onClick = {async (event) => {
                   }, (err, added) => {
                     console.log('provider returned', err, added)
                     if (err || 'error' in added) {
-                      this.setState({
-                        errorMessage: 'There was a problem adding the token.',
-                        message: '',
-                      })
+                      emitter.emit(ERROR, 'There was a problem adding the token.');
                       return
                     }
-                    this.setState({
-                      message: 'Token added!',
-                      errorMessage: '',
-                    })
+                   
                   })
                 }}
 
@@ -716,7 +727,7 @@ onClick = {async (event) => {
           </div>
 
         </Col>
-        <Col lg="6" md="12" xs="12" className="p-1">
+        <Col lg="6" md="12" xs="12" className="p-4">
          
           <table className="table">
              <tbody>
@@ -755,92 +766,18 @@ onClick = {async (event) => {
           </div>
         </Col>
         
-
       </Row>
-
-     /*  <Row>
-          <Col lg='2' md="12" xs="12"></Col>
-          <Col lg='8' md="12" xs="12">
-      <div className={ classes.actions } >
-        <Typography className={ classes.stakeTitle } variant={ 'h3'}>Beast Mode</Typography>
-   
-
-      <div className={ classes.actionsBoost }>
-          <Typography  variant={ 'h5'}>{ pool.tokens[0].boostTokenSymbol} Token Balance : </Typography>
-          <Typography variant={ 'h5' } className={ classes.overviewValue }> { pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(2) : "0" } UNI</Typography>
-      </div>
-
-      <div className={ classes.actionsBoost }>
-          <Typography  variant={ 'h5'}>Cost of Beast Mode : </Typography>
-          <Typography variant={ 'h5' } className={ classes.overviewValue }>{ pool.tokens[0].costBooster ? pool.tokens[0].costBooster.toFixed(2) : "0" } UNI</Typography>
-      </div>
-
-      <div className={ classes.actionsBoost }>
-          <Typography  variant={ 'h5'}>Cost of Beast Mode (USD) : </Typography>
-          <Typography variant={ 'h5' } className={ classes.overviewValue }>$ { pool.tokens[0].costBoosterUSD ? pool.tokens[0].costBoosterUSD.toFixed(2) : "0.00" } </Typography>
-      </div>
-      <div className={ classes.actionsBoost }>
-	          <Typography  variant={ 'h5'}>Time to next BEAST powerup : </Typography>
-	          <Typography variant={ 'h5' } className={ classes.overviewValue }>{ (pool.tokens[0].timeToNextBoost -(new Date().getTime())/1000) > 0 ? ((pool.tokens[0].timeToNextBoost - (new Date().getTime())/1000)/60).toFixed(0) : "0" } Minutes</Typography>
-	      </div>
-
-      <div className={ classes.actionsBoost }>
-          <Typography  variant={ 'h5'}>Beast Modes currently active : </Typography>
-          <Typography variant={ 'h5' } className={ classes.overviewValue }>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</Typography>
-      </div>
-
-      <div className={ classes.actionsBoost }>
-          <Typography  variant={ 'h5'}>Current Beast Mode stake value : </Typography>
-          <Typography variant={ 'h5' } className={ classes.overviewValue }>{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(2) : "0" } UNI-v2</Typography>
-      </div>
-
-      <div className={ classes.actionsBoost }>
-          <Typography  variant={ 'h5'}>Staked value after next Beast Mode : </Typography>
-          <Typography variant={ 'h5' } className={ classes.overviewValue }> { pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(2) : "0" } UNI-v2</Typography>
-      </div>
-
-       
-         
-       
-
-      </div>
-      <Row className="mb-5">
-         <Col lg='6' md="12" sm="12">
-         <Button
-            className="btn btn-outline-info btn-block"
-            variant="outlined"
-            color="secondary"
-            disabled={ loading }
-            onClick={ () => {  this.navigateInternal('options') } }
-          >
-             <Typography variant={ 'h4'}>Back</Typography>
-          </Button>
-         </Col>
-         <Col lg='6' md="12" sm="12">
-         <Button
-             className="btn btn-info  btn-block"
-            variant="outlined"
-            color="secondary"
-            disabled={ (pool.id === 'Governance' ? (loading || voteLockValid ) : loading  ) || pool.tokens[0].disableBoost}
-            onClick={ () => { this.validateBoost() } }
-          >
-            <Typography variant={ 'h4'}>Beast Mode</Typography>
-          </Button>
-         </Col>
-       </Row>
-        
-      </Col>
-      <Col lg='2' md="12" xs="12"></Col>
-      </Row>       */
 
     )
   }
   validateBoost = () => {
     const { loading, pool, voteLockValid } = this.state
     if(pool.tokens[0].costBooster > pool.tokens[0].boostBalance){
-        alert("insufficient funds to activate Beast Mode")
+        //alert("insufficient funds to activate Beast Mode")
+        emitter.emit(ERROR, 'insufficient funds to activate Beast Mode');
     } else if((pool.tokens[0].timeToNextBoost -(new Date().getTime())/1000) > 0){
-        alert("Too soon to activate BEAST Mode again")
+        //alert("Too soon to activate BEAST Mode again")
+        emitter.emit(ERROR, 'Too soon to activate BEAST Mode again');
     } else {
         this.onBuyBoost()
     }
@@ -959,42 +896,104 @@ onClick = {async (event) => {
   }
 
   onStake = () => {
+
+
+
     this.setState({ amountError: false })
+    this.setState({ amountStakeError: false })
     const { pool } = this.state
+
+
+
+    if(pool.id=='yearn'){
+      this.navigateStakeInternal('poolended');
+
+    }else if(pool.id=='balancer-stake' || pool.id=='balancer-pool' || pool.id=='group1' || pool.id=='group2'
+    || pool.id=='group3' || pool.id=='group4' || pool.id=='group5' || pool.id=='group6' || pool.id=='group7'){
+      this.navigateStakeInternal('comingsoon');
+    }else{
+
     const tokens = pool.tokens
     const selectedToken = tokens[0]
+    this.setState({ fieldid : ''})
     const amount = this.state[selectedToken.id + '_stake']
 
-    // if(amount > selectedToken.balance) {
-    //   return false
-    // }
-
-    this.setState({ loading: true })
-    dispatcher.dispatch({ type: STAKE, content: { asset: selectedToken, amount: amount } })
+      if(amount > 0){
+        this.setState({ loading: true })
+        dispatcher.dispatch({ type: STAKE, content: { asset: selectedToken, amount: amount } })
+      }else{
+        this.setState({ fieldid : selectedToken.id + '_stake'})
+        this.setState({ amountStakeError: true })
+          emitter.emit(ERROR, 'Please enter the amount on the Stake field');
+       
+      }
+    }
   }
+
+  poolEnded=()=>{
+    return (
+      <>
+        <Row>
+          <Col lg="12" md="12" xs="12" className="my-auto" style={{'height':'200px'}}>
+              <h2 className="poolended">POOL ENDED</h2>
+          </Col>
+        </Row>
+      </>
+    )
+  }
+
+  comingSoon=()=>{
+    return (
+      <>
+        <Row>
+          <Col lg="12" md="12" xs="12" className="my-auto" style={{'height':'200px'}}>
+              <h2 className="poolended">Coming Soon</h2>
+          </Col>
+        </Row>
+      </>
+    )
+  }
+
 
   onClaim = () => {
     const { pool } = this.state
-    const tokens = pool.tokens
-    const selectedToken = tokens[0]
 
-    this.setState({ loading: true })
-    dispatcher.dispatch({ type: GET_REWARDS, content: { asset: selectedToken } })
+    if(pool.id!='yearn' && pool.id!='boost'){
+      this.navigateStakeInternal('comingsoon');
+    }else{
+
+      const tokens = pool.tokens
+      const selectedToken = tokens[0]
+
+      this.setState({ loading: true })
+      dispatcher.dispatch({ type: GET_REWARDS, content: { asset: selectedToken } })
+    }
   }
 
   onUnstake = () => {
     this.setState({ amountError: false })
+    this.setState({ amountStakeError: false })
+   
     const { pool } = this.state
-    const tokens = pool.tokens
-    const selectedToken = tokens[0]
-    const amount = this.state[selectedToken.id + '_unstake']
-    //
-    // if(amount > selectedToken.balance) {
-    //   return false
-    // }
 
-    this.setState({ loading: true })
-    dispatcher.dispatch({ type: WITHDRAW, content: { asset: selectedToken, amount: amount } })
+    if(pool.id !='yearn' && pool.id!='boost'){
+      this.navigateStakeInternal('comingsoon');
+    }else{
+
+
+      const tokens = pool.tokens
+      const selectedToken = tokens[0]
+      this.setState({ fieldid : ''})
+      const amount = this.state[selectedToken.id + '_unstake']
+      if(amount > 0){
+        this.setState({ loading: true })
+        dispatcher.dispatch({ type: WITHDRAW, content: { asset: selectedToken, amount: amount } })
+      }else{
+        this.setState({ fieldid : selectedToken.id + '_unstake'})
+        this.setState({ amountStakeError: true })
+        emitter.emit(ERROR, 'Please enter the amount on the Un-Stake field');
+      }
+    }
   }
 
   onExit = () => {
@@ -1002,8 +1001,13 @@ onClick = {async (event) => {
     const tokens = pool.tokens
     const selectedToken = tokens[0]
 
-    this.setState({ loading: true })
-    dispatcher.dispatch({ type: EXIT, content: { asset: selectedToken } })
+    if(pool.id!='yearn' && pool.id!='boost'){
+      this.navigateStakeInternal('comingsoon');
+    }else{
+
+      this.setState({ loading: true })
+      dispatcher.dispatch({ type: EXIT, content: { asset: selectedToken } })
+    }
   }
 
   renderAssetInput = (asset, type) => {
@@ -1012,11 +1016,14 @@ onClick = {async (event) => {
     } = this.props
 
     const {
-      loading
+      loading,
+      amountStakeError,
+      fieldid
     } = this.state
 
     const amount = this.state[asset.id + '_' + type]
-    const amountError = this.state[asset.id + '_' + type + '_error']
+    let amountError = this.state[asset.id + '_' + type + '_error']
+  
 
     return (
       <div className={ classes.valContainer } key={asset.id + '_' + type}>
@@ -1028,7 +1035,8 @@ onClick = {async (event) => {
           <TextField
             fullWidth
             disabled={ loading }
-            className="border-btn"
+            className={ (amountStakeError && fieldid ==  asset.id + '_' + type ? 'border-btn-error' : 'border-btn') }
+            inputRef={ input =>input && fieldid ==  asset.id + '_' + type && amountStakeError && input.focus()}
             id={ '' + asset.id + '_' + type }
             value={ amount }
             error={ amountError }
@@ -1064,6 +1072,7 @@ onClick = {async (event) => {
   onChange = (event) => {
     let val = []
     val[event.target.id] = event.target.value
+    this.setState({amountStakeError : false})
     this.setState(val)
   }
 

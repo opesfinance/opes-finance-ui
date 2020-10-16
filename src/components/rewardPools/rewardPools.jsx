@@ -16,7 +16,7 @@ import '../../assets/css/hover-css/hover-min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Col, Row, Button, Navbar, Nav, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Countdown from 'react-countdown-now';
-
+import Web3 from 'web3';
 
 
 import {
@@ -32,7 +32,7 @@ import {
 
 const countdownrenderer = ({ days, hours, minutes, seconds, completed }) => {
   if (completed) {
-    return <span>Rewards Ended</span>;
+    return <span>Rewards: ENDED</span>;
   } else {
     // Render a countdown
   return <span>Rewards Ends in {days} Day(s) {hours}:{minutes}:{seconds}</span>;
@@ -164,7 +164,7 @@ class RewardPools extends Component {
             {
               value ==='group-pools' &&  (
                 <Button
-                className="btn btn-outline-info btn-block mb-2"
+                className="smallBTN mb-2"
                 variant="outlined"
                 color="secondary"
                 onClick={ () => {  this.renderMain() } }
@@ -185,7 +185,7 @@ class RewardPools extends Component {
        
 
         </Container>
-        <div className="text-center text-white w-100 fixed-bottom">
+        <div className="text-center text-white w-100 bottom p-5">
           © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
           </div>
        
@@ -202,8 +202,8 @@ class RewardPools extends Component {
          
           <Col lg="12" md="12" xs="12" className="text-center">
           
-            <div className="mb-2 textheader mt-5 dheader" ><br/>Enough is Enough</div>
-            <div className="mb-5 text-white mb-1 dsubheader" ><br/>OPES is bringing equality to the World! </div>
+            <div className="mb-2 textheader mt-5 display-4" ><br/>Enough is Enough</div>
+            <div className="mb-5 text-white mb-1 " style={{'fontSize':'28px'}} ><br/>OPES is bringing equality to the World! </div>
           </Col>
           <Col lg="3" md="12" xs="12" className="p-1">
             
@@ -228,30 +228,35 @@ class RewardPools extends Component {
           { this.renderRewardPoolCard('balancer-pool') }
 
           </Col>
-          <Col className="mt-1" lg="12" md="12" sx="12">
+          <Col className="mt-1 text-center" lg="12" md="12" sx="12">
             <br/> <br/>
             <h4>Honest worker? Explore Farming Opportunities</h4>
         <p>Add liquidity to earn fees and Wrapped PE incentives</p>
        
-        <table>
+        <table className="float-right mb-5 mr-5">
           <tbody>
             <tr>
-              <td style={{color:'#FFFFFF'}}>WPE TOKEN</td>
+             
               <td>
-              <a className="smallBTN m-1"  href="#" target="_blank">BUY</a>
+              <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY WPE TOKEN</a>
               </td>
+              
             </tr>
             <tr>
-              <td  style={{color:'#FFFFFF'}}>UNI-V2 TOKEN</td>
+              
               <td>
-              <a className="smallBTN m-1"  href="#" target="_blank">BUY</a>
+              <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY UNI-V2 TOKEN</a>
               </td>
+            
+
             </tr>
             <tr>
-              <td  style={{color:'#FFFFFF'}}>UNI TOKEN</td>
+              
               <td>
-              <a className="smallBTN m-1"  href="#" target="_blank">BUY</a>
+              <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x1f9840a85d5af5bf1d1762f925bdaddc4201f984" target="_blank">BUY UNI TOKEN</a>
               </td>
+             
+
             </tr>
           </tbody>
         </table>
@@ -279,21 +284,23 @@ class RewardPools extends Component {
                   <Card.Title> { rewardPool.name }</Card.Title>
                  {/*  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
                  
-                  <ListGroup className="list-group-flush">
+                 { (rewardPool.id =='yearn' || rewardPool.id =='boost' ||rewardPool.id =='balancer-stake' ) && <ListGroup className="list-group-flush">
       <ListGroupItem>DEX : { rewardPool.website }</ListGroupItem>
                     <ListGroupItem>Weekly Rewards : 
-
-                    {/* <Countdown
-                      date={new Date(rewardPool.tokens[0].rewardsEndDate['year'],rewardPool.tokens[0].rewardsEndDate['month'],
-                      rewardPool.tokens[0].rewardsEndDate['day'],rewardPool.tokens[0].rewardsEndDate['hour'],rewardPool.tokens[0].rewardsEndDate['minute'])}
-                      renderer={countdownrenderer}
-                      daysInHours={true}
-                    /> */}
+      {' '}{ rewardPool.tokens[0].poolRatePerWeek }
 
                     </ListGroupItem>
                     <ListGroupItem>APR : </ListGroupItem>
                     <ListGroupItem>Liquidity : </ListGroupItem>
-                  </ListGroup>
+      </ListGroup> }
+
+      { (rewardPool.id !='yearn' && rewardPool.id !='boost' && rewardPool.id !='balancer-stake' ) && <ListGroup className="list-group-flush">
+                 
+                  <ListGroupItem>DEX : { rewardPool.website }</ListGroupItem>
+                                <ListGroupItem>&nbsp;</ListGroupItem>
+                                <ListGroupItem>&nbsp;</ListGroupItem>
+                                <ListGroupItem>&nbsp;</ListGroupItem>
+                  </ListGroup> }
   
                   <div className="mt-1 myButton">
                     SELECT
@@ -352,10 +359,11 @@ class RewardPools extends Component {
           <Col lg="1" md="12" xs="12"></Col>
           <Col lg="3" md="12" xs="12"></Col>
           <Col lg="2" md="12" xs="12" className=" text-white p-2"><strong>Total Deposited</strong></Col>
-          <Col lg="2" md="12" xs="12" className=" text-white p-2"><strong>Pool Rate WPE/Week</strong></Col>
+          <Col lg="1" md="12" xs="12" className=" text-white p-2"><strong>Pool Rate WPE/Week</strong></Col>
+          <Col lg="1" md="12" xs="12"></Col>
+          <Col lg="1" md="12" xs="12"></Col>
+          <Col lg="1" md="12" xs="12"></Col>
           <Col lg="2" md="12" xs="12"></Col>
-          <Col lg="1" md="12" xs="12"></Col>
-          <Col lg="1" md="12" xs="12"></Col>
         </Row>
         <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group1') }</Row>
         <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group2') }</Row>
@@ -365,33 +373,7 @@ class RewardPools extends Component {
         <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group6') }</Row>
         <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group7') }</Row>
 
-
-        {/* <div class="table-responsive">
-        <table className="table newtable">
-            <thead>
-              <tr>
-                <th></th>
-                <th></th>
-                <th>Total Deposited</th>
-                <th>Pool Rate WPE/Week</th>
-                <th></th>
-                <th></th>
-                <th></th>
-                
-              </tr>
-            </thead>
-            <tbody>
-            { this.renderRewardsGroupSelected('group1') }
-            { this.renderRewardsGroupSelected('group2') }
-            { this.renderRewardsGroupSelected('group3') }
-            { this.renderRewardsGroupSelected('group4') }
-            { this.renderRewardsGroupSelected('group5') }
-            { this.renderRewardsGroupSelected('group6') }
-            { this.renderRewardsGroupSelected('group7') }
-            </tbody>
-        </table>
-        </div> */}
-        <br/><br/><br/>
+       <br/><br/><br/>
         </Col>
       </Row>
     )
@@ -476,22 +458,51 @@ class RewardPools extends Component {
           <span class="mob float-left">Staked Balance : </span>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }
          
           </Col>
-          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
+          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
           <span class="mob float-left">Pool Rate WPE/Week : </span>{ rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }
           </Col>
-          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
-          <Countdown
+          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto text-center">
+         {/*  <Countdown
                  date={new Date(rewardPool.tokens[0].rewardsEndDate['year'],rewardPool.tokens[0].rewardsEndDate['month'],
                  rewardPool.tokens[0].rewardsEndDate['day'],rewardPool.tokens[0].rewardsEndDate['hour'],rewardPool.tokens[0].rewardsEndDate['minute'])}
                 renderer={countdownrenderer}
                 daysInHours={true}
-              />
+              /> */}
+              Coming Soon
           </Col>
           <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
-          <a href={rewardPool.link} target="_blank" className="smallBTN">BUY</a>
+          <a href={rewardPool.link} target="_blank" className="smallBTN small">BUY</a>
           </Col>
           <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
-          <div className="smallBTN"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } } >STAKE</div>
+          <div className="smallBTN small"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } } >STAKE</div>
+          </Col>
+          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
+          <div className="smallBTN text-center small"
+          
+          onClick = {async (event) => {
+            let provider  = new Web3(store.getStore('web3context').library.provider);
+            provider = provider.currentProvider;
+            provider.sendAsync({
+            method: 'metamask_watchAsset',
+            params: {
+              "type":"ERC20",
+              "options":{
+                "address": rewardPool.tokens[0].rewardsAddress,
+                "symbol": rewardPool.tokens[0].rewardsSymbol,
+                "decimals": 18,
+                "image": '',
+              }
+            },
+            id: Math.round(Math.random() * 100000),
+            }, (err, added) => {
+              console.log('provider returned', err, added)
+              if (err || 'error' in added) {
+              return  emitter.emit(ERROR, 'There was a problem adding the token.');
+              }
+            })
+          }}
+          
+          >Add Token to Metamask</div>
           </Col>
       </>
      

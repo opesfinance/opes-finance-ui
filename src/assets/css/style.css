@@ -108,6 +108,13 @@ a {
     padding:5px !important;
     color: #ffffff;
 }
+.border-btn-error{
+    margin-bottom: 10px !important;
+    border-radius: 5px !important;
+    padding:5px !important;
+    border: 1px solid #7c0202 !important;
+    color: #7c0202 !important;
+}
 
 .headerPool{
     background-color: #17a2b8; padding:10px; color: white;
@@ -129,13 +136,15 @@ a {
     min-height: 1000px;
 }
 .dheader{
-    font-size:'50px';
-    height:'100px';
+    font-size : '50px' !important;
+    height:'100px' !important;
  }
+
+
  .dsubheader{
-    font-size:'38px';
+    font-size: '10px' !important;
     color :'#FFFFF';
-    height:'100px';
+    height:'100px' !important;
  }
 
 #root {
@@ -143,7 +152,7 @@ a {
     background-size: cover !important;
     background-blend-mode: multiply !important;
     background-color: #00000052 !important;
-    min-height: 1000px;
+   
 }
 
  #tsparticles {
@@ -183,13 +192,13 @@ a {
 
 @media only screen and (max-width:800){
     .dheader{
-        font-size:'60px';
-        height:'30px';
+        font-size:'60px' !important;
+        height:'30px' !important;
      }
      .dsubheader{
-        font-size:'38px';
+        font-size:'38px' !important;
         color :'#FFFFF';
-        height:'100px';
+        height:'100px' !important;
      }
     
 }
@@ -225,13 +234,16 @@ a {
     color:#ffffff;
     -moz-box-shadow: 1px 2px 3px rgba(4, 115, 158, 0.5);
 	-webkit-box-shadow: 1px 2px 3px rgba(4, 115, 158,.5);
-	box-shadow: 1px 2px 3px rgba(4, 115, 158,.5);
- 
+    box-shadow: 1px 2px 3px rgba(4, 115, 158,.5);
+    border:0px !important;
+   
+    border-radius:10px !important;
 }
 
 .card-body{
     background: #4a5e72;  
   /*   border:1px solid #186ce9; */
+  border-radius:10px !important;
  
 }
 
@@ -240,11 +252,11 @@ a {
 	-webkit-box-shadow: 4px 8px 8px 10px rgba(4, 115, 158,.5);
     box-shadow: 4px 8px 8px 10px rgba(4, 115, 158,.5);
     
-    -webkit-transform: scale(1.3);
-        -ms-transform: scale(1.3);
-        transform: scale(1.3);
+    -webkit-transform: scale(1.1);
+        -ms-transform: scale(1.1);
+        transform: scale(1.1);
         z-index: 3;
-        border:1px solid #ffffff;
+      /*   border:1px solid #ffffff; */
         border-radius: 10px;
         color:#ffffff;
 }
@@ -340,11 +352,11 @@ a {
 } */
 
 .myButton {
-	box-shadow: 0px 0px 0px 2px #9fb4f2;
+	/* box-shadow: 0px 0px 0px 2px #9fb4f2; */
 	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
 	background-color:#7892c2;
 	border-radius:10px;
-	border:1px solid #4e6096;
+	/* border:1px solid #4e6096; */
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -357,9 +369,48 @@ a {
     text-align: center;
 }
 .myButton:hover {
-	background:linear-gradient(to bottom, #476e9e 5%, #7892c2 100%);
-	background-color:#476e9e;
+	background:linear-gradient(to bottom, #048359 5%, #0dc789 100%);
+    /* background-color:#476e9e; */
+    background-color: #048359 !important;
+    text-decoration:none;
+    
 }
+
+
+.myButtonSmall {
+	/* box-shadow: 0px 0px 0px 2px #9fb4f2; */
+	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+	background-color:#7892c2;
+	border-radius:10px;
+	/* border:1px solid #4e6096; */
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	padding:5px 10px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #283966;
+    width:100%;
+    text-align: center;
+}
+.myButtonSmall:hover {
+	background:linear-gradient(to bottom, #048359 5%, #0dc789 100%);
+    /* background-color:#476e9e; */
+    background-color: #048359 !important;
+    text-decoration:none;
+    color:#ffffff;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+    
+}
+
+.myButtonSmall-small{
+    padding:2px !important;
+    width:150px !important;
+}
+
 .myButton:active {
 	position:relative;
 	top:1px;
@@ -367,47 +418,31 @@ a {
 
 
 .smallBTN {
-    background: #3D94F6;
-    background-image: -webkit-linear-gradient(top, #3D94F6, #1E62D0);
-    background-image: -moz-linear-gradient(top, #3D94F6, #1E62D0);
-    background-image: -ms-linear-gradient(top, #3D94F6, #1E62D0);
-    background-image: -o-linear-gradient(top, #3D94F6, #1E62D0);
-    background-image: -webkit-gradient(to bottom, #3D94F6, #1E62D0);
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    color: #FFFFFF;
-    font-family: Open Sans;
-    font-size: 13px;
-    font-weight: 100;
-    padding: 7px;
-    -webkit-box-shadow: 1px 1px 20px 0 #000000;
-    -moz-box-shadow: 1px 1px 20px 0 #000000;
-    box-shadow: 1px 1px 20px 0 #000000;
-    text-shadow: 1px 1px 20px #000000;
-    border: solid #337FED 1px;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-    text-align: center;
+  /*   box-shadow: 0px 0px 0px 2px #9fb4f2; */
+	background:linear-gradient(to bottom, #7892c2 5%, #476e9e 100%);
+	background-color:#7892c2;
+	border-radius:10px;
+/* 	border:1px solid #4e6096; */
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	padding:5px 10px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #283966;
  }
  
  .smallBTN:hover {
-    border: solid #337FED 1px;
-    background: #1E62D0;
-    background-image: -webkit-linear-gradient(top, #1E62D0, #3D94F6);
-    background-image: -moz-linear-gradient(top, #1E62D0, #3D94F6);
-    background-image: -ms-linear-gradient(top, #1E62D0, #3D94F6);
-    background-image: -o-linear-gradient(top, #1E62D0, #3D94F6);
-    background-image: -webkit-gradient(to bottom, #1E62D0, #3D94F6);
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    text-decoration: none;
-    color: #FFFFFF;
-    -webkit-transform: scale(1.3);
-    -ms-transform: scale(1.3);
-    transform: scale(1.3);
+    background:linear-gradient(to bottom, #048359 5%, #0dc789 100%);
+    /* background-color:#476e9e; */
+    background-color: #048359 !important;
+    text-decoration:none;
+    color:#ffffff;
+    border-radius:10px;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
  }
  .newtable tbody tr td{
      font-size:15px;
@@ -441,3 +476,17 @@ a {
      font-weight: bold;
  }
 
+.connectBtn{
+    border:1px solid #FFFFFF;
+}
+.btn:hover{
+    background-color: rgb(4, 131, 89) !important;
+}
+
+.poolended{
+    text-align: center;
+    color:#FFFFFF;
+    padding:30px;
+    background-color:rgb(76, 113, 158,0.5);
+    vertical-align: middle;
+}
