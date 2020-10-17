@@ -8,91 +8,13 @@ body {
     background-color: #00000052 !important;
    
 }
-.img-bg .probootstrap-photo-upper {
-    text-align: right;
-    top: 20px;
-    right: 20px;
-    position: absolute;
-}
-.img-bg .probootstrap-photo-upper {
-    text-align: right;
-}
-.img-bg .probootstrap-photo-upper h2, 
-.img-bg .probootstrap-photo-upper p {
-	color: #ffffff;
-	position: relative;
-	padding-left: 20px;
-	padding-right: 20px;
-	margin-bottom: 0px;
-	background: rgba(0, 0, 0, 0.5);
-}
-.img-bg .probootstrap-photo-upper p {
-    color: #ffffff;
-    -webkit-transition: .3s all ease;
-    transition: .3s all ease;
-}
-
-.img-bg .probootstrap-photo-details {
-    text-align: left;
-    bottom: 20px;
-    left: 20px;
-    position: absolute;
-}
-
-  
-
-.img-bg{
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    height: 500px;
-    margin-bottom: 16px;
-    display: block;
-}
-
-.imgbg1 {
-    background-image: url('../img/img_1.jpg');
-}
 
 p {
     margin: 0 0 10px;
-
 }
 
-.img-bg .probootstrap-photo-details h2 {
-    padding-top: 10px;
-    margin-right: 25px;
-}
-.img-bg .probootstrap-photo-details h2, 
-.img-bg .probootstrap-photo-details p {
-    color: #ffffff;
-    position: relative;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-bottom: 0px;
-    color: white;
-    background: rgba(0, 0, 0, 0.7);
-    font-weight: bold;
-    margin-right: 25px;
-}
 h2, .section-heading h2 {
     font-size: 1.424em;
-}
-
-
-.imgbg2 {
-  
-    background-image: url('../img/img_2.jpg');
-}
-
-.imgbg3 {
-  
-    background-image: url('../img/img_3.jpg');
-}
-
-.imgbg4 {
-  
-    background-image: url('../img/img_4.jpg');
 }
 a {
     -webkit-transition: .3s all;
@@ -139,7 +61,7 @@ a {
 }
 
 .Container{
-    background-color: #000000;
+   
     min-height: 1000px;
 }
 .dheader{
@@ -156,40 +78,6 @@ a {
 
 
 
- #tsparticles {
-    width: 100%;
-    min-height: 1000px;
-/*   height:100vh; */
-    overflow: hidden;
-    top: 0;                        
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: absolute;
-    z-index: 0 !important;
- /*    background-color: #4a5e72;
-    background: url('../OPES-Splash-Page-1200x675.jpg') center center fixed;
-    background-size: cover;
-    background-blend-mode: multiply;
-    background-color: #00000052; */
-/*  background: url('../opes-logo-big.png') bottom center fixed #4a5e72;
-    background-repeat: no-repeat; */
-}
-
-@media only screen and (max-width: 600px) {
-    #tsparticles,
-    #tsparticles canvas {
-      display: none;
-    }
-  }
-  
-  @media only screen and (min-width: 600px) {
-    #tsparticles,
-    #tsparticles canvas {
-      display: block;
-    }
-  }
-  
 
 @media only screen and (max-width:800){
     .dheader{
@@ -247,19 +135,19 @@ a {
   border-radius:10px !important;
  
 }
-
-.card-body:hover{
-    -moz-box-shadow: 4px 8px 8px 10px rgba(4, 115, 158, 0.5);
-	-webkit-box-shadow: 4px 8px 8px 10px rgba(4, 115, 158,.5);
-    box-shadow: 4px 8px 8px 10px rgba(4, 115, 158,.5);
-    
-    -webkit-transform: scale(1.1);
-        -ms-transform: scale(1.1);
-        transform: scale(1.1);
-        z-index: 3;
-      /*   border:1px solid #ffffff; */
-        border-radius: 10px;
-        color:#ffffff;
+@media (min-width:801px){
+    .card-body:hover{
+        -moz-box-shadow: 4px 8px 8px 10px rgba(4, 115, 158, 0.5);
+        -webkit-box-shadow: 4px 8px 8px 10px rgba(4, 115, 158,.5);
+        box-shadow: 4px 8px 8px 10px rgba(4, 115, 158,.5);
+        
+        -webkit-transform: scale(1.1);
+            -ms-transform: scale(1.1);
+            transform: scale(1.1);
+            z-index: 3;
+            border-radius: 10px;
+            color:#ffffff;
+    }
 }
 
 .headerTitle{
@@ -351,6 +239,36 @@ a {
 /* h4{
     border-bottom: 1px solid #ffffff !important;
 } */
+
+.myButton-disable {
+	background-color:#727272;
+	border-radius:10px;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	padding:12px 37px;
+	text-decoration:none;
+    width:100%;
+    text-align: center;
+}
+
+
+.smallBTN-disable {
+    background-color:#727272;
+	border-radius:10px;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:19px;
+	padding:5px 10px;
+	text-decoration:none;
+    text-align: center;
+}
+.smallBTN-disable:hover{
+    text-decoration: none;
+    color:#ffffff;
+}
 
 .myButton {
 	/* box-shadow: 0px 0px 0px 2px #9fb4f2; */

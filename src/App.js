@@ -22,7 +22,7 @@ import Vote from './components/vote';
 import VersionToggle from './components/versionToggle';
 import Lock from './components/lock';
 
-import Particles from 'react-particles-js';
+
 import './assets/css/style.css';
 import {
   CONNECTION_CONNECTED,

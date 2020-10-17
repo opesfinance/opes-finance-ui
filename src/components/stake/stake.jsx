@@ -56,55 +56,6 @@ const countdownrenderer = ({ days, hours, minutes, seconds, completed }) => {
 
 const styles = theme => ({
   
-  
-  
-  overview: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '28px 30px',
-    borderRadius: '50px',
-    border: '1px solid '+colors.borderBlue,
-    alignItems: 'center',
-    marginTop: '40px',
-    width: '100%',
-    background: colors.white
-  },
-  overviewField: {
-    display: 'flex',
-    flexDirection: 'column'
-  },
-  overviewTitle: {
-    color: colors.darkGray
-  },
-  overviewValue: {
-
-  },
-  actions: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    maxWidth: '900px',
-    flexWrap: 'wrap',
-   /*  background: colors.white, */
-   /*  border: '1px solid '+colors.borderBlue, */
-    padding: '28px 30px',
-    borderRadius: '10px',
-   /*  marginTop: '40px' */
-  },
-  actionsBoost: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    maxWidth: '900px',
-    flexWrap: 'wrap',
-    background: colors.white,
-    border: '1px solid '+colors.borderBlue,
-    padding: '15px 15px',
-    borderRadius: '10px',
-    marginTop: '5px'
-  },
   valContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -131,37 +82,11 @@ const styles = theme => ({
     paddingRight: '20px',
     cursor: 'pointer'
   },
-  stakeTitle: {
-    width: '100%',
-    color: colors.darkGray,
-    marginBottom: '20px'
-  },
-  stakeButtons: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    align: 'center',
-    marginTop: '20px'
-  },
-  stakeButton: {
-    minWidth: '300px'
-  },
-  requirement: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  check: {
-    paddingTop: '6px'
-  },
+
   voteLockMessage: {
     margin: '20px'
   },
-  title: {
-    width: '100%',
-    color: colors.darkGray,
-    minWidth: '100%',
-    marginLeft: '20px'
-  },
+ 
 })
 
 const emitter = Store.emitter
@@ -455,9 +380,13 @@ class Stake extends Component {
             <Card.Body>
                 <Card.Title>STAKE</Card.Title>
                 { this.renderAssetInput( pool.tokens[0], 'stake') }
-                <div className="myButton"  onClick={ () => { this.onStake() } } >
+                { pool.depositsEnabled && <div className="myButton"  onClick={ () => { this.onStake() } } >
                   STAKE
-                </div>
+                </div> }
+                { !pool.depositsEnabled && <div className="myButton-disable" >
+                  STAKE
+                </div> }
+  
             </Card.Body>
           </Card>
 
@@ -482,7 +411,7 @@ class Stake extends Component {
         
           
           
-      {   ['boost'].includes(pool.id) && <div className="myButton mb-2"    onClick={ () => { this.navigateInternal('buyboost') }  } >
+      {   !['yearn'].includes(pool.id) && <div className="myButton mb-2"    onClick={ () => { this.navigateInternal('buyboost') }  } >
           BEAST MODE
           </div>
       }
@@ -501,9 +430,10 @@ class Stake extends Component {
 
       <div className="text-center mt-3 mb-2">
 
-      <a className="smallBTN mr-5" href={pool.link} target="_blank">BUY { pool.tokens[0].symbol }</a>
+    { pool.depositsEnabled &&  <a className="smallBTN mr-5 mb-1" href={pool.link} target="_blank">BUY { pool.tokens[0].symbol }</a> }
+    { !pool.depositsEnabled &&  <a className="smallBTN-disable mr-5 mb-1"  target="_blank">BUY { pool.tokens[0].symbol }</a> }
 
-      { pool.liquidityLink !='' && <a className="smallBTN mr-5"  href={pool.liquidityLink} target="_blank">Add Liquidity</a> }
+      { pool.liquidityLink !='' && <a className="smallBTN mr-5 mb-1"  href={pool.liquidityLink} target="_blank">Add Liquidity</a> }
 
           <div className="smallBTN" 
 

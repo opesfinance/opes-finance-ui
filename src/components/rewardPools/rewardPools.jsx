@@ -12,7 +12,6 @@ import Store from "../../stores";
 import { colors } from '../../theme'
 
 import '../../assets/css/style.css';
-import '../../assets/css/hover-css/hover-min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Col, Row, Button, Navbar, Nav, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import Countdown from 'react-countdown-now';
@@ -228,38 +227,34 @@ class RewardPools extends Component {
           { this.renderRewardPoolCard('balancer-pool') }
 
           </Col>
-          <Col className="mt-1 text-center" lg="12" md="12" sx="12">
+          <Col className="mt-1 text-center" lg="12" md="12" xs="12">
             <br/> <br/>
-            <h4>Honest worker? Explore Farming Opportunities</h4>
-        <p>Add liquidity to earn fees and Wrapped PE incentives</p>
+            <h4>Yield Farm the most powerful asset in the world. And use Beast Mode as an equalizer against the whales.</h4>
+        <p>Add liquidity to earn fees and receive 8 Tokens rewards from 8 amazing REAL LONG TERM projects all from the same capital.</p>
        
-        <table className="float-right mb-5 mr-5">
-          <tbody>
-            <tr>
-             
-              <td>
-              <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY WPE TOKEN</a>
-              </td>
-              
-            </tr>
-            <tr>
-              
-              <td>
-              <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY UNI-V2 TOKEN</a>
-              </td>
-            
+            <Row>
+              <Col lg="4" md="12" xs="12"></Col>
+              <Col lg="4" md="12" xs="12">
 
-            </tr>
-            <tr>
-              
-              <td>
-              <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x1f9840a85d5af5bf1d1762f925bdaddc4201f984" target="_blank">BUY UNI TOKEN</a>
-              </td>
-             
+              <table className="table">
+                <tbody>
+                  <tr><td>
+                    <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY WPE TOKEN</a>
+                  </td></tr>
+                  <tr><td>
+                    <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY UNI-V2 TOKEN</a>
+                  </td></tr>
+                  <tr><td>
+                    <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x1f9840a85d5af5bf1d1762f925bdaddc4201f984" target="_blank">BUY UNI TOKEN</a>
+                  </td></tr>
+                </tbody>
+              </table>
 
-            </tr>
-          </tbody>
-        </table>
+              </Col>
+              <Col lg="4" md="12" xs="12"></Col>
+            </Row>
+
+        
         <br/> <br/>
         <br/> <br/>
           </Col>
