@@ -258,8 +258,8 @@ class Store {
           tokens: [
             {
               id: 'ycurvefi',
-              address: config.balancerAddress,
-              symbol: 'BAL',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
               abi: config.balancerABI,
               decimals: 18,
               rewardsAddress: config.boostRewardAddress,
@@ -305,12 +305,12 @@ class Store {
           tokens: [
             {
               id: 'boostrewards',
-              address: config.balancerAddress,
-              symbol: 'BAL',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
               abi: config.balancerABI,
               decimals: 18,
-              rewardsAddress: config.balancerAddress,
-              rewardsABI: config.balancerABI,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
               rewardsSymbol: 'STR',
               decimals: 18,
               balance: 0,

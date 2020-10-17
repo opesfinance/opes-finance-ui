@@ -837,8 +837,8 @@ class Stake extends Component {
 
     /* }else if(pool.id=='balancer-stake' || pool.id=='balancer-pool' || pool.id=='group1' || pool.id=='group2'
     || pool.id=='group3' || pool.id=='group4' || pool.id=='group5' || pool.id=='group6' || pool.id=='group7'){
-      this.navigateStakeInternal('comingsoon');
-    }else{ */
+      this.navigateStakeInternal('comingsoon');*/
+    }else{ 
 
     const tokens = pool.tokens
     const selectedToken = tokens[0]
