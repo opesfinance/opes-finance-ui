@@ -242,6 +242,34 @@ class RewardPools extends Component {
                     <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY WPE TOKEN</a>
                   </td></tr>
                   <tr><td>
+                    <a className="myButtonSmall m-1" 
+                    
+                    onClick = {async (event) => {
+                      let provider  = new Web3(store.getStore('web3context').library.provider);
+                      provider = provider.currentProvider;
+                      provider.sendAsync({
+                      method: 'metamask_watchAsset',
+                      params: {
+                        "type":"ERC20",
+                        "options":{
+                          "address": '0xd075e95423C5c4BA1E122CaE0f4CdFA19b82881b',
+                          "symbol": 'WPE',
+                          "decimals": 18,
+                          "image": '',
+                        }
+                      },
+                      id: Math.round(Math.random() * 100000),
+                      }, (err, added) => {
+                        console.log('provider returned', err, added)
+                        if (err || 'error' in added) {
+                        return  emitter.emit(ERROR, 'There was a problem adding the token.');
+                        }
+                      })
+                    }}
+                    
+                    >ADD WPE TOKEN to Metamask</a>
+                  </td></tr>
+                  <tr><td>
                     <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY UNI-V2 TOKEN</a>
                   </td></tr>
                   <tr><td>

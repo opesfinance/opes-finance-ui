@@ -314,17 +314,14 @@ class Stake extends Component {
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
               <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
               <br></br>
-              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } 
+              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
               <br></br>
-              { (pool.id =='boost' || pool.id == 'yearn' ) &&  <Countdown
+              <Countdown
                   date={new Date(pool.tokens[0].rewardsEndDate['year'],pool.tokens[0].rewardsEndDate['month'],
                   pool.tokens[0].rewardsEndDate['day'],pool.tokens[0].rewardsEndDate['hour'],pool.tokens[0].rewardsEndDate['minute'])}
                   renderer={countdownrenderer}
                   daysInHours={true}
                 />
-              }
-              {(pool.id =='balancer-stake' || pool.id == 'balancer-pool' || pool.id=='group1' || pool.id=='group2'
-            || pool.id=='group3' || pool.id=='group4' || pool.id=='group5' || pool.id=='group6' || pool.id=='group7') && 'Rewards: Coming Soon'}
                 <br/>
                 Contract Address: <a style={ {color :'#FFFFFF'}} href={ 'https://etherscan.io/address/'+addy } target="_blank">{ address }</a>.
               </p>
@@ -838,10 +835,10 @@ class Stake extends Component {
     if(pool.id=='yearn'){
       this.navigateStakeInternal('poolended');
 
-    }else if(pool.id=='balancer-stake' || pool.id=='balancer-pool' || pool.id=='group1' || pool.id=='group2'
+    /* }else if(pool.id=='balancer-stake' || pool.id=='balancer-pool' || pool.id=='group1' || pool.id=='group2'
     || pool.id=='group3' || pool.id=='group4' || pool.id=='group5' || pool.id=='group6' || pool.id=='group7'){
       this.navigateStakeInternal('comingsoon');
-    }else{
+    }else{ */
 
     const tokens = pool.tokens
     const selectedToken = tokens[0]
@@ -888,16 +885,16 @@ class Stake extends Component {
   onClaim = () => {
     const { pool } = this.state
 
-    if(pool.id!='yearn' && pool.id!='boost'){
+  /*   if(pool.id!='yearn' && pool.id!='boost'){
       this.navigateStakeInternal('comingsoon');
     }else{
-
+ */
       const tokens = pool.tokens
       const selectedToken = tokens[0]
 
       this.setState({ loading: true })
       dispatcher.dispatch({ type: GET_REWARDS, content: { asset: selectedToken } })
-    }
+    /* } */
   }
 
   onUnstake = () => {
@@ -906,10 +903,10 @@ class Stake extends Component {
    
     const { pool } = this.state
 
-    if(pool.id !='yearn' && pool.id!='boost'){
+ /*    if(pool.id !='yearn' && pool.id!='boost'){
       this.navigateStakeInternal('comingsoon');
     }else{
-
+ */
 
       const tokens = pool.tokens
       const selectedToken = tokens[0]
@@ -923,7 +920,7 @@ class Stake extends Component {
         this.setState({ amountStakeError: true })
         emitter.emit(ERROR, 'Please enter the amount on the Un-Stake field');
       }
-    }
+   /*  } */
   }
 
   onExit = () => {
@@ -931,13 +928,13 @@ class Stake extends Component {
     const tokens = pool.tokens
     const selectedToken = tokens[0]
 
-    if(pool.id!='yearn' && pool.id!='boost'){
+  /*   if(pool.id!='yearn' && pool.id!='boost'){
       this.navigateStakeInternal('comingsoon');
-    }else{
+    }else{ */
 
       this.setState({ loading: true })
       dispatcher.dispatch({ type: EXIT, content: { asset: selectedToken } })
-    }
+    /* } */
   }
 
   renderAssetInput = (asset, type) => {
