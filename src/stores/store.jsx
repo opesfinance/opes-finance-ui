@@ -593,7 +593,7 @@ class Store {
               symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
-              rewardsAddress: config.balancerAddress,
+              rewardsAddress: '0x8b0B760B71f77C8Ea69F3F633E5907a8Eb2f0661',
               rewardsABI: config.boostABI2,
               rewardsSymbol: 'YFU',
               decimals: 18,
