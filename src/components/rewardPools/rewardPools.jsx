@@ -465,7 +465,7 @@ class RewardPools extends Component {
     return (
       <>
         <Col lg="1" md="12" xs="12" className="text-center my-auto">
-        { (rewardPool.id =='group4' || rewardPool.id =='group1'  || rewardPool.id =='group7') &&
+        { (rewardPool.id =='group4' || rewardPool.id =='group1'  || rewardPool.id =='group2' || rewardPool.id =='group7') &&
             <img
             alt=""
             src={ require('../../assets/'+rewardPool.id+'.png') }
@@ -492,7 +492,7 @@ class RewardPools extends Component {
                 renderer={countdownrenderer}
                 daysInHours={true}
               /> */}
-              Coming Soon
+              
           </Col>
           <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
           <a href={rewardPool.link} target="_blank" className="smallBTN small">BUY</a>
@@ -511,8 +511,8 @@ class RewardPools extends Component {
             params: {
               "type":"ERC20",
               "options":{
-                "address": rewardPool.tokens[0].rewardsAddress,
-                "symbol": rewardPool.tokens[0].rewardsSymbol,
+                "address": rewardPool.tokenAddress,
+                "symbol": rewardPool.tokenSymbol,
                 "decimals": 18,
                 "image": '',
               }

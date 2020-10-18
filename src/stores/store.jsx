@@ -300,8 +300,11 @@ class Store {
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          liquidityLink : 'https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
           depositsEnabled: true,
           boost: true,
+          tokenAddress : '0x11C1a6B3Ed6Bb362954b29d3183cfA97A0c806Aa',
+          tokenSymbol :'STR',
           tokens: [
             {
               id: 'group1boostrewards',
@@ -333,7 +336,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 5000
             }
           ]
         }
@@ -343,8 +346,11 @@ class Store {
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          liquidityLink : 'https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
           depositsEnabled: true,
           boost: true,
+          tokenAddress : '0x89045d0Af6A12782Ec6f701eE6698bEaF17d0eA2',
+          tokenSymbol :'PIXEL',
           tokens: [
             {
               id: 'group2boostrewards',
@@ -376,7 +382,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 5000
             }
           ]
         },{
@@ -385,8 +391,11 @@ class Store {
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          liquidityLink : 'https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
           depositsEnabled: false,
           boost: false,
+          tokenAddress : '0xbe1115ef9344CBca5a9D36fDEa099D35E68fEF8f',
+          tokenSymbol :'IMPACT',
           tokens: [
             {
               id: 'group3boostrewards',
@@ -418,7 +427,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 5000
             }
           ]
         },{
@@ -427,8 +436,11 @@ class Store {
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          liquidityLink : 'https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
           depositsEnabled: true,
           boost: true,
+          tokenAddress : '0xE3B446b242ce55610Ad381a8e8164c680A70f131',
+          tokenSymbol :'GIFT',
           tokens: [
             {
               id: 'group4boostrewards',
@@ -460,7 +472,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 5000
             }
           ]
         },{
@@ -469,8 +481,11 @@ class Store {
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          liquidityLink : 'https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
           depositsEnabled: true,
           boost: true,
+          tokenAddress : '0x6c079fa48346D71a9dDdB4083DB24A275572C4D2',
+          tokenSymbol :'NFTS',
           tokens: [
             {
               id: 'group5boostrewards',
@@ -502,7 +517,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 5000
             }
           ]
         },{
@@ -511,8 +526,11 @@ class Store {
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          liquidityLink : 'https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
           depositsEnabled: true,
           boost: true,
+          tokenAddress : '0x47bd5114c12421FBC8B15711cE834AFDedea05D9',
+          tokenSymbol :'LIFT',
           tokens: [
             {
               id: 'group6boostrewards',
@@ -544,7 +562,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 5000
             }
           ]
         },{
@@ -553,8 +571,11 @@ class Store {
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          liquidityLink : 'https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
           depositsEnabled: true,
           boost: true,
+          tokenAddress : '0xa279dab6ec190ee4efce7da72896eb58ad533262',
+          tokenSymbol :'YFU',
           tokens: [
             {
               id: 'group7boostrewards',
@@ -586,7 +607,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 5000
             }
           ]
         },
@@ -612,7 +633,7 @@ class Store {
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
-              rewardsAvailable: 'Coming Soon'
+              rewardsAvailable: 5000
             }
           ]
         },
