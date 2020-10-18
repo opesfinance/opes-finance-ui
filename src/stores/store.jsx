@@ -219,8 +219,8 @@ class Store {
           tokens: [
             {
               id: 'ycurvefi',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
+              address: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
+              symbol: 'UNI-LP',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
@@ -230,7 +230,7 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenAddress: '0x940b74aA2Bd8F0e147C5974d2953bf95d8cA5756',
               boostTokenSymbol:'UNI',
               boostTokenBalance: 0,
               boostBalance : 0,
@@ -323,7 +323,7 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenAddress: '0x940b74aA2Bd8F0e147C5974d2953bf95d8cA5756',
               boostTokenSymbol:'UNI',
               boostTokenBalance: 0,
               boostBalance : 0,
@@ -370,7 +370,7 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenAddress: '0x940b74aA2Bd8F0e147C5974d2953bf95d8cA5756',
               boostTokenSymbol:'UNI',
               boostTokenBalance: 0,
               boostBalance : 0,
@@ -416,7 +416,7 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenAddress: '0x940b74aA2Bd8F0e147C5974d2953bf95d8cA5756',
               boostTokenSymbol:'UNI',
               boostTokenBalance: 0,
               boostBalance : 0,
@@ -462,7 +462,7 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenAddress: '0x940b74aA2Bd8F0e147C5974d2953bf95d8cA5756',
               boostTokenSymbol:'UNI',
               boostTokenBalance: 0,
               boostBalance : 0,
@@ -508,7 +508,7 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenAddress: '0x940b74aA2Bd8F0e147C5974d2953bf95d8cA5756',
               boostTokenSymbol:'UNI',
               boostTokenBalance: 0,
               boostBalance : 0,
@@ -554,7 +554,7 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenAddress: '0x940b74aA2Bd8F0e147C5974d2953bf95d8cA5756',
               boostTokenSymbol:'UNI',
               boostTokenBalance: 0,
               boostBalance : 0,
@@ -600,7 +600,7 @@ class Store {
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenAddress: '0x940b74aA2Bd8F0e147C5974d2953bf95d8cA5756',
               boostTokenSymbol:'UNI',
               boostTokenBalance: 0,
               boostBalance : 0,
@@ -1229,7 +1229,7 @@ class Store {
     const account = store.getStore('account')
     const { asset, amount } = payload.content
 
-    this._boostcheckApproval(asset, account, config.boostRewardAddress, (err) => {
+    this._boostcheckApproval(asset, account, asset.rewardsAddress, (err) => {
      
       if(err) {
         
@@ -1277,7 +1277,7 @@ class Store {
   _boostcallStake = async (asset, account, amount, callback) => {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
-    const boostContract = new web3.eth.Contract(config.boostRewardABI, config.boostRewardAddress)
+    const boostContract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
 
 
     boostContract.methods.boost().send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
