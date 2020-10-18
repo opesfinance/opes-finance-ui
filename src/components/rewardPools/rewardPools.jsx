@@ -270,6 +270,7 @@ class RewardPools extends Component {
                     >ADD WPE TOKEN to Metamask</a>
                   </td></tr>
                   <tr><td>
+                    <br/>
                     <a className="myButtonSmall m-1"  href="https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b" target="_blank">BUY UNI-V2 TOKEN</a>
                   </td></tr>
                   <tr><td>

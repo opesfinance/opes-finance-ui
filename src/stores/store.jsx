@@ -258,8 +258,8 @@ class Store {
           tokens: [
             {
               id: 'ycurvefi',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+              symbol: 'UNI-LP',
               abi: config.balancerABI,
               decimals: 18,
               rewardsAddress: config.boostRewardAddress,
@@ -304,13 +304,13 @@ class Store {
           boost: true,
           tokens: [
             {
-              id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
-              abi: config.balancerABI,
+              id: 'group1boostrewards',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+              symbol: 'UNI-LP',
+              abi: config.erc20ABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
+              rewardsAddress: config.balancerAddress,
+              rewardsABI: config.balancerABI,
               rewardsSymbol: 'STR',
               decimals: 18,
               balance: 0,
@@ -347,10 +347,10 @@ class Store {
           boost: true,
           tokens: [
             {
-              id: 'boostrewards',
-              address: config.balancerAddress,
-              symbol: 'BAL',
-              abi: config.balancerABI,
+              id: 'group2boostrewards',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+              symbol: 'UNI-LP',
+              abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
               rewardsABI: config.balancerABI,
@@ -389,10 +389,10 @@ class Store {
           boost: false,
           tokens: [
             {
-              id: 'boostrewards',
-              address: config.balancerAddress,
-              symbol: 'BAL',
-              abi: config.balancerABI,
+              id: 'group3boostrewards',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+              symbol: 'UNI-LP',
+              abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
               rewardsABI: config.balancerABI,
@@ -431,10 +431,10 @@ class Store {
           boost: true,
           tokens: [
             {
-              id: 'boostrewards',
-              address: config.balancerAddress,
-              symbol: 'BAL',
-              abi: config.balancerABI,
+              id: 'group4boostrewards',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+              symbol: 'UNI-LP',
+              abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
               rewardsABI: config.balancerABI,
@@ -473,10 +473,10 @@ class Store {
           boost: true,
           tokens: [
             {
-              id: 'boostrewards',
-              address: config.balancerAddress,
-              symbol: 'BAL',
-              abi: config.balancerABI,
+              id: 'group5boostrewards',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+              symbol: 'UNI-LP',
+              abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
               rewardsABI: config.balancerABI,
@@ -515,10 +515,10 @@ class Store {
           boost: true,
           tokens: [
             {
-              id: 'boostrewards',
-              address: config.balancerAddress,
-              symbol: 'BAL',
-              abi: config.balancerABI,
+              id: 'group6boostrewards',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+              symbol: 'UNI-LP',
+              abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
               rewardsABI: config.balancerABI,
@@ -557,10 +557,10 @@ class Store {
           boost: true,
           tokens: [
             {
-              id: 'boostrewards',
-              address: config.balancerAddress,
-              symbol: 'BAL',
-              abi: config.balancerABI,
+              id: 'group7boostrewards',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+              symbol: 'UNI-LP',
+              abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
               rewardsABI: config.balancerABI,
