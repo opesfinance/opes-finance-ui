@@ -309,7 +309,7 @@ class Store {
             {
               id: 'group1boostrewards',
               address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
-              symbol: 'UNI-LP',
+              symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
@@ -355,7 +355,7 @@ class Store {
             {
               id: 'group2boostrewards',
               address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
-              symbol: 'UNI-LP',
+              symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
@@ -400,7 +400,7 @@ class Store {
             {
               id: 'group3boostrewards',
               address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
-              symbol: 'UNI-LP',
+              symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
@@ -445,7 +445,7 @@ class Store {
             {
               id: 'group4boostrewards',
               address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
-              symbol: 'UNI-LP',
+              symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
@@ -490,7 +490,7 @@ class Store {
             {
               id: 'group5boostrewards',
               address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
-              symbol: 'UNI-LP',
+              symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
@@ -535,7 +535,7 @@ class Store {
             {
               id: 'group6boostrewards',
               address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
-              symbol: 'UNI-LP',
+              symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
@@ -580,7 +580,7 @@ class Store {
             {
               id: 'group7boostrewards',
               address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
-              symbol: 'UNI-LP',
+              symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
