@@ -336,7 +336,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 83333
             }
           ]
         }
@@ -382,7 +382,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 833333
             }
           ]
         },{
@@ -427,7 +427,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 15833
             }
           ]
         },{
@@ -472,7 +472,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 150833
             }
           ]
         },{
@@ -517,7 +517,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 32
             }
           ]
         },{
@@ -562,7 +562,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 1583333
             }
           ]
         },{
@@ -607,7 +607,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek :  103333
             }
           ]
         },
