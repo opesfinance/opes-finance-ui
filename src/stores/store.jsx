@@ -221,7 +221,7 @@ class Store {
               id: 'ycurvefi',
               address: '0xA478c2975Ab1Ea89e8196811F51A7B7Ade33eB11',
               symbol: 'UNI-LP',
-              abi: config.boostRewardABI,
+              abi: config.erc20ABI,
               decimals: 18,
               rewardsAddress: config.balancerAddress,
               rewardsABI: config.balancerABI,
