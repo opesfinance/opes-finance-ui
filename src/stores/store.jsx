@@ -1229,7 +1229,7 @@ class Store {
     const account = store.getStore('account')
     const { asset, amount } = payload.content
 
-    this._boostcheckApproval(asset, account, config.boostRewardAddress, (err) => {
+    this._boostcheckApproval(asset, account, config.rewardAddress, (err) => {
      
       if(err) {
         
@@ -1277,7 +1277,7 @@ class Store {
   _boostcallStake = async (asset, account, amount, callback) => {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
-    const boostContract = new web3.eth.Contract(config.boostRewardABI, config.boostRewardAddress)
+    const boostContract = new web3.eth.Contract(config.rewardsABI, config.rewardsAddress)
 
 
     boostContract.methods.boost().send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
