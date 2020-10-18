@@ -156,7 +156,8 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'ENDED'
+              poolRatePerWeek : 'ENDED',
+              poolRateSymbol : 'WPE/Week'
             }
           ]
         },{
@@ -199,7 +200,8 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000
+              poolRatePerWeek : 5000,
+              poolRateSymbol : 'WPE/Week'
             }
           ]
         },
@@ -245,7 +247,8 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 'Coming Soon',
+              poolRateSymbol : 'WPE/Week'
             }
           ]
         }, {
@@ -286,7 +289,8 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 'Coming Soon'
+              poolRatePerWeek : 'Coming Soon',
+              poolRateSymbol : 'WPE/Week'
             }
           ]
         },
@@ -332,11 +336,12 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 10,
+                day : 26,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 83333
+              poolRatePerWeek : 83333,
+              poolRateSymbol : 'PoolCoin/Week'
             }
           ]
         }
@@ -378,11 +383,12 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 10,
+                day : 26,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 833333
+              poolRatePerWeek : 833333,
+              poolRateSymbol : 'PoolCoin/Week'
             }
           ]
         },{
@@ -423,11 +429,12 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 10,
+                day : 26,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 15833
+              poolRatePerWeek : 15833,
+              poolRateSymbol : 'PoolCoin/Week'
             }
           ]
         },{
@@ -468,11 +475,12 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 10,
+                day : 26,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 150833
+              poolRatePerWeek : 150833,
+              poolRateSymbol : 'PoolCoin/Week'
             }
           ]
         },{
@@ -513,11 +521,12 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 10,
+                day : 26,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 32
+              poolRatePerWeek : 32,
+              poolRateSymbol : 'PoolCoin/Week'
             }
           ]
         },{
@@ -558,11 +567,12 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 10,
+                day : 26,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 1583333
+              poolRatePerWeek : 1583333,
+              poolRateSymbol : 'PoolCoin/Week'
             }
           ]
         },{
@@ -603,11 +613,12 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 10,
+                day : 26,
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek :  103333
+              poolRatePerWeek :  103333,
+              poolRateSymbol : 'PoolCoin/Week'
             }
           ]
         },
