@@ -223,7 +223,7 @@ class Store {
               symbol: 'UNI-LP',
               abi: config.erc20ABI,
               decimals: 18,
-              rewardsAddress: config.balancerAddress, //0x5B2dC8c02728e8FB6aeA03a622c3849875A48801
+              rewardsAddress: '0x91217594137fffc609E25FbC9a3a5fe314661152', 
               rewardsABI: config.boostRewardABI,
               rewardsSymbol: 'Defi Index',
               decimals: 18,
