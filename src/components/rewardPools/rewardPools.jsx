@@ -465,7 +465,7 @@ class RewardPools extends Component {
     return (
       <>
         <Col lg="1" md="12" xs="12" className="text-center my-auto">
-        { (rewardPool.id =='group4' || rewardPool.id =='group1'  || rewardPool.id =='group2' || rewardPool.id =='group7') &&
+        { 
             <img
             alt=""
             src={ require('../../assets/'+rewardPool.id+'.png') }

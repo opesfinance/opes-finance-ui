@@ -200,7 +200,7 @@ class Store {
                 hour : 0,
                 minute : 0
               },
-              poolRatePerWeek : 5000,
+              poolRatePerWeek : 1000,
               poolRateSymbol : 'WPE/Week'
             }
           ]
