@@ -312,7 +312,7 @@ class Store {
           tokens: [
             {
               id: 'group1boostrewards',
-              address: config.balancerAddress,
+              address: config.balancerAddress, //0x5B2dC8c02728e8FB6aeA03a622c3849875A48801
               symbol: 'Defi Index',
               abi: config.erc20ABI,
               decimals: 18,
