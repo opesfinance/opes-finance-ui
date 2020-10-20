@@ -383,7 +383,7 @@ class RewardPools extends Component {
           <Col lg="1" md="12" xs="12"></Col>
           <Col lg="3" md="12" xs="12"></Col>
           <Col lg="2" md="12" xs="12" className=" text-white p-2"><strong>Total Deposited</strong></Col>
-          <Col lg="1" md="12" xs="12" className=" text-white p-2"><strong>Pool Rate WPE/Week</strong></Col>
+          <Col lg="1" md="12" xs="12" className=" text-white p-2"><strong>PoolCoin/Week</strong></Col>
           <Col lg="1" md="12" xs="12"></Col>
           <Col lg="1" md="12" xs="12"></Col>
           <Col lg="1" md="12" xs="12"></Col>
@@ -479,10 +479,10 @@ class RewardPools extends Component {
           <h6><strong>{ rewardPool.name }</strong></h6>
           </Col>
           <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
-          <span class="mob float-left">Staked Balance : </span>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }
+          <span class="mob float-left">Staked Balance : </span>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(4) : "0.0000" }
          
           </Col>
-          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
+          <Col lg="1" md="12" xs="12" className=" text-white text-right p-2 my-auto">
           <span class="mob float-left">Pool Rate WPE/Week : </span>{ rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }
           </Col>
           <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto text-center">
@@ -559,8 +559,8 @@ class RewardPools extends Component {
     return (
       <div key={ rewardPool.id } >
         <div className="probootstrap-photo-upper" >
-            <p>Total deposited: { rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(2) : "0" }</p>
-            <p>Pool Rate: {  rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week</p>
+            <p>Total deposited: { rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(4) : "0.0000" }</p>
+            <p>Pool Rate: {  rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } { rewardPool.tokens[0].poolRateSymbol }</p>
             <p>
               <Countdown
                 date={new Date(rewardPool.tokens[0].rewardsEndDate['year'],rewardPool.tokens[0].rewardsEndDate['month'],
