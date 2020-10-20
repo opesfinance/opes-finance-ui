@@ -218,7 +218,7 @@ class Store {
           liquidityLink : "",
           depositsEnabled: true,
           boost: true,
-          displayDecimal : 4,
+          displayDecimal : 6,
           tokens: [
             {
               id: 'ycurvefi',
