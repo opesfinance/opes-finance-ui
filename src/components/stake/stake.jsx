@@ -585,7 +585,7 @@ class Stake extends Component {
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
               <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(pool.displayDecimal) : "0" }
               <br></br>
-              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
+              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }  { pool.tokens[0].poolRateSymbol }
               <br></br>
                 <Countdown
                   date={new Date(pool.tokens[0].rewardsEndDate['year'],pool.tokens[0].rewardsEndDate['month'],
@@ -680,11 +680,11 @@ class Stake extends Component {
                </tr>
                <tr>
                  <td className="text-left">Current Beast Mode stake value</td>
-                 <td className="text-right">{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(pool.displayDecimal) : "0" }  { pool.tokens[0].symbol }</td>
+                 <td className="text-right">{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(5) : "0" }  { pool.tokens[0].symbol }</td>
                </tr>
                <tr>
                  <td className="text-left">Staked value after next Beast Mode</td>
-              <td className="text-right">{ pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(pool.displayDecimal) : "0" } { pool.tokens[0].symbol }</td>
+              <td className="text-right">{ pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(5) : "0" } { pool.tokens[0].symbol }</td>
                </tr>
             </tbody>
           </table>
