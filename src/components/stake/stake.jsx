@@ -312,7 +312,7 @@ class Stake extends Component {
 
           <div className="mt-2 text-center rounded p-2">
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
-              <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
+              <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(pool.displayDecimal) : "0" }
               <br></br>
               Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } { pool.tokens[0].poolRateSymbol }
               <br></br>
@@ -342,10 +342,10 @@ class Stake extends Component {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(4) : "0" }  { pool.tokens[0].symbol }</td>
-                    <td>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(4) : "0" }</td>
+                    <td>{ pool.tokens[0].balance ? pool.tokens[0].balance.toFixed(pool.displayDecimal) : "0" }  { pool.tokens[0].symbol }</td>
+                    <td>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(pool.displayDecimal) : "0" }</td>
                     <td>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</td>
-                    <td>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</td>
+                    <td>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(pool.displayDecimal) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</td>
                   </tr>
                 </tbody>
             </table>
@@ -583,7 +583,7 @@ class Stake extends Component {
         <Col lg="6" md="12" xs="12" className="p-1">
         <div className="mt-2 text-center rounded p-2">
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
-              <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(2) : "0" }
+              <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(pool.displayDecimal) : "0" }
               <br></br>
               Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } WPE/week
               <br></br>
@@ -608,10 +608,10 @@ class Stake extends Component {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(4) : "0" } UNI </td>
-                    <td>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(4) : "0" }</td>
+                    <td>{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(pool.displayDecimal) : "0" } UNI </td>
+                    <td>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(pool.displayDecimal) : "0" }</td>
                     <td>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</td>
-                    <td>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(2) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</td>
+                    <td>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(pool.displayDecimal) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</td>
                   </tr>
                 </tbody>
             </table>
@@ -680,11 +680,11 @@ class Stake extends Component {
                </tr>
                <tr>
                  <td className="text-left">Current Beast Mode stake value</td>
-                 <td className="text-right">{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(4) : "0" }  { pool.tokens[0].symbol }</td>
+                 <td className="text-right">{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(pool.displayDecimal) : "0" }  { pool.tokens[0].symbol }</td>
                </tr>
                <tr>
                  <td className="text-left">Staked value after next Beast Mode</td>
-              <td className="text-right">{ pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(4) : "0" } { pool.tokens[0].symbol }</td>
+              <td className="text-right">{ pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(pool.displayDecimal) : "0" } { pool.tokens[0].symbol }</td>
                </tr>
             </tbody>
           </table>
