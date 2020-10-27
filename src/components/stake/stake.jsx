@@ -253,7 +253,16 @@ class Stake extends Component {
             variant="outlined"
             color="secondary"
             disabled={ loading }
-            onClick={ () => { if(value!=='buyboost'){this.props.history.push('/staking') }else{  this.navigateInternal('options') }} }
+            onClick={ () => { if(value!=='buyboost'){
+              if(['group1','group2','group3','group4','group5','group6'] .includes(pool.id)){
+                store.setStore({"valueopen":"group-pools"})
+              }else{
+                store.setStore({"valueopen":""})
+              }
+             
+
+              this.props.history.push('/staking') 
+            }else{  this.navigateInternal('options') }} }
           >
             <Typography variant={ 'h4'}>Back</Typography>
           </Button> 
@@ -960,8 +969,8 @@ class Stake extends Component {
     return (
       <div className={ classes.valContainer } key={asset.id + '_' + type}>
         <div className={ classes.balances }>
-          { type === 'stake' && <Typography variant='h4' onClick={ () => { this.setAmount(asset.id, type, (asset ? asset.balance : 0)) } }   color="error" className={ classes.value } noWrap>{ 'Max Balance: '+ ( asset && asset.balance ? (Math.floor(asset.balance*10000)/10000).toFixed(7) : '0.0000') } { asset ? asset.symbol : '' }</Typography> }
-          { type === 'unstake' && <Typography variant='h4' onClick={ () => { this.setAmount(asset.id, type, (asset ? asset.stakedBalance : 0)) } }   color="error" className={ classes.value } noWrap>{ 'Max Balance: '+ ( asset && asset.stakedBalance ? (Math.floor(asset.stakedBalance*10000)/10000).toFixed(7) : '0.0000') } { asset ? asset.symbol : '' }</Typography> }
+          { type === 'stake' && <Typography variant='h4' onClick={ () => { this.setAmount(asset.id, type, (asset ? (Math.floor(asset.balance*1000000000)/1000000000).toFixed(9) : 0)) } }   color="error" className={ classes.value } noWrap>{ 'Max Balance: '+ ( asset && asset.balance ? (Math.floor(asset.balance*1000000000)/1000000000).toFixed(9) : '0.000000000') } { asset ? asset.symbol : '' }</Typography> }
+          { type === 'unstake' && <Typography variant='h4' onClick={ () => { this.setAmount(asset.id, type, (asset ? (Math.floor(asset.stakedBalance*1000000000)/1000000000).toFixed(9) : 0)) } }   color="error" className={ classes.value } noWrap>{ 'Max Balance: '+ ( asset && asset.stakedBalance ? (Math.floor(asset.stakedBalance*1000000000)/1000000000).toFixed(9) : '0.000000000') } { asset ? asset.symbol : '' }</Typography> }
         </div>
         <div>
           <TextField
@@ -1009,7 +1018,7 @@ class Stake extends Component {
   }
 
   setAmount = (id, type, balance) => {
-    const bal = (Math.floor((balance === '' ? '0' : balance)*10000)/10000).toFixed(7)
+    const bal = (Math.floor((balance === '' ? '0' : balance)*1000000000)/1000000000).toFixed(9)
     let val = []
     val[id + '_' + type] = bal
     this.setState(val)

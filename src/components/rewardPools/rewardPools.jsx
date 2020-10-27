@@ -120,6 +120,14 @@ class RewardPools extends Component {
   }
 
   render() {
+
+    let tmpValue =  store.getStore('valueopen')
+    console.log(tmpValue)
+    if(tmpValue !=""){
+      this.setState({ value: 'group-pools' })
+      store.setStore({'valueopen':''})
+    }
+
     const { classes } = this.props;
     const {
       value,
@@ -133,6 +141,7 @@ class RewardPools extends Component {
       address = account.address.substring(0,6)+'...'+account.address.substring(account.address.length-4,account.address.length)
     }
 
+   
     return (
       <>
         <Container >
@@ -479,7 +488,7 @@ class RewardPools extends Component {
           <h6><strong>{ rewardPool.name }</strong></h6>
           </Col>
           <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
-          <span class="mob float-left">Staked Balance : </span>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(rewardPool.displayDecimal) : "0.0000" }
+          <span class="mob float-left">Staked Balance : </span>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(rewardPool.displayDecimal) : "0.000000000" }
          
           </Col>
           <Col lg="1" md="12" xs="12" className=" text-white text-right p-2 my-auto">

@@ -79,6 +79,7 @@ class Store {
       universalGasPrice: '70',
       account: {},
       web3: null,
+      valueopen : '',
       connectorsByName: {
         MetaMask: injected,
         WalletLink: walletlink,
@@ -225,7 +226,7 @@ class Store {
           liquidityLink : "",
           depositsEnabled: true,
           boost: true,
-          displayDecimal : 7,
+          displayDecimal : 9,
           tokenAddress : '0x91217594137fffc609E25FbC9a3a5fe314661152',
           tokenSymbol :'Defi Index',
           tokens: [
@@ -323,7 +324,7 @@ class Store {
           boost: true,
           tokenAddress : '0x11C1a6B3Ed6Bb362954b29d3183cfA97A0c806Aa',
           tokenSymbol :'STR',
-          displayDecimal : 7,
+          displayDecimal : 9,
           tokens: [
             {
               id: 'group1boostrewards',
@@ -372,7 +373,7 @@ class Store {
           boost: true,
           tokenAddress : '0x89045d0Af6A12782Ec6f701eE6698bEaF17d0eA2',
           tokenSymbol :'PIXEL',
-          displayDecimal : 7,
+          displayDecimal : 9,
           tokens: [
             {
               id: 'group2boostrewards',
@@ -420,7 +421,7 @@ class Store {
           boost: true,
           tokenAddress : '0xbe1115ef9344CBca5a9D36fDEa099D35E68fEF8f',
           tokenSymbol :'IMPACT',
-          displayDecimal : 7,
+          displayDecimal : 9,
           tokens: [
             {
               id: 'group3boostrewards',
@@ -468,7 +469,7 @@ class Store {
           boost: true,
           tokenAddress : '0xE3B446b242ce55610Ad381a8e8164c680A70f131',
           tokenSymbol :'GIFT',
-          displayDecimal : 7,
+          displayDecimal : 9,
           tokens: [
             {
               id: 'group4boostrewards',
@@ -516,7 +517,7 @@ class Store {
           boost: true,
           tokenAddress : '0x6c079fa48346D71a9dDdB4083DB24A275572C4D2',
           tokenSymbol :'NFTS',
-          displayDecimal : 7,
+          displayDecimal : 9,
           tokens: [
             {
               id: 'group5boostrewards',
@@ -564,7 +565,7 @@ class Store {
           boost: true,
           tokenAddress : '0x47bd5114c12421FBC8B15711cE834AFDedea05D9',
           tokenSymbol :'LIFT',
-          displayDecimal : 7,
+          displayDecimal : 9,
           tokens: [
             {
               id: 'group6boostrewards',
@@ -612,7 +613,7 @@ class Store {
           boost: true,
           tokenAddress : '0xa279dab6ec190ee4efce7da72896eb58ad533262',
           tokenSymbol :'YFU',
-          displayDecimal : 7,
+          displayDecimal : 9,
           tokens: [
             {
               id: 'group7boostrewards',
