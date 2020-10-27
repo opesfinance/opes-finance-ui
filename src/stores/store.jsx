@@ -221,7 +221,7 @@ class Store {
           name: 'Defi Index Pool',
           website: 'Uniswap',
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
-          linkName : "Buy Uni-LP",
+          linkName : "Add Liquidity (ETH/DAI) Pair",
           liquidityLink : "",
           depositsEnabled: true,
           boost: true,
