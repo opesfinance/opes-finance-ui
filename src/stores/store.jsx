@@ -273,6 +273,7 @@ class Store {
           website: 'Balancer',
           link: 'https://balancer.finance/',
           linkName : "Buy",
+          liquidityValue : 0,
           depositsEnabled: false,
           boost: false,
           tokens: [
@@ -920,7 +921,7 @@ class Store {
           token.rewardsAvailable = data[2]
           if(pool.id =='boost'){
             pool.liquidityValue = data[3]
-          }else if(pool.id == 'balancer-stake'){
+          }else if(pool.id == 'balancer-pool'){
             pool.liquidityValue = data[4]
           }else{
             pool.liquidityValue = 0

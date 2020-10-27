@@ -327,12 +327,12 @@ class RewardPools extends Component {
                     <ListGroupItem>Liquidity : ${ Number(parseFloat(rewardPool.liquidityValue).toFixed(2)).toLocaleString() } </ListGroupItem>
       </ListGroup> }
 
-      { (rewardPool.id !='yearn' && rewardPool.id !='boost' && rewardPool.id !='balancer-stake' ) && <ListGroup className="list-group-flush">
+      { (rewardPool.id =='balancer-pool' ) && <ListGroup className="list-group-flush">
                  
                   <ListGroupItem>DEX : { rewardPool.website }</ListGroupItem>
                                 <ListGroupItem>&nbsp;</ListGroupItem>
                                 <ListGroupItem>&nbsp;</ListGroupItem>
-                                <ListGroupItem>&nbsp;</ListGroupItem>
+                                <ListGroupItem>Liquidity : ${ Number(parseFloat(rewardPool.liquidityValue).toFixed(2)).toLocaleString() } </ListGroupItem>
                   </ListGroup> }
   
                   <div className="mt-1 myButton">
