@@ -430,10 +430,12 @@ class Stake extends Component {
 
       <div className="text-center mt-3 mb-2">
 
-    { pool.depositsEnabled &&  <a className="smallBTN m-2" href={pool.link} target="_blank">Buy WPE Token</a> }
+    { pool.depositsEnabled &&  <a className="smallBTN m-2" href={pool.link} target="_blank">{ pool.linkName }</a> }
     { !pool.depositsEnabled &&  <a className="smallBTN-disable m-2"  target="_blank">BUY { pool.tokens[0].symbol }</a> }
 
-      { pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidty to Balancer Pool</a> }
+      { pool.id=='balancer-stake' && pool.id!='boost'  && pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidty (ETH/DAI) Pair</a> }
+      { pool.id!='balancer-stake' && pool.id!='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidty to Balancer Pool</a> }
+      { pool.id!='balancer-stake' && pool.id=='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidty to Uniswap</a> }
 
           <div className="smallBTN" 
 
