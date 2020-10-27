@@ -421,43 +421,46 @@ class Stake extends Component {
             Exit: Claim & Unstake
           </div>
 
+         { pool.id=='balancer-stake' && <div className="text-white text-center p-2">
+           <a  className="text-white" href="https://medium.com/opes-dot-finance/defi-rising-a-crypto-index-fund-ffa41bff510c" target="_blank">What is Defi Index Pool?</a>
+          </div> }
       </Col>
 
       <Col lg="8" md="12" xs="12">
 
       <div className="text-center mt-3 mb-2">
 
-    { pool.depositsEnabled &&  <a className="smallBTN mr-5 mb-1" href={pool.link} target="_blank">BUY { pool.tokens[0].symbol }</a> }
-    { !pool.depositsEnabled &&  <a className="smallBTN-disable mr-5 mb-1"  target="_blank">BUY { pool.tokens[0].symbol }</a> }
+    { pool.depositsEnabled &&  <a className="smallBTN m-2" href={pool.link} target="_blank">Buy WPE Token</a> }
+    { !pool.depositsEnabled &&  <a className="smallBTN-disable m-2"  target="_blank">BUY { pool.tokens[0].symbol }</a> }
 
-      { pool.liquidityLink !='' && <a className="smallBTN mr-5 mb-1"  href={pool.liquidityLink} target="_blank">Add Liquidity</a> }
+      { pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidty to Balancer Pool</a> }
 
           <div className="smallBTN" 
 
             onClick = {async (event) => {
-            let provider  = new Web3(store.getStore('web3context').library.provider);
-            provider = provider.currentProvider;
-            provider.sendAsync({
-            method: 'metamask_watchAsset',
-            params: {
-              "type":"ERC20",
-              "options":{
-                "address": pool.tokens[0].address,
-                "symbol": pool.tokens[0].symbol,
-                "decimals": 18,
-                "image": '',
-              }
-            },
-            id: Math.round(Math.random() * 100000),
-            }, (err, added) => {
-            console.log('provider returned', err, added)
-            if (err || 'error' in added) {
-              return  emitter.emit(ERROR, 'There was a problem adding the token.');
-              }
-            })
+              let provider  = new Web3(store.getStore('web3context').library.provider);
+              provider = provider.currentProvider;
+              provider.sendAsync({
+              method: 'metamask_watchAsset',
+              params: {
+                "type":"ERC20",
+                "options":{
+                  "address":  pool.tokenAddress,
+                  "symbol":  pool.tokenSymbol,
+                  "decimals": 18,
+                  "image": '',
+                }
+              },
+              id: Math.round(Math.random() * 100000),
+              }, (err, added) => {
+                console.log('provider returned', err, added)
+                if (err || 'error' in added) {
+                return  emitter.emit(ERROR, 'There was a problem adding the token.');
+                }
+              })
             }}
           
-          >Add token to Metamask</div>
+          >Add {pool.tokenSymbol} to Metamask</div>
 
         </div>
 
@@ -649,7 +652,7 @@ class Stake extends Component {
                 }}
 
           >
-            Add Token to Metamask
+            Add {pool.tokens[0].boostTokenSymbol} to Metamask
           </div>
           </div>
 
@@ -660,11 +663,11 @@ class Stake extends Component {
              <tbody>
                <tr>
                  <td className="text-left">{ pool.tokens[0].boostTokenSymbol} Token Balance</td>
-                 <td className="text-right">{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(2) : "0" } UNI</td>
+                 <td className="text-right">{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(7) : "0" } UNI</td>
                </tr>
                <tr>
                  <td className="text-left">Cost of Beast Mode</td>
-                 <td className="text-right">{ pool.tokens[0].costBooster ? pool.tokens[0].costBooster.toFixed(2) : "0" } UNI</td>
+                 <td className="text-right">{ pool.tokens[0].costBooster ? pool.tokens[0].costBooster.toFixed(7) : "0" } UNI</td>
                </tr>
                <tr>
                  <td className="text-left">Cost of Beast Mode (USD)</td>
@@ -680,11 +683,11 @@ class Stake extends Component {
                </tr>
                <tr>
                  <td className="text-left">Current Beast Mode stake value</td>
-                 <td className="text-right">{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(5) : "0" }  { pool.tokens[0].symbol }</td>
+                 <td className="text-right">{ pool.tokens[0].currentBoosterStakeValue ? pool.tokens[0].currentBoosterStakeValue.toFixed(7) : "0" }  { pool.tokens[0].symbol }</td>
                </tr>
                <tr>
                  <td className="text-left">Staked value after next Beast Mode</td>
-              <td className="text-right">{ pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(5) : "0" } { pool.tokens[0].symbol }</td>
+              <td className="text-right">{ pool.tokens[0].stakeValueNextBooster ? pool.tokens[0].stakeValueNextBooster.toFixed(7) : "0" } { pool.tokens[0].symbol }</td>
                </tr>
             </tbody>
           </table>
@@ -955,8 +958,8 @@ class Stake extends Component {
     return (
       <div className={ classes.valContainer } key={asset.id + '_' + type}>
         <div className={ classes.balances }>
-          { type === 'stake' && <Typography variant='h4' onClick={ () => { this.setAmount(asset.id, type, (asset ? asset.balance : 0)) } }   color="error" className={ classes.value } noWrap>{ 'Max Balance: '+ ( asset && asset.balance ? (Math.floor(asset.balance*10000)/10000).toFixed(4) : '0.0000') } { asset ? asset.symbol : '' }</Typography> }
-          { type === 'unstake' && <Typography variant='h4' onClick={ () => { this.setAmount(asset.id, type, (asset ? asset.stakedBalance : 0)) } }   color="error" className={ classes.value } noWrap>{ 'Max Balance: '+ ( asset && asset.stakedBalance ? (Math.floor(asset.stakedBalance*10000)/10000).toFixed(4) : '0.0000') } { asset ? asset.symbol : '' }</Typography> }
+          { type === 'stake' && <Typography variant='h4' onClick={ () => { this.setAmount(asset.id, type, (asset ? asset.balance : 0)) } }   color="error" className={ classes.value } noWrap>{ 'Max Balance: '+ ( asset && asset.balance ? (Math.floor(asset.balance*10000)/10000).toFixed(7) : '0.0000') } { asset ? asset.symbol : '' }</Typography> }
+          { type === 'unstake' && <Typography variant='h4' onClick={ () => { this.setAmount(asset.id, type, (asset ? asset.stakedBalance : 0)) } }   color="error" className={ classes.value } noWrap>{ 'Max Balance: '+ ( asset && asset.stakedBalance ? (Math.floor(asset.stakedBalance*10000)/10000).toFixed(7) : '0.0000') } { asset ? asset.symbol : '' }</Typography> }
         </div>
         <div>
           <TextField
@@ -968,7 +971,7 @@ class Stake extends Component {
             value={ amount }
             error={ amountError }
             onChange={ this.onChange }
-            placeholder="0.00"
+            placeholder="0.0000000"
            
             InputProps={{
               endAdornment: <InputAdornment position="end" className={ classes.inputAdornment }><Typography variant='h3' className={ '' }>{ asset.symbol }</Typography></InputAdornment>,
@@ -1004,7 +1007,7 @@ class Stake extends Component {
   }
 
   setAmount = (id, type, balance) => {
-    const bal = (Math.floor((balance === '' ? '0' : balance)*10000)/10000).toFixed(4)
+    const bal = (Math.floor((balance === '' ? '0' : balance)*10000)/10000).toFixed(7)
     let val = []
     val[id + '_' + type] = bal
     this.setState(val)

@@ -384,8 +384,8 @@ class RewardPools extends Component {
           <Col lg="3" md="12" xs="12"></Col>
           <Col lg="2" md="12" xs="12" className=" text-white p-2"><strong>Total Deposited</strong></Col>
           <Col lg="1" md="12" xs="12" className=" text-white p-2"><strong>PoolCoin/Week</strong></Col>
-          <Col lg="1" md="12" xs="12"></Col>
-          <Col lg="1" md="12" xs="12"></Col>
+         
+          <Col lg="2" md="12" xs="12"></Col>
           <Col lg="1" md="12" xs="12"></Col>
           <Col lg="2" md="12" xs="12"></Col>
         </Row>
@@ -485,22 +485,14 @@ class RewardPools extends Component {
           <Col lg="1" md="12" xs="12" className=" text-white text-right p-2 my-auto">
           <span class="mob float-left">Pool Rate WPE/Week : </span>{ rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }
           </Col>
-          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto text-center">
-         {/*  <Countdown
-                 date={new Date(rewardPool.tokens[0].rewardsEndDate['year'],rewardPool.tokens[0].rewardsEndDate['month'],
-                 rewardPool.tokens[0].rewardsEndDate['day'],rewardPool.tokens[0].rewardsEndDate['hour'],rewardPool.tokens[0].rewardsEndDate['minute'])}
-                renderer={countdownrenderer}
-                daysInHours={true}
-              /> */}
-              
-          </Col>
-          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
-          <a href={rewardPool.link} target="_blank" className="smallBTN small">BUY</a>
+        
+          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto text-center">
+          <a href={rewardPool.link} target="_blank" className="smallBTN small">Buy WPE Token</a>
           </Col>
           <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
           <div className="smallBTN small"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } } >STAKE</div>
           </Col>
-          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
+          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto text-center">
           <div className="smallBTN text-center small"
           
           onClick = {async (event) => {
@@ -526,7 +518,7 @@ class RewardPools extends Component {
             })
           }}
           
-          >Add Token to Metamask</div>
+          >Add { rewardPool.tokenSymbol } to Metamask</div>
           </Col>
       </>
      
