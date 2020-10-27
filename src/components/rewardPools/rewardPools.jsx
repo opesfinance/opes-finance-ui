@@ -324,7 +324,7 @@ class RewardPools extends Component {
 
                     </ListGroupItem>
                     <ListGroupItem>APR : </ListGroupItem>
-                    <ListGroupItem>Liquidity : </ListGroupItem>
+                    <ListGroupItem>Liquidity : ${ Number(parseFloat(rewardPool.liquidityValue).toFixed(2)).toLocaleString() } </ListGroupItem>
       </ListGroup> }
 
       { (rewardPool.id !='yearn' && rewardPool.id !='boost' && rewardPool.id !='balancer-stake' ) && <ListGroup className="list-group-flush">

@@ -135,6 +135,7 @@ class Store {
           link: 'https://www.curve.fi/iearn/deposit',
           linkName : "Buy sCrv",
           liquidityLink : "",
+          liquidityValue : 0,
           depositsEnabled: false,
           boost: false,
           displayDecimal : 4,
@@ -173,6 +174,7 @@ class Store {
           link: 'https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b',
           linkName : "Buy Uni-v2",
           liquidityLink : "https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9",
+          liquidityValue : 0,
           depositsEnabled: true,
           boost: true,
           displayDecimal : 4,
@@ -224,6 +226,7 @@ class Store {
           link: 'https://app.uniswap.org/#/add/ETH/0x6B175474E89094C44Da98b954EedeAC495271d0F',
           linkName : "Add Liquidity (ETH/DAI) Pair",
           liquidityLink : "",
+          liquidityValue : 0,
           depositsEnabled: true,
           boost: true,
           displayDecimal : 9,
@@ -902,7 +905,9 @@ class Store {
         async.parallel([
           (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
           (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) }//,
+          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
+          (callbackInnerInner) => { this._getUniswapLiquidity(callbackInnerInner) },
+          (callbackInnerInner) => { this._getBalancerLiquidity(callbackInnerInner) }
           //(callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
         ], (err, data) => {
           if(err) {
@@ -913,6 +918,13 @@ class Store {
           token.balance = data[0]
           token.stakedBalance = data[1]
           token.rewardsAvailable = data[2]
+          if(pool.id =='boost'){
+            pool.liquidityValue = data[3]
+          }else if(pool.id == 'balancer-stake'){
+            pool.liquidityValue = data[4]
+          }else{
+            pool.liquidityValue = 0
+          }
          /*  try{
             token.boostBalance = data[3]
             token.costBooster = 11
@@ -962,7 +974,7 @@ class Store {
             (callbackInnerInner) => { this._getBoostTokenBalance(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getboostedBalances(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getBoosterPrice(callbackInnerInner) },
-            (callbackInnerInner) => { this._getNextBoostTime(web3, token, account, callbackInnerInner) }
+            (callbackInnerInner) => { this._getNextBoostTime(web3, token, account, callbackInnerInner) },
             //(callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
           ], (err, data) => {
             if(err) {
@@ -985,6 +997,7 @@ class Store {
             token.currentBoosterStakeValue = data[3]
             token.stakeValueNextBooster = data[1][1]
             token.timeToNextBoost = data[5]
+            
 
             callbackInner(null, token)
           })
@@ -1007,6 +1020,58 @@ class Store {
       emitter.emit(GET_BOOSTEDBALANCES_RETURNED)
     })
   }
+
+
+  _getUniswapLiquidity = async(callback)=>{
+    try{
+      var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          var graphql = JSON.stringify({
+            query: "{\n pair(id: \"0x75f89ffbe5c25161cbc7e97c988c9f391eaefaf9\"){\n     reserveUSD\n}\n}",
+            variables: {}
+          })
+          var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: graphql,
+            redirect: 'follow'
+          };
+
+      const response = await fetch("https://api.thegraph.com/subgraphs/name/ianlapham/uniswapv2", requestOptions)
+      const myJson = await response.json();
+      console.log(myJson.data.pair.reserveUSD)
+      callback(null, parseFloat(myJson.data.pair.reserveUSD).toFixed(2))
+    }catch(e){
+      return callback(e)
+    }
+  }
+
+  _getBalancerLiquidity = async(callback)=>{
+    try{
+      var myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          var graphql = JSON.stringify({
+            query: "{\n pool(id: \"0x5b2dc8c02728e8fb6aea03a622c3849875a48801\"){\n     liquidity\n}\n}",
+            variables: {}
+          })
+          var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: graphql,
+            redirect: 'follow'
+          };
+
+      const response = await fetch("https://api.thegraph.com/subgraphs/name/balancer-labs/balancer-beta", requestOptions)
+      const myJson = await response.json();
+      console.log(myJson.data.pool.liquidity)
+      callback(null, parseFloat(myJson.data.pool.liquidity).toFixed(2))
+    }catch(e){
+      return callback(e)
+    }
+  }
+
+
+
   _getBoosterPrice = async (callback) => {
     try {
       const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=uniswap&vs_currencies=USD');
