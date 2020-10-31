@@ -21,7 +21,7 @@ import Claim from './components/claim';
 import Vote from './components/vote';
 import VersionToggle from './components/versionToggle';
 import Lock from './components/lock';
-
+import Faq from './components/faq'
 
 import './assets/css/style.css';
 import {
@@ -36,6 +36,10 @@ import {
 import { injected } from "./stores/connectors";
 
 import Store from "./stores";
+
+/* import GoogleAnalytics from 'react-ga';
+GoogleAnalytics.initialize('G-ERGZFDEXDJ'); */
+
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
@@ -45,7 +49,7 @@ class App extends Component {
     account: null,
     headerValue: null
   };
-
+  
   setHeaderValue = (newValue) => {
     this.setState({ headerValue: newValue })
   };
@@ -100,8 +104,13 @@ class App extends Component {
   }
 
   render() {
-
+   
+    window.gtag('event', 'page_view', {
+      page_location: '/home',
+    })
+    
     const { headerValue, account } = this.state
+
 
     return (
       <MuiThemeProvider theme={ createMuiTheme(interestTheme) }>
@@ -151,6 +160,9 @@ class App extends Component {
                 <Route path="/lock">
                   <Header />
                   <Lock />
+                </Route>
+                <Route path="/faq">
+                  <Faq />
                 </Route>
                 <Route path="/">
                  {/*  <Home /> */}

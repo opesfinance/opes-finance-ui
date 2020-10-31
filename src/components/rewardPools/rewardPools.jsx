@@ -17,6 +17,7 @@ import { Container, Col, Row, Button, Navbar, Nav, Card, ListGroup, ListGroupIte
 import Countdown from 'react-countdown-now';
 import Web3 from 'web3';
 
+import '../../assets/css/style2.css';
 
 import {
   ERROR,
@@ -68,6 +69,15 @@ const store = Store.store
 
 class RewardPools extends Component {
 
+  gasData = {
+    "fasttest" : 0,
+    "fastestWait" : 0,
+    "fast" : 0,
+    "fastWait" : 0,
+    "average" : 0,
+    "avgWait" : 0
+  }
+
   constructor(props) {
     super()
 
@@ -83,9 +93,11 @@ class RewardPools extends Component {
       governanceContractVersion: governanceContractVersion
     }
 
+   
+
     dispatcher.dispatch({ type: GET_BALANCES, content: {} })
     dispatcher.dispatch({ type: GET_BOOSTEDBALANCES, content: {} })
-
+    this.fetchGasStation()
   }
 
   componentWillMount() {
@@ -159,6 +171,10 @@ class RewardPools extends Component {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end ">
+          {  <Nav className="mr-3">
+              <Nav.Link  className="text-white" onClick={ this.openFaq  }>FAQ</Nav.Link>
+            </Nav>}
+
             <Navbar.Text  onClick={this.overlayClicked } className="round-wallet">
               Wallet :  { address}
             </Navbar.Text>
@@ -202,7 +218,14 @@ class RewardPools extends Component {
     )
   }
 
+  openFaq=()=>{
+    this.props.history.push('/faq')
+  }
+
   renderMainMenuContent=()=>{
+    window.gtag('event', 'page_view', {
+      page_location: '/pool-main-menu',
+    })
     return (
       <>
      
@@ -276,7 +299,8 @@ class RewardPools extends Component {
                       })
                     }}
                     
-                    >ADD WPE TOKEN to Metamask</a>
+                    >ADD WPE TOKEN to Metamask
+                    </a>
                   </td></tr>
                   <tr><td>
                     <br/>
@@ -382,21 +406,75 @@ class RewardPools extends Component {
     this.setState({ value: 'group-pools' })
   }
 
+  fetchGasStation=async()=>{
+    
+      let dataRes = await fetch('https://data-api.defipulse.com/api/v1/egs/api/ethgasAPI.json?api-key=d0b1c8e018e4794046551764ace01330cc69f5ba5386c28ba1db047af4b6');
+      let responseData = await dataRes.json();
+      this.gasData = responseData;
+      console.log(this.gasData)
+  }
+
   renderRewardsPools = ()=>{
+    
+    window.gtag('event', 'page_view', {
+      page_location: '/pool-group-menu',
+    })
     return (
       <Row>
+
         <Col lg="12" md="12" xs="12">
-        <br/><br/> <br/><br/><br/><br/>
+        <br/>
+        <Row>
+          <Col lg="8" md="12" xs="12"></Col>
+          <Col lg="4" md="12" xs="12">
+          <table className="table text-white small">
+            <thead>
+              <tr>
+                <th colSpan="4">Est. Gas Price in Gwei
+               {/*  <br/>
+                <span style={{'font-size':'9px'}}>Ref: <a href="https://ethgasstation.info/" target="_blank">https://ethgasstation.info/</a></span> */}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <th>Fastest</th>
+                  <th>{ Number(parseFloat(this.gasData.fastest)/10).toFixed(2) }</th>
+                  <th> { '< '+ parseFloat(this.gasData.fastestWait).toFixed(2) +' m' }</th>
+                  <th> { (21000/1e9*(parseFloat(this.gasData.fastest)/10)) + ' eth' }</th>
+                </tr>
+                <tr>
+                  <th>Fast</th>
+                  <th>{ Number(parseFloat(this.gasData.fast)/10).toFixed(2)}</th>
+                  <th> { '< '+ parseFloat(this.gasData.fastWait).toFixed(2) +' m'}</th>
+                  <th> { (21000/1e9*(parseFloat(this.gasData.fast)/10)) + ' eth' }</th>
+                </tr>
+                <tr>
+                  <th>Averate</th>
+                  <th>{ Number(parseFloat(this.gasData.average)/10).toFixed(2) }</th>
+                  <th> { '< '+ parseFloat(this.gasData.avgWait).toFixed(2) +' m' }</th>
+                  <th> { (21000/1e9*(parseFloat(this.gasData.average)/10)) + ' eth' }</th>
+                </tr>
+
+            </tbody>
+        </table>
+              
+          </Col>
+        </Row>
+        <br/>
 
         <Row >
           <Col lg="1" md="12" xs="12"></Col>
-          <Col lg="3" md="12" xs="12"></Col>
-          <Col lg="2" md="12" xs="12" className=" text-white p-2"><strong>Total Deposited</strong></Col>
-          <Col lg="1" md="12" xs="12" className=" text-white p-2"><strong>PoolCoin/Week</strong></Col>
-         
           <Col lg="2" md="12" xs="12"></Col>
+          
+          <Col lg="1" md="12" xs="12" className=" text-white text-center text-break  p-2"><strong>PoolCoin /Week</strong></Col>
+          <Col lg="2" md="12" xs="12" className=" text-white text-center text-break  p-2"><strong>Total Deposited</strong></Col>
+          <Col lg="1" md="12" xs="12" className=" text-white text-center text-break  p-2"><strong>Beast Mode X</strong></Col>
+          <Col lg="1" md="12" xs="12" className=" text-white text-center text-break  p-2"><strong>Rewards</strong></Col>
+          <Col lg="1" md="12" xs="12" className=" text-white text-center text-break  p-2"><strong>Next Beast Mode</strong></Col>
           <Col lg="1" md="12" xs="12"></Col>
-          <Col lg="2" md="12" xs="12"></Col>
+          <Col lg="1" md="12" xs="12"></Col>
+          <Col lg="1" md="12" xs="12"></Col>
         </Row>
         <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group1') }</Row>
         <Row className="tableRowStyle">{ this.renderRewardsGroupSelected('group2') }</Row>
@@ -484,26 +562,40 @@ class RewardPools extends Component {
           />
           }
         </Col>
-          <Col lg="3" md="12" xs="12" className="rowTitle text-white p-2 my-auto">
-          <h6><strong>{ rewardPool.name }</strong></h6>
+          <Col lg="2" md="12" xs="12" className="rowTitle text-white p-2 my-auto small">
+          <strong>{ rewardPool.name }</strong>
           </Col>
-          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto">
-          <span class="mob float-left">Staked Balance : </span>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(rewardPool.displayDecimal) : "0.000000000" }
+          <Col lg="1" md="12" xs="12" className=" text-white text-right p-2 my-auto small">
+          <span className="mob float-left">Pool Rate WPE/Week : </span>{ rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }
+          </Col>
+          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto  text-center text-break  small">
+          <span className="mob float-left">Staked Balance : </span>{ rewardPool.tokens[0].stakedBalance ? rewardPool.tokens[0].stakedBalance.toFixed(rewardPool.displayDecimal) : "0.000000000" }
          
           </Col>
-          <Col lg="1" md="12" xs="12" className=" text-white text-right p-2 my-auto">
-          <span class="mob float-left">Pool Rate WPE/Week : </span>{ rewardPool.tokens[0].poolRatePerWeek ?  rewardPool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }
+         
+          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto text-center small">
+          { rewardPool.tokens[0].currentActiveBooster ? rewardPool.tokens[0].currentActiveBooster.toFixed(2) : "0.00" }
           </Col>
-        
-          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto text-center">
-          <a href={rewardPool.link} target="_blank" className="smallBTN small">Buy WPE Token</a>
+
+          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto text-center small">
+          { rewardPool.tokens[0].rewardsSymbol == '$' ? rewardPool.tokens[0].rewardsSymbol : '' } { rewardPool.tokens[0].rewardsAvailable ? rewardPool.tokens[0].rewardsAvailable.toFixed(rewardPool.displayDecimal) : "0.000000000" } { rewardPool.tokens[0].rewardsSymbol != '$' ? rewardPool.tokens[0].rewardsSymbol : ''  }
           </Col>
+
+          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto text-center small">
+          { (rewardPool.tokens[0].timeToNextBoost -(new Date().getTime())/1000) > 0 ? ((rewardPool.tokens[0].timeToNextBoost - (new Date().getTime())/1000)/60).toFixed(0) : "0" } Minutes
+          </Col>
+
+          <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto text-center">
+          <a href={rewardPool.link} target="_blank" className="smallBTN small">Buy WPE</a>
+          </Col>
+
           <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
           <div className="smallBTN small"  onClick={ () => { if(rewardPool.tokens.length > 0) { this.navigateStake(rewardPool) } } } >STAKE</div>
           </Col>
-          <Col lg="2" md="12" xs="12" className=" text-white p-2 my-auto text-center">
-          <div className="smallBTN text-center small"
-          
+
+          <Col lg="1" md="12" xs="12" className=" text-white p-0 my-auto text-center">
+          <div className="smallBTN text-center small p-1 btn-block"
+          title={ "Add "+ rewardPool.tokenSymbol +" to Metamask" }
           onClick = {async (event) => {
             let provider  = new Web3(store.getStore('web3context').library.provider);
             provider = provider.currentProvider;
@@ -527,7 +619,15 @@ class RewardPools extends Component {
             })
           }}
           
-          >Add { rewardPool.tokenSymbol } to Metamask</div>
+          ><strong>+</strong> { rewardPool.tokenSymbol } {' '}
+           <img
+              alt=""
+              src={ require('../../assets/metamask.png') }
+              width="15"
+              height="15"
+              className="d-inline-block align-top"
+            />
+          </div>
           </Col>
       </>
      
@@ -591,6 +691,13 @@ class RewardPools extends Component {
 
 
   navigateStake = (rewardPool) => {
+    window.gtag('event', 'page_view', {
+      page_location: '/stake',
+    })
+    window.gtag('event', 'stake_view', {
+      event_category: rewardPool.id,
+      event_label : rewardPool.name
+    })
     store.setStore({ currentPool: rewardPool })
 
     this.props.history.push('/stake')

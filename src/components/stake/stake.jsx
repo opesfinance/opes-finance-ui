@@ -714,9 +714,17 @@ class Stake extends Component {
   validateBoost = () => {
     const { loading, pool, voteLockValid } = this.state
     if(pool.tokens[0].costBooster > pool.tokens[0].boostBalance){
+        window.gtag('event', 'click_Buy_Boost_Insufficient_Funds', {
+          event_category: pool.id,
+          event_label : pool.name
+        })
         //alert("insufficient funds to activate Beast Mode")
         emitter.emit(ERROR, 'insufficient funds to activate Beast Mode');
     } else if((pool.tokens[0].timeToNextBoost -(new Date().getTime())/1000) > 0){
+      window.gtag('event', 'click_Buy_Boost_Too_Soon_To_Activate', {
+        event_category: pool.id,
+        event_label : pool.name
+      })
         //alert("Too soon to activate BEAST Mode again")
         emitter.emit(ERROR, 'Too soon to activate BEAST Mode again');
     } else {
@@ -832,6 +840,11 @@ class Stake extends Component {
     const selectedToken = tokens[0]
     const amount = this.state[selectedToken.id + '_stake']
 
+    window.gtag('event', 'click_Buy_Boost', {
+      event_category: pool.id,
+      event_label : pool.name
+    })
+
     this.setState({ loading: true })
     dispatcher.dispatch({ type: BOOST_STAKE, content: { asset: selectedToken, amount: amount } })
   }
@@ -844,7 +857,10 @@ class Stake extends Component {
     this.setState({ amountStakeError: false })
     const { pool } = this.state
 
-
+    window.gtag('event', 'click_Stake', {
+      event_category: pool.id,
+      event_label : pool.name
+    })
 
     if(pool.id=='yearn'){
       this.navigateStakeInternal('poolended');
@@ -899,16 +915,17 @@ class Stake extends Component {
   onClaim = () => {
     const { pool } = this.state
 
-  /*   if(pool.id!='yearn' && pool.id!='boost'){
-      this.navigateStakeInternal('comingsoon');
-    }else{
- */
+      window.gtag('event', 'click_claim_rewards', {
+        event_category: pool.id,
+        event_label : pool.name
+      })
+
       const tokens = pool.tokens
       const selectedToken = tokens[0]
 
       this.setState({ loading: true })
       dispatcher.dispatch({ type: GET_REWARDS, content: { asset: selectedToken } })
-    /* } */
+  
   }
 
   onUnstake = () => {
@@ -917,10 +934,10 @@ class Stake extends Component {
    
     const { pool } = this.state
 
- /*    if(pool.id !='yearn' && pool.id!='boost'){
-      this.navigateStakeInternal('comingsoon');
-    }else{
- */
+      window.gtag('event', 'click_Unstake', {
+        event_category: pool.id,
+        event_label : pool.name
+      })
 
       const tokens = pool.tokens
       const selectedToken = tokens[0]
@@ -934,7 +951,7 @@ class Stake extends Component {
         this.setState({ amountStakeError: true })
         emitter.emit(ERROR, 'Please enter the amount on the Un-Stake field');
       }
-   /*  } */
+   
   }
 
   onExit = () => {
@@ -942,13 +959,14 @@ class Stake extends Component {
     const tokens = pool.tokens
     const selectedToken = tokens[0]
 
-  /*   if(pool.id!='yearn' && pool.id!='boost'){
-      this.navigateStakeInternal('comingsoon');
-    }else{ */
+    window.gtag('event', 'click_Exit_Claim', {
+      event_category: pool.id,
+      event_label : pool.name
+    })
 
-      this.setState({ loading: true })
-      dispatcher.dispatch({ type: EXIT, content: { asset: selectedToken } })
-    /* } */
+    this.setState({ loading: true })
+    dispatcher.dispatch({ type: EXIT, content: { asset: selectedToken } })
+    
   }
 
   renderAssetInput = (asset, type) => {

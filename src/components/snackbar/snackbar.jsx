@@ -99,6 +99,11 @@ class MySnackbar extends Component {
 
     const { type, message, t } = this.props
 
+    window.gtag('event', type, {
+      event_category: message,
+      event_label : message
+    })
+
     let icon = <SuccessIcon color={colors.blue} />
     let color = colors.blue
     let messageType = ''

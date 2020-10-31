@@ -409,3 +409,24 @@ a {
     background-color:rgb(76, 113, 158,0.5);
     vertical-align: middle;
 }
+
+
+.card-new-header{
+    color: #FFFFFF !important;
+    background-color: rgb(76, 113, 158) !important;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.card-new-body,
+.card-new-body:hover{
+    background: #4a5e72 !important; 
+    color:#FFFFFF;
+}
+
+.btn-new{
+    background-color: rgb(76, 113, 158) ;
+    border:0px;
+    color:#FFFFFF;
+    font-weight: bolder;
+    font-size: 20px;
+}
