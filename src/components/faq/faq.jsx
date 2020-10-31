@@ -224,7 +224,7 @@ class Faq extends Component {
                 <div className="rounded mt-2">
                     <div className="card-new-header p-2">
                         <Accordion.Toggle className="btn-new" style={{'cursor':'pointer'}} eventKey="4">
-                            What is Defi Index Pool?
+                            Who's in the Index Pool?
                         </Accordion.Toggle>
                     </div>
                     <Accordion.Collapse eventKey="4">

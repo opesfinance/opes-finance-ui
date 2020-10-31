@@ -441,19 +441,19 @@ class RewardPools extends Component {
                   <th>Fastest</th>
                   <th>{ Number(parseFloat(this.gasData.fastest)/10).toFixed(2) }</th>
                   <th> { '< '+ parseFloat(this.gasData.fastestWait).toFixed(2) +' m' }</th>
-                  <th> { (21000/1e9*(parseFloat(this.gasData.fastest)/10)) + ' eth' }</th>
+                  <th> { Number(21000/1e9*(parseFloat(this.gasData.fastest)/10)).toFixed(6) + ' eth' }</th>
                 </tr>
                 <tr>
                   <th>Fast</th>
                   <th>{ Number(parseFloat(this.gasData.fast)/10).toFixed(2)}</th>
                   <th> { '< '+ parseFloat(this.gasData.fastWait).toFixed(2) +' m'}</th>
-                  <th> { (21000/1e9*(parseFloat(this.gasData.fast)/10)) + ' eth' }</th>
+                  <th> { Number(21000/1e9*(parseFloat(this.gasData.fast)/10)).toFixed(6) + ' eth' }</th>
                 </tr>
                 <tr>
                   <th>Averate</th>
                   <th>{ Number(parseFloat(this.gasData.average)/10).toFixed(2) }</th>
                   <th> { '< '+ parseFloat(this.gasData.avgWait).toFixed(2) +' m' }</th>
-                  <th> { (21000/1e9*(parseFloat(this.gasData.average)/10)) + ' eth' }</th>
+                  <th> { Number(21000/1e9*(parseFloat(this.gasData.average)/10)).toFixed(6) + ' eth' }</th>
                 </tr>
 
             </tbody>
