@@ -264,7 +264,7 @@ class Store {
                 minute : 0
               },
               poolRatePerWeek : '',
-              poolRateSymbol : 'WPE/Week'
+              poolRateSymbol : 'Defi Index/Week'
             }
           ]
         }, {
@@ -610,7 +610,7 @@ class Store {
           name: 'YFU Harvest Pool',
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
-          link: 'https://app.uniswap.org/#/swap?inputCurrency=0xa279dab6ec190ee4efce7da72896eb58ad533262&outputCurrency=ETH',
+          link: 'https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0xa279dab6ec190ee4efce7da72896eb58ad533262',
           linkName : "Buy WPE Token",
           liquidityLink : 'https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
           depositsEnabled: true,

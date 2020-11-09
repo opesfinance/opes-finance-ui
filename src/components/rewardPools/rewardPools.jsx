@@ -425,8 +425,8 @@ class RewardPools extends Component {
         <Col lg="12" md="12" xs="12">
         <br/>
         <Row>
-          <Col lg="8" md="12" xs="12"></Col>
-          <Col lg="4" md="12" xs="12">
+          <Col lg="7" md="12" xs="12"></Col>
+          <Col lg="5" md="12" xs="12">
           <table className="table text-white small">
             <thead>
               <tr>
@@ -439,19 +439,19 @@ class RewardPools extends Component {
             <tbody>
                 <tr>
                   <th>Fastest</th>
-                  <th>{ Number(parseFloat(this.gasData.fastest)/10).toFixed(2) }</th>
+                  <th>{ Number(parseFloat(this.gasData.fastest)/10).toFixed(2) } Gwei</th>
                   <th> { '< '+ parseFloat(this.gasData.fastestWait).toFixed(2) +' m' }</th>
                   <th> { Number(21000/1e9*(parseFloat(this.gasData.fastest)/10)).toFixed(6) + ' eth' }</th>
                 </tr>
                 <tr>
                   <th>Fast</th>
-                  <th>{ Number(parseFloat(this.gasData.fast)/10).toFixed(2)}</th>
+                  <th>{ Number(parseFloat(this.gasData.fast)/10).toFixed(2)} Gwei</th>
                   <th> { '< '+ parseFloat(this.gasData.fastWait).toFixed(2) +' m'}</th>
                   <th> { Number(21000/1e9*(parseFloat(this.gasData.fast)/10)).toFixed(6) + ' eth' }</th>
                 </tr>
                 <tr>
-                  <th>Averate</th>
-                  <th>{ Number(parseFloat(this.gasData.average)/10).toFixed(2) }</th>
+                  <th>Average</th>
+                  <th>{ Number(parseFloat(this.gasData.average)/10).toFixed(2) } Gwei</th>
                   <th> { '< '+ parseFloat(this.gasData.avgWait).toFixed(2) +' m' }</th>
                   <th> { Number(21000/1e9*(parseFloat(this.gasData.average)/10)).toFixed(6) + ' eth' }</th>
                 </tr>
@@ -586,7 +586,8 @@ class RewardPools extends Component {
           </Col>
 
           <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto text-center">
-          <a href={rewardPool.link} target="_blank" className="smallBTN small">Buy WPE</a>
+          { rewardPool.id =='group7' && <a href={rewardPool.link} target="_blank" className="smallBTN small">Buy YFU</a>}
+          { rewardPool.id !='group7' && <a href={rewardPool.link} target="_blank" className="smallBTN small">Buy WPE</a>}
           </Col>
 
           <Col lg="1" md="12" xs="12" className=" text-white p-2 my-auto">
