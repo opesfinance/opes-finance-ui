@@ -207,7 +207,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 11,
-                day : 2,
+                day : 3,
                 hour : 0,
                 minute : 0
               },
@@ -259,7 +259,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
@@ -303,7 +303,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
@@ -356,7 +356,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
@@ -405,7 +405,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
@@ -453,7 +453,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
@@ -501,7 +501,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
@@ -549,7 +549,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
@@ -597,7 +597,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
@@ -645,7 +645,7 @@ class Store {
               rewardsEndDate : {
                 year : 2020,
                 month : 10,
-                day : 29,
+                day : 30,
                 hour : 0,
                 minute : 0
               },
