@@ -235,6 +235,16 @@ class RewardPools extends Component {
           
             <div className="mb-2 textheader mt-5 display-4" ><br/>Enough is Enough</div>
             <div className="mb-5 text-white mb-1 " style={{'fontSize':'28px'}} ><br/>OPES is bringing equality to the World! </div>
+            <h4 className="title-bg text-left">ATTENTION  OPES FARMERS</h4>
+            <div className="mb-5 text-white  mb-1 " style={{'fontSize':'18px'}} >
+              
+            A BIG Pool Party is coming next week! All the current Pools have ended, 
+            and we are getting ready to turn the heat up. The Defi Index BPT Token and 
+            the Uni-V2 (ETH/WPE) Token from the Harvest Pool will be needed to get in the new pools. 
+            <br/>
+            We are about ready to introduce Yield farmers to a whole new world!!! So hold tight with your Uni-V2 (ETH/WPE) and
+             Defi Index BPT Tokens and prepare for some serious fun! The largest harvest is yet to come!
+            </div>
           </Col>
           <Col lg="3" md="12" xs="12" className="p-1">
             

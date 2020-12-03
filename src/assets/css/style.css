@@ -69,6 +69,11 @@ a {
     height:'100px' !important;
  }
 
+ .title-bg{
+     color:#c00e0e !important;
+     font-weight: bold !important;
+ }
+
 
  .dsubheader{
     font-size: '10px' !important;
