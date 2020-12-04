@@ -74,6 +74,10 @@ a {
      font-weight: bold !important;
  }
 
+ .nav-link-bottom {
+    padding: .05rem 1rem !important;
+    font-size: 10px !important;
+ }
 
  .dsubheader{
     font-size: '10px' !important;

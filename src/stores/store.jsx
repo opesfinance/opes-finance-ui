@@ -653,6 +653,109 @@ class Store {
               poolRateSymbol : 'PoolCoin/Week'
             }
           ]
+        }
+        ,{
+          id: 'seedzindex',
+          name: 'Seedz Index Pool',
+          website: 'Uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b',
+          linkName : "Buy Uni-v2",
+          liquidityLink : "https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9",
+          liquidityValue : 0,
+          depositsEnabled: true,
+          boost: true,
+          displayDecimal : 4,
+          tokenAddress : '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          tokenSymbol :'UNI-v2',
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenSymbol:'UNI',
+              boostTokenBalance: 0,
+              boostBalance : 0,
+              costBooster : 0,
+              costBoosterUSD : 0,
+              currentActiveBooster : 0,
+              currentBoosterStakeValue : 0,
+              stakeValueNextBooster : 0,
+              timeToNextBoost: 0,
+              ethPrice : 0,
+              rewardsEndDate : {
+                year : 2020,
+                month : 11,
+                day : 3,
+                hour : 0,
+                minute : 0
+              },
+              poolRatePerWeek : 250,
+              poolRateSymbol : 'WPE/Week'
+            }
+          ]
+        }
+
+        ,{
+          id: 'seedzuni',
+          name: 'Seedz UNI-LP Pool',
+          website: 'Uniswap',
+          description : 'Used in the 2nd Pool UI',
+          link: 'https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b',
+          linkName : "Buy Uni-v2",
+          liquidityLink : "https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9",
+          liquidityValue : 0,
+          depositsEnabled: true,
+          boost: true,
+          displayDecimal : 4,
+          tokenAddress : '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+          tokenSymbol :'UNI-v2',
+          tokens: [
+            {
+              id: 'boostrewards',
+              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              symbol: 'UNI-v2',
+              abi: config.erc20ABI,
+              decimals: 18,
+              rewardsAddress: config.boostRewardAddress,
+              rewardsABI: config.boostRewardABI,
+              rewardsSymbol: 'WPE',
+              decimals: 18,
+              balance: 0,
+              stakedBalance: 0,
+              rewardsAvailable: 0,
+              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
+              boostTokenSymbol:'UNI',
+              boostTokenBalance: 0,
+              boostBalance : 0,
+              costBooster : 0,
+              costBoosterUSD : 0,
+              currentActiveBooster : 0,
+              currentBoosterStakeValue : 0,
+              stakeValueNextBooster : 0,
+              timeToNextBoost: 0,
+              ethPrice : 0,
+              rewardsEndDate : {
+                year : 2020,
+                month : 11,
+                day : 3,
+                hour : 0,
+                minute : 0
+              },
+              poolRatePerWeek : 250,
+              poolRateSymbol : 'WPE/Week'
+            }
+          ]
         },
 
 
@@ -976,6 +1079,7 @@ class Store {
             (callbackInnerInner) => { this._getboostedBalances(web3, token, account, callbackInnerInner) },
             (callbackInnerInner) => { this._getBoosterPrice(callbackInnerInner) },
             (callbackInnerInner) => { this._getNextBoostTime(web3, token, account, callbackInnerInner) },
+            (callbackInnerInner) => { this._getETHPrice(callbackInnerInner) },
             //(callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
           ], (err, data) => {
             if(err) {
@@ -998,7 +1102,7 @@ class Store {
             token.currentBoosterStakeValue = data[3]
             token.stakeValueNextBooster = data[1][1]
             token.timeToNextBoost = data[5]
-            
+            token.ethPrice = data[6]
 
             callbackInner(null, token)
           })
@@ -1071,7 +1175,16 @@ class Store {
     }
   }
 
-
+  _getETHPrice = async (callback) => {
+    try {
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD');
+      const myJson = await response.json();
+      var balance = parseFloat(myJson.ethereum.usd)
+      callback(null, parseFloat(balance))
+    } catch(ex) {
+      return callback(ex)
+    }
+  }
 
   _getBoosterPrice = async (callback) => {
     try {

@@ -136,7 +136,7 @@ class RewardPools extends Component {
     let tmpValue =  store.getStore('valueopen')
     console.log(tmpValue)
     if(tmpValue !=""){
-      this.setState({ value: 'group-pools' })
+      this.setState({ value: tmpValue })
       store.setStore({'valueopen':''})
     }
 
@@ -202,6 +202,7 @@ class RewardPools extends Component {
         </Row>
         { value ==='main' && this.renderMainMenuContent() }
         { value ==='group-pools' && this.renderRewardsPools() }
+        { value ==='seedz' && this.renderSeedzPoolContent() }
 
 
 
@@ -212,15 +213,77 @@ class RewardPools extends Component {
         <div className="text-center text-white w-100 bottom p-5">
           © Copyright <strong>OPES.Finance.</strong> All Rights Reserved 
           </div>
-       
+          {/* { this.renderVersion(value=='main'?'link-1' : 'link-2') } */}
+
+          { value ==='seedz' && 
+            <Nav variant="tabs" className="justify-content-end"  defaultActiveKey='link-2'>
+              { this.renderVersion() }
+            </Nav>
+          }
+          { value !=='seedz' && 
+            <Nav variant="tabs" className="justify-content-end"  defaultActiveKey='link-1'>
+              { this.renderVersion() }
+            </Nav>
+          }
+          
      </>
       
     )
   }
 
+  renderVersion=()=>{
+    return (
+      <>
+            <Nav.Item>
+              <Nav.Link className="nav-link-bottom" onClick={ () => {  this.renderMain() } } eventKey="link-1">V1</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link className="nav-link-bottom" onClick={ () => {  this.renderSeedzPool() } } eventKey="link-2">V2</Nav.Link>
+            </Nav.Item>
+            
+          </>
+    )
+  }
+  
   openFaq=()=>{
     this.props.history.push('/faq')
   }
+
+
+  renderSeedzPoolContent=()=>{
+    return(
+      <>
+
+        <Row>
+          <Col lg="12" md="12" xs="12" className="text-center">
+            
+            <div className="mb-2 textheader mt-5 display-4" ><br/>Enough is Enough</div>
+            <div className="mb-5 text-white mb-1 " style={{'fontSize':'28px'}} ><br/>OPES is bringing equality to the World! </div>
+
+          </Col>
+          <Col lg="3" md="12" xs="12" className="p-1"></Col>
+          <Col lg="3" md="12" xs="12" className="p-1">
+            
+            { this.renderRewardPoolCard('seedzindex') }
+
+          </Col>
+
+          <Col lg="3" md="12" xs="12" className="p-1">
+
+          { this.renderRewardPoolCard('seedzuni') }
+
+          </Col>
+          <Col lg="3" md="12" xs="12" className="p-1"></Col>
+
+          { this.renderSubContent() }
+        </Row>
+
+
+      </>
+    );
+  }
+
+
 
   renderMainMenuContent=()=>{
     window.gtag('event', 'page_view', {
@@ -269,7 +332,18 @@ class RewardPools extends Component {
           { this.renderRewardPoolCard('balancer-pool') }
 
           </Col>
-          <Col className="mt-1 text-center" lg="12" md="12" xs="12">
+          
+          { this.renderSubContent() }
+
+        </Row>
+      </>
+    )
+  };
+
+
+  renderSubContent=()=>{
+    return (
+      <Col className="mt-1 text-center" lg="12" md="12" xs="12">
             <br/> <br/>
             <h4>Yield Farm the most powerful asset in the world. And use Beast Mode as an equalizer against the whales.</h4>
         <p>Add liquidity to earn fees and receive 8 Tokens rewards from 8 amazing REAL LONG TERM projects all from the same capital.</p>
@@ -330,12 +404,8 @@ class RewardPools extends Component {
         <br/> <br/>
         <br/> <br/>
           </Col>
-
-        </Row>
-      </>
     )
-  };
-
+  }
 
   renderRewardPoolCard=(rewardName)=>{
     const { rewardPools } = this.state
@@ -351,7 +421,7 @@ class RewardPools extends Component {
                   <Card.Title> { rewardPool.name }</Card.Title>
                  {/*  <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle> */}
                  
-                 { (rewardPool.id =='yearn' || rewardPool.id =='boost' ||rewardPool.id =='balancer-stake' ) && <ListGroup className="list-group-flush">
+                 { (rewardPool.id =='yearn' || rewardPool.id =='boost' ||rewardPool.id =='balancer-stake'  || rewardPool.id =='seedzindex' || rewardPool.id =='seedzuni'  ) && <ListGroup className="list-group-flush">
       <ListGroupItem>DEX : { rewardPool.website }</ListGroupItem>
                     <ListGroupItem>Weekly Rewards : 
       {' '}{ rewardPool.tokens[0].poolRatePerWeek }
@@ -361,7 +431,7 @@ class RewardPools extends Component {
                     <ListGroupItem>Liquidity : ${ Number(parseFloat(rewardPool.liquidityValue).toFixed(2)).toLocaleString() } </ListGroupItem>
       </ListGroup> }
 
-      { (rewardPool.id =='balancer-pool' ) && <ListGroup className="list-group-flush">
+      { (rewardPool.id =='balancer-pool'   ) && <ListGroup className="list-group-flush">
                  
                   <ListGroupItem>DEX : { rewardPool.website }</ListGroupItem>
                                 <ListGroupItem>&nbsp;</ListGroupItem>
@@ -414,6 +484,10 @@ class RewardPools extends Component {
   }
   renderGroupPools=()=>{
     this.setState({ value: 'group-pools' })
+  }
+
+  renderSeedzPool=()=>{
+    this.setState({ value: 'seedz' })
   }
 
   fetchGasStation=async()=>{

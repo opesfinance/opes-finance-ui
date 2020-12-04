@@ -254,7 +254,10 @@ class Stake extends Component {
             color="secondary"
             disabled={ loading }
             onClick={ () => { if(value!=='buyboost'){
-              if(['group1','group2','group3','group4','group5','group6'] .includes(pool.id)){
+
+              if(['seedzindex','seedzuni'].includes(pool.id)){       
+                store.setStore({"valueopen":"seedz"})
+              }else if(['group1','group2','group3','group4','group5','group6'].includes(pool.id)){
                 store.setStore({"valueopen":"group-pools"})
               }else{
                 store.setStore({"valueopen":""})
@@ -672,6 +675,13 @@ class Stake extends Component {
          
           <table className="table">
              <tbody>
+               {
+                 pool.id == "seedzindex" || pool.id == "seedzuni" &&
+                 <tr>
+                 <td className="text-left">Ethereum Price (USD)</td>
+                 <td className="text-right">$ { pool.tokens[0].ethPrice ? pool.tokens[0].ethPrice.toFixed(2) : "0.00" }</td>
+               </tr>
+               }
                <tr>
                  <td className="text-left">{ pool.tokens[0].boostTokenSymbol} Token Balance</td>
                  <td className="text-right">{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(7) : "0" } UNI</td>
