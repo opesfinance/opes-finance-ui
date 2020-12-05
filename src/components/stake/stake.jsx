@@ -799,7 +799,7 @@ class Stake extends Component {
     const tokens = pool.tokens
     const selectedToken = tokens[0]
     const amount = this.state[selectedToken.id + '_stake']
-    const value = (selectedToken.costBooster+0.0001).toString();
+    const value = (selectedToken.costBooster+0.0001).toFixed(10).toString();
 
     window.gtag('event', 'click_Buy_Boost', {
       event_category: pool.id,
