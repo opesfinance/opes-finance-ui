@@ -77,6 +77,8 @@ a {
  .nav-link-bottom {
     padding: .05rem 1rem !important;
     font-size: 10px !important;
+    background-color: transparent !important;
+    border-color: #dee2e629 !important;
  }
 
  .dsubheader{
@@ -184,6 +186,10 @@ a {
 }
 .navbarStyle {
     border:1px solid #ffffff !important;
+}
+
+.nav-tabs {
+    border: none !important;
 }
 
 .tableRowStyle{

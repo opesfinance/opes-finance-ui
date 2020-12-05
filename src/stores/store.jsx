@@ -656,34 +656,34 @@ class Store {
         }
         ,{
           id: 'seedzindex',
-          name: 'Seedz Index Pool',
-          website: 'Uniswap',
+          name: 'Seedz Balancer Pool',
+          website: 'Balancer',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b',
-          linkName : "Buy Uni-v2",
-          liquidityLink : "https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9",
+          linkName : "Buy WPE",
+          liquidityLink : "https://pools.balancer.exchange/#/pool/0x5B2dC8c02728e8FB6aeA03a622c3849875A48801", //cambiar a lo que regresa
           liquidityValue : 0,
           depositsEnabled: true,
           boost: true,
           displayDecimal : 4,
-          tokenAddress : '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          tokenSymbol :'UNI-v2',
+          tokenAddress : '0x3269244011893f957a3b82c55437083430BDac02', //seedz 
+          tokenSymbol :'Seedz',
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-              symbol: 'UNI-v2',
+              address: '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801', // BPT 
+              symbol: 'BPT',
               abi: config.erc20ABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.seedzAddress,
+              rewardsABI: config.seedzABI,
+              rewardsSymbol: 'Seedz',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
-              boostTokenSymbol:'UNI',
+              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', 
+              boostTokenSymbol:'ETH',
               boostTokenBalance: 0,
               boostBalance : 0,
               costBooster : 0,
@@ -701,7 +701,7 @@ class Store {
                 minute : 0
               },
               poolRatePerWeek : 250,
-              poolRateSymbol : 'WPE/Week'
+              poolRateSymbol : 'Seedz/Week'
             }
           ]
         }
@@ -712,30 +712,30 @@ class Store {
           website: 'Uniswap',
           description : 'Used in the 2nd Pool UI',
           link: 'https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b',
-          linkName : "Buy Uni-v2",
-          liquidityLink : "https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9",
+          linkName : "Buy WPE",
+          liquidityLink : "https://uniswap.info/pair/0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9", //cambiar a lo que regresa
           liquidityValue : 0,
           depositsEnabled: true,
           boost: true,
           displayDecimal : 4,
-          tokenAddress : '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
-          tokenSymbol :'UNI-v2',
+          tokenAddress : '0x3269244011893f957a3b82c55437083430BDac02', //seedz
+          tokenSymbol :'Seedz',
           tokens: [
             {
               id: 'boostrewards',
-              address: '0x75F89FfbE5C25161cBC7e97c988c9F391EaeFAF9',
+              address: '0x75f89ffbe5c25161cbc7e97c988c9f391eaefaf9', // UNI
               symbol: 'UNI-v2',
               abi: config.erc20ABI,
               decimals: 18,
-              rewardsAddress: config.boostRewardAddress,
-              rewardsABI: config.boostRewardABI,
-              rewardsSymbol: 'WPE',
+              rewardsAddress: config.seedzAddressTwo,
+              rewardsABI: config.seedzABI,
+              rewardsSymbol: 'Seedz',
               decimals: 18,
               balance: 0,
               stakedBalance: 0,
               rewardsAvailable: 0,
-              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984',
-              boostTokenSymbol:'UNI',
+              boostTokenAddress: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', 
+              boostTokenSymbol:'ETH',
               boostTokenBalance: 0,
               boostBalance : 0,
               costBooster : 0,
@@ -745,7 +745,7 @@ class Store {
               stakeValueNextBooster : 0,
               timeToNextBoost: 0,
               ethPrice : 0,
-              rewardsEndDate : {
+              rewardsEndDate : { 
                 year : 2020,
                 month : 11,
                 day : 3,
@@ -753,7 +753,7 @@ class Store {
                 minute : 0
               },
               poolRatePerWeek : 250,
-              poolRateSymbol : 'WPE/Week'
+              poolRateSymbol : 'Seedz/Week'
             }
           ]
         },
@@ -962,7 +962,8 @@ class Store {
         async.parallel([
           (callbackInnerInner) => { this._getERC20Balance(web3, token, account, callbackInnerInner) },
           (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
-          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) }
+          (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
+          (callbackInnerInner) => { this._getRatePerWeek(web3, token, account, callbackInnerInner) }
         ], (err, data) => {
           if(err) {
             console.log(err)
@@ -972,6 +973,7 @@ class Store {
           token.balance = data[0]
           token.stakedBalance = data[1]
           token.rewardsAvailable = data[2]
+          token.ratePerWeek = data[3]
 
           callbackInner(null, token)
         })
@@ -980,7 +982,7 @@ class Store {
           console.log(err)
           return callback(err)
         }
-
+        
         pool.tokens = tokensData
         callback(null, pool)
       })
@@ -1011,7 +1013,8 @@ class Store {
           (callbackInnerInner) => { this._getstakedBalance(web3, token, account, callbackInnerInner) },
           (callbackInnerInner) => { this._getRewardsAvailable(web3, token, account, callbackInnerInner) },
           (callbackInnerInner) => { this._getUniswapLiquidity(callbackInnerInner) },
-          (callbackInnerInner) => { this._getBalancerLiquidity(callbackInnerInner) }
+          (callbackInnerInner) => { this._getBalancerLiquidity(callbackInnerInner) },
+          (callbackInnerInner) => { this._getRatePerWeek(web3, token, account, callbackInnerInner) }
           //(callbackInnerInner) => { this._getBoostBalanceAvailable(web3, token, account, callbackInnerInner) }
         ], (err, data) => {
           if(err) {
@@ -1029,6 +1032,7 @@ class Store {
           }else{
             pool.liquidityValue = 0
           }
+          pool.ratePerWeek = data[5]
          /*  try{
             token.boostBalance = data[3]
             token.costBooster = 11
@@ -1188,10 +1192,10 @@ class Store {
 
   _getBoosterPrice = async (callback) => {
     try {
-      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=uniswap&vs_currencies=USD');
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=USD');
       const myJson = await response.json();
-      console.log(myJson.uniswap.usd)
-      var balance = parseFloat(myJson.uniswap.usd)
+      console.log(myJson.ethereum.usd)
+      var balance = parseFloat(myJson.ethereum.usd)
       callback(null, parseFloat(balance))
     } catch(ex) {
       return callback(ex)
@@ -1238,10 +1242,9 @@ class Store {
   }
 
   _getBoostTokenBalance = async (web3, asset, account, callback) => {
-    let boostTokenContract = new web3.eth.Contract(asset.abi, asset.boostTokenAddress)
 
     try {
-      var balance = await boostTokenContract.methods.balanceOf(account.address).call({ from: account.address });
+      var balance = await web3.eth.getBalance(account.address);
 
       var boostInfo = parseFloat(balance)/10**asset.decimals
       callback(null, boostInfo)
@@ -1313,6 +1316,18 @@ class Store {
         })
     } else {
       callback()
+    }
+  }
+
+  _getRatePerWeek = async (web3, asset, account, callback) => {
+    let contract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
+
+    try {
+      var rate = await contract.methods.currentReward().call({ from: account.address });
+      rate = parseFloat(rate)/10**asset.decimals
+      callback(null, rate)
+    } catch(ex) {
+      return callback(ex)
     }
   }
 
@@ -1434,16 +1449,16 @@ class Store {
   boostStake = (payload)=>{
     console.log("BOOOST!!!")
     const account = store.getStore('account')
-    const { asset, amount } = payload.content
+    const { asset, amount, value } = payload.content
 
-    this._boostcheckApproval(asset, account, asset.rewardsAddress, (err) => {
+    /*this._boostcheckApproval(asset, account, asset.rewardsAddress, (err) => {
      
       if(err) {
         
         return emitter.emit(ERROR, err);
-      }
+      }*/
 
-      this._boostcallStake(asset, account, amount, (err, res) => {
+      this._boostcallStake(asset, account, amount, value, (err, res) => {
         
         if(err) {
           return emitter.emit(ERROR, err);
@@ -1451,7 +1466,7 @@ class Store {
 
         return emitter.emit(STAKE_RETURNED, res)
       })
-    })
+    //})
   };
   _boostcheckApproval = async (asset, account, contract, callback) => {
     try {
@@ -1481,13 +1496,13 @@ class Store {
     }
   }
 
-  _boostcallStake = async (asset, account, amount, callback) => {
+  _boostcallStake = async (asset, account, amount, value, callback) => {
     const web3 = new Web3(store.getStore('web3context').library.provider);
 
     const boostContract = new web3.eth.Contract(asset.rewardsABI, asset.rewardsAddress)
 
-
-    boostContract.methods.boost().send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
+    /////////////
+    boostContract.methods.beastMode().send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei'), value: web3.utils.toWei(value, 'ether') })
       .on('transactionHash', function(hash){
         console.log(hash)
         callback(null, hash)

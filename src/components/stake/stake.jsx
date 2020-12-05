@@ -326,14 +326,7 @@ class Stake extends Component {
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
               <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(pool.displayDecimal) : "0" }
               <br></br>
-              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" } { pool.tokens[0].poolRateSymbol }
-              <br></br>
-              <Countdown
-                  date={new Date(pool.tokens[0].rewardsEndDate['year'],pool.tokens[0].rewardsEndDate['month'],
-                  pool.tokens[0].rewardsEndDate['day'],pool.tokens[0].rewardsEndDate['hour'],pool.tokens[0].rewardsEndDate['minute'])}
-                  renderer={countdownrenderer}
-                  daysInHours={true}
-                />
+              Pool Rate: { pool.ratePerWeek ? pool.ratePerWeek.toFixed(4) : "0.0" } { pool.tokens[0].poolRateSymbol }
                 <br/>
                 Contract Address: <a style={ {color :'#FFFFFF'}} href={ 'https://etherscan.io/address/'+addy } target="_blank">{ address }</a>.
               </p>
@@ -408,9 +401,10 @@ class Stake extends Component {
             <Card.Body>
                 <Card.Title>UN-STAKE</Card.Title>
                 { this.renderAssetInput( pool.tokens[0], 'unstake') }
-                <div className="myButton"  onClick={ () => { this.onUnstake() } } >
+                { (pool.id == "seedzindex" || pool.id == "seedzuni") ? <div className="myButton-disable">UNSTAKE</div> : <div className="myButton"  onClick={ () => { this.onUnstake() } } >
                   UNSTAKE
-                </div>
+                </div> }
+
             </Card.Body>
           </Card>
 
@@ -445,9 +439,9 @@ class Stake extends Component {
     { pool.depositsEnabled &&  <a className="smallBTN m-2" href={pool.link} target="_blank">{ pool.linkName }</a> }
     { !pool.depositsEnabled &&  <a className="smallBTN-disable m-2"  target="_blank">BUY { pool.tokens[0].symbol }</a> }
 
-      { pool.id=='balancer-stake' && pool.id!='boost'  && pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidty (ETH/DAI) Pair</a> }
-      { pool.id!='balancer-stake' && pool.id!='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidty to Balancer Pool</a> }
-      { pool.id!='balancer-stake' && pool.id=='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidty to Uniswap</a> }
+      { pool.id=='balancer-stake' && pool.id!='boost'  && pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity (ETH/DAI) Pair</a> }
+      { pool.id!='balancer-stake' && pool.id!='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Balancer Pool</a> }
+      { pool.id!='balancer-stake' && pool.id=='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Uniswap</a> }
 
           <div className="smallBTN" 
 
@@ -602,14 +596,7 @@ class Stake extends Component {
             <h4 className="p-2 rounded text-white" >{ pool.name }</h4>
               <p>Total deposited: { pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(pool.displayDecimal) : "0" }
               <br></br>
-              Pool Rate: {  pool.tokens[0].poolRatePerWeek ?  pool.tokens[0].poolRatePerWeek.toLocaleString(navigator.language, { maximumFractionDigits : 2 }) : "0.00" }  { pool.tokens[0].poolRateSymbol }
-              <br></br>
-                <Countdown
-                  date={new Date(pool.tokens[0].rewardsEndDate['year'],pool.tokens[0].rewardsEndDate['month'],
-                  pool.tokens[0].rewardsEndDate['day'],pool.tokens[0].rewardsEndDate['hour'],pool.tokens[0].rewardsEndDate['minute'])}
-                  renderer={countdownrenderer}
-                  daysInHours={true}
-                />
+              Pool Rate: { pool.ratePerWeek ? pool.ratePerWeek.toFixed(4) : "0.0"} { pool.tokens[0].poolRateSymbol }
               </p>
           </div>
 
@@ -625,50 +612,13 @@ class Stake extends Component {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(pool.displayDecimal) : "0" } UNI </td>
+                    <td>{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(pool.displayDecimal) : "0" } ETH </td>
                     <td>{ pool.tokens[0].stakedBalance ? pool.tokens[0].stakedBalance.toFixed(pool.displayDecimal) : "0" }</td>
                     <td>{ pool.tokens[0].currentActiveBooster ? pool.tokens[0].currentActiveBooster.toFixed(2) : "0" }</td>
                     <td>{ pool.tokens[0].rewardsSymbol == '$' ? pool.tokens[0].rewardsSymbol : '' } { pool.tokens[0].rewardsAvailable ? pool.tokens[0].rewardsAvailable.toFixed(pool.displayDecimal) : "0" } { pool.tokens[0].rewardsSymbol != '$' ? pool.tokens[0].rewardsSymbol : '' }</td>
                   </tr>
                 </tbody>
             </table>
-
-        <div className="text-center">
-          <a className="smallBTN mr-3" href="https://app.uniswap.org/#/swap?inputCurrency=ETH&outputCurrency=0x1f9840a85d5af5bf1d1762f925bdaddc4201f984" target="_blank">
-            BUY UNI
-          </a>
-
-          <div className="smallBTN"
-
-                onClick = {async (event) => {
-                  let provider  = new Web3(store.getStore('web3context').library.provider);
-                  provider = provider.currentProvider;
-                  provider.sendAsync({
-                    method: 'metamask_watchAsset',
-                    params: {
-                      "type":"ERC20",
-                      "options":{
-                        "address": pool.tokens[0].boostTokenAddress,
-                        "symbol": pool.tokens[0].boostTokenSymbol,
-                        "decimals": 18,
-                        "image": '',
-                      },
-                    },
-                    id: Math.round(Math.random() * 100000),
-                  }, (err, added) => {
-                    console.log('provider returned', err, added)
-                    if (err || 'error' in added) {
-                      emitter.emit(ERROR, 'There was a problem adding the token.');
-                      return
-                    }
-                   
-                  })
-                }}
-
-          >
-            Add {pool.tokens[0].boostTokenSymbol} to Metamask
-          </div>
-          </div>
 
         </Col>
         <Col lg="6" md="12" xs="12" className="p-4">
@@ -683,12 +633,12 @@ class Stake extends Component {
                </tr>
                }
                <tr>
-                 <td className="text-left">{ pool.tokens[0].boostTokenSymbol} Token Balance</td>
-                 <td className="text-right">{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(7) : "0" } UNI</td>
+                 <td className="text-left">Token Balance</td>
+                 <td className="text-right">{ pool.tokens[0].boostBalance ? pool.tokens[0].boostBalance.toFixed(7) : "0" } ETH</td>
                </tr>
                <tr>
                  <td className="text-left">Cost of Beast Mode</td>
-                 <td className="text-right">{ pool.tokens[0].costBooster ? pool.tokens[0].costBooster.toFixed(7) : "0" } UNI</td>
+                 <td className="text-right">{ pool.tokens[0].costBooster ? pool.tokens[0].costBooster.toFixed(7) : "0" } ETH</td>
                </tr>
                <tr>
                  <td className="text-left">Cost of Beast Mode (USD)</td>
@@ -849,6 +799,7 @@ class Stake extends Component {
     const tokens = pool.tokens
     const selectedToken = tokens[0]
     const amount = this.state[selectedToken.id + '_stake']
+    const value = (selectedToken.costBooster+0.0001).toString();
 
     window.gtag('event', 'click_Buy_Boost', {
       event_category: pool.id,
@@ -856,7 +807,7 @@ class Stake extends Component {
     })
 
     this.setState({ loading: true })
-    dispatcher.dispatch({ type: BOOST_STAKE, content: { asset: selectedToken, amount: amount } })
+    dispatcher.dispatch({ type: BOOST_STAKE, content: { asset: selectedToken, amount: amount, value: value } })
   }
 
   onStake = () => {

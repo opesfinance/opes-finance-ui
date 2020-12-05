@@ -424,7 +424,7 @@ class RewardPools extends Component {
                  { (rewardPool.id =='yearn' || rewardPool.id =='boost' ||rewardPool.id =='balancer-stake'  || rewardPool.id =='seedzindex' || rewardPool.id =='seedzuni'  ) && <ListGroup className="list-group-flush">
       <ListGroupItem>DEX : { rewardPool.website }</ListGroupItem>
                     <ListGroupItem>Weekly Rewards : 
-      {' '}{ rewardPool.tokens[0].poolRatePerWeek }
+      {' '}{ rewardPool.poolRatePerWeek }
 
                     </ListGroupItem>
                     <ListGroupItem>APR : </ListGroupItem>
