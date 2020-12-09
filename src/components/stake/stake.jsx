@@ -384,7 +384,7 @@ class Stake extends Component {
                 { this.renderAssetInput( pool.tokens[0], 'stake') }
                 { pool.depositsEnabled && <div className="myButton"  onClick={ () => { this.onStake() } } >
                   STAKE
-                </div> }
+                </div> }              
                 { !pool.depositsEnabled && <div className="myButton-disable" >
                   STAKE
                 </div> }
@@ -418,14 +418,19 @@ class Stake extends Component {
           BEAST MODE
           </div>
       }
+      
 
           <div className="myButton"  onClick={ () => { this.onClaim() } } >
             CLAIM REWARDS
           </div>
-
-          <div className="myButton mt-2"  onClick={ () => { this.onExit() } }>
+          { pool.id !='seedzuni' && pool.id != 'seedzindex' && <div className="myButton mt-2"  onClick={ () => { this.onExit() } }>
             Exit: Claim & Unstake
           </div>
+          }
+         { (pool.id =='seedzuni' || pool.id == 'seedzindex') && <div className="myButton-disable mt-2"  >
+            Exit: Claim & Unstake
+          </div>
+          }
 
          { pool.id=='balancer-stake' && <div className="text-white text-center p-2">
            <a  className="text-white" href="https://medium.com/opes-dot-finance/defi-rising-a-crypto-index-fund-ffa41bff510c" target="_blank">What is Defi Index Pool?</a>
@@ -440,8 +445,9 @@ class Stake extends Component {
     { !pool.depositsEnabled &&  <a className="smallBTN-disable m-2"  target="_blank">BUY { pool.tokens[0].symbol }</a> }
 
       { pool.id=='balancer-stake' && pool.id!='boost'  && pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity (ETH/DAI) Pair</a> }
-      { pool.id!='balancer-stake' && pool.id!='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Balancer Pool</a> }
-      { pool.id!='balancer-stake' && pool.id=='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Uniswap</a> }
+      { pool.id !='seedzuni' && pool.id!='balancer-stake' && pool.id!='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Balancer Pool</a> }
+   
+      {  pool.id!='balancer-stake' && (pool.id =='seedzuni' || pool.id=='boost')   &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Uniswap</a> }
 
           <div className="smallBTN" 
 
@@ -662,9 +668,13 @@ class Stake extends Component {
                </tr>
             </tbody>
           </table>
-          <div className="myButton"   onClick={ () => { this.validateBoost() } } >
+          { pool.boost && <div className="myButton"   onClick={ () => { this.validateBoost() } } >
            BEAST MODE
-          </div>
+              </div> }
+
+              { !pool.boost && <div className="myButton-disable"  >
+           BEAST MODE
+              </div> }
         </Col>
         
       </Row>
