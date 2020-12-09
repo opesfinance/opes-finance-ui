@@ -495,8 +495,8 @@ class Stake extends Component {
             params: {
               "type":"ERC20",
               "options":{
-                "address":  '0x5b2dc8c02728e8fb6aea03a622c3849875a48801',
-                "symbol":  'Defi Index',
+                "address":  '0x5B2dC8c02728e8FB6aeA03a622c3849875A48801',
+                "symbol":  'BPT',
                 "decimals": 18,
                 "image": '',
               }
@@ -510,7 +510,7 @@ class Stake extends Component {
             })
             }}
 
-            >Add Defi Index to <img
+            >Add BPT/Defi Index to <img
             alt=""
             src={ require('../../assets/metamask.png') }
             width="15"
