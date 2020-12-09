@@ -441,15 +441,17 @@ class Stake extends Component {
 
       <div className="text-center mt-3 mb-2">
 
-    { pool.depositsEnabled &&  <a className="smallBTN m-2" href={pool.link} target="_blank">{ pool.linkName }</a> }
-    { !pool.depositsEnabled &&  <a className="smallBTN-disable m-2"  target="_blank">BUY { pool.tokens[0].symbol }</a> }
-
-      { pool.id=='balancer-stake' && pool.id!='boost'  && pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity (ETH/DAI) Pair</a> }
-      { pool.id !='seedzuni' && pool.id!='balancer-stake' && pool.id!='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Balancer Pool</a> }
-   
-      {  pool.id!='balancer-stake' && (pool.id =='seedzuni' || pool.id=='boost')   &&  pool.liquidityLink !='' && <a className="smallBTN m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Uniswap</a> }
-
-          <div className="smallBTN" 
+      
+              { pool.depositsEnabled &&  <a className="smallBTN small m-2" href={pool.link} target="_blank">{ pool.linkName }</a> }
+              { !pool.depositsEnabled &&  <a className="smallBTN-disable small m-2"  target="_blank">BUY { pool.tokens[0].symbol }</a> }
+              { pool.id== 'seedzuni' && pool.depositsEnabled &&  <a className="smallBTN small m-2" href='https://app.uniswap.org/#/add/ETH/0xd075e95423c5c4ba1e122cae0f4cdfa19b82881b'  target="_blank">Buy UNI-v2</a> }
+       
+            { pool.id=='balancer-stake' && pool.id!='boost'  && pool.liquidityLink !='' && <a className="smallBTN small m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity (ETH/DAI) Pair</a> }
+            { pool.id !='seedzuni' && pool.id!='balancer-stake' && pool.id!='boost'  &&  pool.liquidityLink !='' && <a className="smallBTN small m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Balancer Pool</a> }
+        
+            {  pool.id!='balancer-stake' && (pool.id =='seedzuni' || pool.id=='boost')   &&  pool.liquidityLink !='' && <a className="smallBTN small m-2"  href={pool.liquidityLink} target="_blank">Add Liquidity to Uniswap</a> }
+        
+            <div className="smallBTN small m-2 my-auto" 
 
             onClick = {async (event) => {
               let provider  = new Web3(store.getStore('web3context').library.provider);
@@ -473,9 +475,90 @@ class Stake extends Component {
                 }
               })
             }}
-          
-          >Add {pool.tokenSymbol} to Metamask</div>
 
+            >Add {pool.tokenSymbol} to <img
+            alt=""
+            src={ require('../../assets/metamask.png') }
+            width="15"
+            height="15"
+            className="d-inline-block align-top"
+          /></div>
+
+
+            { pool.id=='seedzindex' && <div className="smallBTN small m-2 my-auto" 
+
+            onClick = {async (event) => {
+            let provider  = new Web3(store.getStore('web3context').library.provider);
+            provider = provider.currentProvider;
+            provider.sendAsync({
+            method: 'metamask_watchAsset',
+            params: {
+              "type":"ERC20",
+              "options":{
+                "address":  '0x5b2dc8c02728e8fb6aea03a622c3849875a48801',
+                "symbol":  'Defi Index',
+                "decimals": 18,
+                "image": '',
+              }
+            },
+            id: Math.round(Math.random() * 100000),
+            }, (err, added) => {
+              console.log('provider returned', err, added)
+              if (err || 'error' in added) {
+              return  emitter.emit(ERROR, 'There was a problem adding the token.');
+              }
+            })
+            }}
+
+            >Add Defi Index to <img
+            alt=""
+            src={ require('../../assets/metamask.png') }
+            width="15"
+            height="15"
+            className="d-inline-block align-top"
+          /></div>
+            }
+
+            { pool.id=='seedzuni' && <div className="smallBTN small m-2 my-auto" 
+
+            onClick = {async (event) => {
+            let provider  = new Web3(store.getStore('web3context').library.provider);
+            provider = provider.currentProvider;
+            provider.sendAsync({
+            method: 'metamask_watchAsset',
+            params: {
+            "type":"ERC20",
+            "options":{
+              "address":  '0x75f89ffbe5c25161cbc7e97c988c9f391eaefaf9',
+              "symbol":  'UNI-v2',
+              "decimals": 18,
+              "image": '',
+            }
+            },
+            id: Math.round(Math.random() * 100000),
+            }, (err, added) => {
+            console.log('provider returned', err, added)
+            if (err || 'error' in added) {
+            return  emitter.emit(ERROR, 'There was a problem adding the token.');
+            }
+            })
+            }}
+
+            >Add UNI-v2 to <img
+            alt=""
+            src={ require('../../assets/metamask.png') }
+            width="15"
+            height="15"
+            className="d-inline-block align-top"
+          /></div>
+            }
+
+
+  
+
+     
+
+          
         </div>
 
 
